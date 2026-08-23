@@ -7,5 +7,14 @@
   "resolved": true,
   "before_rows": 0,
   "after_rows": 6
+ },
+ {
+  "stamp": "20260823T143500Z",
+  "firm": "bakertilly.com",
+  "diagnosis": "On bakertilly.com, 'article_url' was empty on 20 of 20 articles (0% populated) and 'published_date' on 20 of 20. Both selectors had stopped matching the article cards.",
+  "collector": "c_mt5vy4lr2psac64sae",
+  "resolved": true,
+  "before_rows": 20,
+  "after_rows": 20
  }
 ]

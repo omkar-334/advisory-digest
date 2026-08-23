@@ -1,13 +1,18 @@
 {
- "stamp": "20260823T141849Z",
- "source": "results/run_fleet/fleet-20260823T141559Z.json",
- "total_rows": 96,
- "sources": 3,
- "healthy_sources": 3,
+ "stamp": "20260823T143955Z",
+ "source": "results/run_fleet/fleet-20260823T143340Z.json",
+ "total_rows": 193,
+ "sources": 7,
+ "healthy_sources": 7,
  "healthy": true,
  "per_firm": {
   "advisory-digest.vercel.app": {
    "rows": 6,
+   "healthy": true,
+   "problems": []
+  },
+  "bakertilly.com": {
+   "rows": 20,
    "healthy": true,
    "problems": []
   },
@@ -16,8 +21,23 @@
    "healthy": true,
    "problems": []
   },
+  "claconnect.com": {
+   "rows": 60,
+   "healthy": true,
+   "problems": []
+  },
+  "crowe.com": {
+   "rows": 9,
+   "healthy": true,
+   "problems": []
+  },
+  "grantthornton.com": {
+   "rows": 20,
+   "healthy": true,
+   "problems": []
+  },
   "rsmus.com": {
-   "rows": 73,
+   "rows": 61,
    "healthy": true,
    "problems": []
   }
@@ -27,5 +47,5 @@
   "min_field_coverage": 0.7,
   "min_healthy_sources": 0.6
  },
- "elapsed_sec": 0.002
+ "elapsed_sec": 0.003
 }

@@ -1,407 +1,697 @@
 [
  {
-  "title": "Fifth Circuit rejects passive-investor test for self-employment tax exception",
-  "published_date": "2026-01-21",
-  "article_url": "https://rsmus.com/insights/tax-alerts/2026/fifth-circuit-rejects-passive-investor-self-employment-tax-exception.html",
-  "tags": [
-   "Federal tax",
-   "Private client services"
+  "articles": [
+   {
+    "title": "Fifth Circuit rejects passive-investor test for self-employment tax exception",
+    "published_date": "2026-01-21",
+    "article_url": "https://rsmus.com/insights/tax-alerts/2026/fifth-circuit-rejects-passive-investor-self-employment-tax-exception.html",
+    "tags": [
+     "Federal tax",
+     "Private client services"
+    ]
+   },
+   {
+    "title": "Tax Court rules state law limited partner may be subject to self-employment tax",
+    "summary": "Tax Court rules state law limited partner may be subject to self-employment tax.",
+    "published_date": "2023-12-01",
+    "article_url": "https://rsmus.com/insights/tax-alerts/2023/tax-court-rules-state-law-limited-partner-subject-self-employment-tax.html",
+    "tags": [
+     "Business tax",
+     "Compensation & benefits"
+    ]
+   },
+   {
+    "title": "Fifth Circuit rejects passive-investor test for self-employment tax exception",
+    "published_date": "2026-01-21",
+    "article_url": "https://rsmus.com/insights/tax-alerts/2026/fifth-circuit-rejects-passive-investor-self-employment-tax-exception.html",
+    "tags": [
+     "Federal tax",
+     "Private client services"
+    ]
+   },
+   {
+    "title": "Tax Court rules state law limited partner may be subject to self-employment tax",
+    "summary": "Tax Court rules state law limited partner may be subject to self-employment tax.",
+    "published_date": "2023-12-01",
+    "article_url": "https://rsmus.com/insights/tax-alerts/2023/tax-court-rules-state-law-limited-partner-subject-self-employment-tax.html",
+    "tags": [
+     "Business tax",
+     "Compensation & benefits"
+    ]
+   }
   ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
+  "product_page_url": "https://rsmus.com/insights/tax-alerts/2026/fifth-circuit-sirius-opinion.html",
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  }
  },
  {
-  "title": "Tax Court rules state law limited partner may be subject to self-employment tax",
-  "summary": "Tax Court rules state law limited partner may be subject to self-employment tax.",
-  "published_date": "2023-12-01",
-  "article_url": "https://rsmus.com/insights/tax-alerts/2023/tax-court-rules-state-law-limited-partner-subject-self-employment-tax.html",
-  "tags": [
-   "Business tax",
-   "Compensation & benefits"
+  "articles": [
+   {
+    "title": "5 ways private companies can use an audit to unlock true strategic value",
+    "summary": "Five ways audits provide insight beyond compliance.",
+    "published_date": "2026-08-17",
+    "article_url": "https://rsmus.com/insights/services/audit/five-ways-companies-can-use-an-audit-to-unlock-strategic-value.html",
+    "tags": [
+     "Audit",
+     "CMP-Switching auditors"
+    ]
+   },
+   {
+    "title": "Audit with exit in mind",
+    "summary": "RSM explores the importance of businesses having an exit-focused audit strategy. Learn more.",
+    "published_date": "2026-05-11",
+    "article_url": "https://rsmus.com/insights/services/merger-acquisition/audit-with-exit-in-mind.html",
+    "tags": [
+     "Private equity",
+     "Mergers & acquisitions"
+    ]
+   },
+   {
+    "title": "Is your auditor built to scale with your growth?",
+    "summary": "RSM explains how the right audit firm scales with your business’s growth and supports your increasing complexity.",
+    "published_date": "2026-02-19",
+    "article_url": "https://rsmus.com/insights/services/audit/is-your-auditor-built-to-scale-with-growth.html",
+    "tags": [
+     "Audit"
+    ]
+   },
+   {
+    "title": "5 ways private companies can use an audit to unlock true strategic value",
+    "summary": "Five ways audits provide insight beyond compliance.",
+    "published_date": "2026-08-17",
+    "article_url": "https://rsmus.com/insights/services/audit/five-ways-companies-can-use-an-audit-to-unlock-strategic-value.html",
+    "tags": [
+     "Audit",
+     "CMP-Switching auditors"
+    ]
+   },
+   {
+    "title": "Audit with exit in mind",
+    "summary": "RSM explores the importance of businesses having an exit-focused audit strategy. Learn more.",
+    "published_date": "2026-05-11",
+    "article_url": "https://rsmus.com/insights/services/merger-acquisition/audit-with-exit-in-mind.html",
+    "tags": [
+     "Private equity",
+     "Mergers & acquisitions"
+    ]
+   },
+   {
+    "title": "Is your auditor built to scale with your growth?",
+    "summary": "RSM explains how the right audit firm scales with your business’s growth and supports your increasing complexity.",
+    "published_date": "2026-02-19",
+    "article_url": "https://rsmus.com/insights/services/audit/is-your-auditor-built-to-scale-with-growth.html",
+    "tags": [
+     "Audit"
+    ]
+   },
+   {
+    "title": "Private company audit Private company audit",
+    "summary": "Leveraging our digital audit ecosystem, our professionals help you make critical business decisions, close deals and use financial information with confidence.",
+    "article_url": "https://rsmus.com/services/audit-services/private-company-audit.html",
+    "tags": []
+   },
+   {
+    "title": "Business tax services Business tax services",
+    "summary": "Our business tax compliance and consulting services are powered by technology and coupled with technical knowledge and industry experience.",
+    "article_url": "https://rsmus.com/services/business-tax.html",
+    "tags": []
+   },
+   {
+    "title": "Financial due diligence Financial due diligence",
+    "summary": "RSM delivers financial due diligence to give private equity and corporate acquirers insight into performance, value and potential risks.",
+    "article_url": "https://rsmus.com/services/merger-acquisition/financial-due-diligence.html",
+    "tags": []
+   },
+   {
+    "title": "Private client services Private client services",
+    "summary": "Private client services help preserve your wealth with individual tax planning, estate and gift planning and a personal investment strategy.",
+    "article_url": "https://rsmus.com/services/private-client-services.html",
+    "tags": []
+   },
+   {
+    "title": "Private company audit Private company audit",
+    "summary": "Leveraging our digital audit ecosystem, our professionals help you make critical business decisions, close deals and use financial information with confidence.",
+    "article_url": "https://rsmus.com/services/audit-services/private-company-audit.html",
+    "tags": []
+   },
+   {
+    "title": "Business tax services Business tax services",
+    "summary": "Our business tax compliance and consulting services are powered by technology and coupled with technical knowledge and industry experience.",
+    "article_url": "https://rsmus.com/services/business-tax.html",
+    "tags": []
+   },
+   {
+    "title": "Financial due diligence Financial due diligence",
+    "summary": "RSM delivers financial due diligence to give private equity and corporate acquirers insight into performance, value and potential risks.",
+    "article_url": "https://rsmus.com/services/merger-acquisition/financial-due-diligence.html",
+    "tags": []
+   },
+   {
+    "title": "Private client services Private client services",
+    "summary": "Private client services help preserve your wealth with individual tax planning, estate and gift planning and a personal investment strategy.",
+    "article_url": "https://rsmus.com/services/private-client-services.html",
+    "tags": []
+   }
   ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
+  "product_page_url": "https://rsmus.com/insights/services/audit/why-every-private-company-needs-an-audit.html",
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  }
  },
  {
-  "title": "5 ways private companies can use an audit to unlock true strategic value",
-  "summary": "Five ways audits provide insight beyond compliance.",
-  "published_date": "2026-08-17",
-  "article_url": "https://rsmus.com/insights/services/audit/five-ways-companies-can-use-an-audit-to-unlock-strategic-value.html",
-  "tags": [
-   "Audit",
-   "CMP-Switching auditors"
+  "articles": [
+   {
+    "title": "Change management for HR: Driving success in HCM implementations",
+    "summary": "Without change management, HCM implementations can struggle with adoption, and ROI may suffer.",
+    "published_date": "2026-07-06",
+    "article_url": "https://rsmus.com/insights/services/business-strategy-operations/the-role-of-change-management-in-hcm-implementation.html",
+    "tags": [
+     "Business optimization",
+     "Human capital"
+    ]
+   },
+   {
+    "title": "Dayforce implementation success: Tredegar's win with RSM",
+    "summary": "RSM and Dayforce implementation: Discover how Tredegar enhanced HR efficiency and employee satisfaction with professional support.",
+    "published_date": "2025-03-31",
+    "article_url": "https://rsmus.com/insights/technology/dayforce/dayforce-implementation-success-tredegars-win-with-rsm.html",
+    "tags": [
+     "Dayforce",
+     "Business optimization"
+    ]
+   },
+   {
+    "title": "HCM software implementation: A step-by-step process",
+    "summary": "Effective HCM implementation aligns technology with strategy through disciplined governance.",
+    "published_date": "2026-05-20",
+    "article_url": "https://rsmus.com/insights/services/business-strategy-operations/implementing-hcm-software.html",
+    "tags": [
+     "Business applications",
+     "Modern work solutions"
+    ]
+   },
+   {
+    "title": "Change management for HR: Driving success in HCM implementations",
+    "summary": "Without change management, HCM implementations can struggle with adoption, and ROI may suffer.",
+    "published_date": "2026-07-06",
+    "article_url": "https://rsmus.com/insights/services/business-strategy-operations/the-role-of-change-management-in-hcm-implementation.html",
+    "tags": [
+     "Business optimization",
+     "Human capital"
+    ]
+   },
+   {
+    "title": "Dayforce implementation success: Tredegar's win with RSM",
+    "summary": "RSM and Dayforce implementation: Discover how Tredegar enhanced HR efficiency and employee satisfaction with professional support.",
+    "published_date": "2025-03-31",
+    "article_url": "https://rsmus.com/insights/technology/dayforce/dayforce-implementation-success-tredegars-win-with-rsm.html",
+    "tags": [
+     "Dayforce",
+     "Business optimization"
+    ]
+   },
+   {
+    "title": "HCM software implementation: A step-by-step process",
+    "summary": "Effective HCM implementation aligns technology with strategy through disciplined governance.",
+    "published_date": "2026-05-20",
+    "article_url": "https://rsmus.com/insights/services/business-strategy-operations/implementing-hcm-software.html",
+    "tags": [
+     "Business applications",
+     "Modern work solutions"
+    ]
+   }
   ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
+  "product_page_url": "https://rsmus.com/insights/technology/intentional-hcm-implementation-best-practices.html",
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  }
  },
  {
-  "title": "Audit with exit in mind",
-  "summary": "RSM explores the importance of businesses having an exit-focused audit strategy. Learn more.",
-  "published_date": "2026-05-11",
-  "article_url": "https://rsmus.com/insights/services/merger-acquisition/audit-with-exit-in-mind.html",
-  "tags": [
-   "Private equity",
-   "Mergers & acquisitions"
+  "articles": [
+   {
+    "title": "The human touch in AI-powered auditing: Why relationships matter more than ever",
+    "summary": "RSM explores how AI improves audit efficiency while human judgment and relationships remain key to trust and quality. Learn more.",
+    "published_date": "2026-02-06",
+    "article_url": "https://rsmus.com/insights/services/audit/human-touch-in-ai-powered-auditing-relationships-matter-more-than-ever.html",
+    "tags": [
+     "Audit"
+    ]
+   },
+   {
+    "title": "Build audit resilience into your company’s DNA",
+    "summary": "RSM explains how to build a resilient process for your regular financial statement audit.",
+    "published_date": "2025-10-22",
+    "article_url": "https://rsmus.com/insights/services/audit/build-audit-resilience-into-your-companys-dna.html",
+    "tags": [
+     "Audit"
+    ]
+   },
+   {
+    "title": "Modernize your audit process",
+    "summary": "RSM explains why—and how—CFOs should modernize their organization’s audit process. Learn more about the modern audit.",
+    "published_date": "2025-10-14",
+    "article_url": "https://rsmus.com/insights/services/audit/modernize-your-audit-process.html",
+    "tags": [
+     "Audit"
+    ]
+   },
+   {
+    "title": "The human touch in AI-powered auditing: Why relationships matter more than ever",
+    "summary": "RSM explores how AI improves audit efficiency while human judgment and relationships remain key to trust and quality. Learn more.",
+    "published_date": "2026-02-06",
+    "article_url": "https://rsmus.com/insights/services/audit/human-touch-in-ai-powered-auditing-relationships-matter-more-than-ever.html",
+    "tags": [
+     "Audit"
+    ]
+   },
+   {
+    "title": "Build audit resilience into your company’s DNA",
+    "summary": "RSM explains how to build a resilient process for your regular financial statement audit.",
+    "published_date": "2025-10-22",
+    "article_url": "https://rsmus.com/insights/services/audit/build-audit-resilience-into-your-companys-dna.html",
+    "tags": [
+     "Audit"
+    ]
+   },
+   {
+    "title": "Modernize your audit process",
+    "summary": "RSM explains why—and how—CFOs should modernize their organization’s audit process. Learn more about the modern audit.",
+    "published_date": "2025-10-14",
+    "article_url": "https://rsmus.com/insights/services/audit/modernize-your-audit-process.html",
+    "tags": [
+     "Audit"
+    ]
+   }
   ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
+  "product_page_url": "https://rsmus.com/insights/services/audit/five-ways-companies-can-use-an-audit-to-unlock-strategic-value.html",
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  }
  },
  {
-  "title": "Is your auditor built to scale with your growth?",
-  "summary": "RSM explains how the right audit firm scales with your business’s growth and supports your increasing complexity.",
-  "published_date": "2026-02-19",
-  "article_url": "https://rsmus.com/insights/services/audit/is-your-auditor-built-to-scale-with-growth.html",
-  "tags": [
-   "Audit"
+  "articles": [
+   {
+    "title": "Information technology",
+    "summary": "RSM offers managed services to help companies continue operations and maintain essential back-office functions",
+    "article_url": "https://rsmus.com/services/managed-services/managed-it-solutions.html",
+    "tags": []
+   }
   ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
+  "product_page_url": "https://rsmus.com/insights/industries/financial-services/managed-it-services-for-banks-and-credit-unions.html",
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  }
  },
  {
-  "title": "Private company audit Private company audit",
-  "summary": "Leveraging our digital audit ecosystem, our professionals help you make critical business decisions, close deals and use financial information with confidence.",
-  "article_url": "https://rsmus.com/services/audit-services/private-company-audit.html",
-  "tags": [],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Business tax services Business tax services",
-  "summary": "Our business tax compliance and consulting services are powered by technology and coupled with technical knowledge and industry experience.",
-  "article_url": "https://rsmus.com/services/business-tax.html",
-  "tags": [],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Financial due diligence Financial due diligence",
-  "summary": "RSM delivers financial due diligence to give private equity and corporate acquirers insight into performance, value and potential risks.",
-  "article_url": "https://rsmus.com/services/merger-acquisition/financial-due-diligence.html",
-  "tags": [],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Private client services Private client services",
-  "summary": "Private client services help preserve your wealth with individual tax planning, estate and gift planning and a personal investment strategy.",
-  "article_url": "https://rsmus.com/services/private-client-services.html",
-  "tags": [],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Change management for HR: Driving success in HCM implementations",
-  "summary": "Without change management, HCM implementations can struggle with adoption, and ROI may suffer.",
-  "published_date": "2026-07-06",
-  "article_url": "https://rsmus.com/insights/services/business-strategy-operations/the-role-of-change-management-in-hcm-implementation.html",
-  "tags": [
-   "Business optimization",
-   "Human capital"
+  "articles": [
+   {
+    "title": "Construction and real estate industry outlook",
+    "summary": "The outlook on data centers, senior living and the office market.",
+    "published_date": "2026-06-02",
+    "article_url": "https://rsmus.com/insights/industries/real-estate/real-estate-outlook.html",
+    "tags": [
+     "Outlook",
+     "Real estate"
+    ]
+   },
+   {
+    "title": "Mark Your Calendar: Opportunity Zone Tax Deferrals End in 2026",
+    "summary": "Capital gains reinvested in Qualified Opportunity Zones will be taxed on Dec. 31, 2026.",
+    "published_date": "2026-01-19",
+    "article_url": "https://rsmus.com/insights/services/business-tax/mark-calendar-opportunity-zone-tax-deferrals-end.html",
+    "tags": [
+     "Personal tax planning",
+     "Real estate"
+    ]
+   },
+   {
+    "title": "The OBBBA rekindles opportunity zones: What it means for real estate",
+    "summary": "RSM explains how the Big Beautiful Bill reshapes opportunity zones with new incentives and reporting rules for real estate investors.",
+    "published_date": "2025-08-08",
+    "article_url": "https://rsmus.com/insights/services/business-tax/obbba-tax-opportunity-zones.html",
+    "tags": [
+     "Real estate",
+     "Business tax"
+    ]
+   },
+   {
+    "title": "Construction and real estate industry outlook",
+    "summary": "The outlook on data centers, senior living and the office market.",
+    "published_date": "2026-06-02",
+    "article_url": "https://rsmus.com/insights/industries/real-estate/real-estate-outlook.html",
+    "tags": [
+     "Outlook",
+     "Real estate"
+    ]
+   },
+   {
+    "title": "Mark Your Calendar: Opportunity Zone Tax Deferrals End in 2026",
+    "summary": "Capital gains reinvested in Qualified Opportunity Zones will be taxed on Dec. 31, 2026.",
+    "published_date": "2026-01-19",
+    "article_url": "https://rsmus.com/insights/services/business-tax/mark-calendar-opportunity-zone-tax-deferrals-end.html",
+    "tags": [
+     "Personal tax planning",
+     "Real estate"
+    ]
+   },
+   {
+    "title": "The OBBBA rekindles opportunity zones: What it means for real estate",
+    "summary": "RSM explains how the Big Beautiful Bill reshapes opportunity zones with new incentives and reporting rules for real estate investors.",
+    "published_date": "2025-08-08",
+    "article_url": "https://rsmus.com/insights/services/business-tax/obbba-tax-opportunity-zones.html",
+    "tags": [
+     "Real estate",
+     "Business tax"
+    ]
+   }
   ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
+  "product_page_url": "https://rsmus.com/insights/services/business-tax/qoz-2-0-future-planning-next-18-months.html",
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  }
  },
  {
-  "title": "Dayforce implementation success: Tredegar's win with RSM",
-  "summary": "RSM and Dayforce implementation: Discover how Tredegar enhanced HR efficiency and employee satisfaction with professional support.",
-  "published_date": "2025-03-31",
-  "article_url": "https://rsmus.com/insights/technology/dayforce/dayforce-implementation-success-tredegars-win-with-rsm.html",
-  "tags": [
-   "Dayforce",
-   "Business optimization"
+  "articles": [
+   {
+    "title": "Even private clubs have unclaimed property exposure",
+    "summary": "Private clubs are often overlooked for unclaimed property, but payroll and vendor checks, membership fees, and equity interests could qualify.",
+    "published_date": "2025-05-15",
+    "article_url": "https://rsmus.com/insights/tax-alerts/2025/private-clubs-unclaimed-property-exposure.html",
+    "tags": [
+     "Private clubs",
+     "State & local tax"
+    ]
+   },
+   {
+    "title": "2024 financial and operating trends in private clubs",
+    "summary": "This 2024 report, drawing from the most recent audited annual reports of private clubs and associations compiled by RSM US LLP, provides essential insights into the challenges and opportunities within this evolving industry.",
+    "published_date": "2024-11-18",
+    "article_url": "https://rsmus.com/insights/industries/private-clubs/2024-financial-and-operating-trends-in-private-clubs.html",
+    "tags": [
+     "Private clubs",
+     "Florida"
+    ]
+   },
+   {
+    "title": "2024 private clubs compensation survey report",
+    "summary": "RSM US LLP's annual compensation survey encompasses salary data for over 100 roles across Florida's private clubs. Carefully crafted to include essential compensation insights, this report will contribute to effective financial management within your club.",
+    "published_date": "2024-09-12",
+    "article_url": "https://rsmus.com/insights/industries/private-clubs/2024-private-clubs-compensation-survey-report.html",
+    "tags": [
+     "Private clubs"
+    ]
+   },
+   {
+    "title": "Even private clubs have unclaimed property exposure",
+    "summary": "Private clubs are often overlooked for unclaimed property, but payroll and vendor checks, membership fees, and equity interests could qualify.",
+    "published_date": "2025-05-15",
+    "article_url": "https://rsmus.com/insights/tax-alerts/2025/private-clubs-unclaimed-property-exposure.html",
+    "tags": [
+     "Private clubs",
+     "State & local tax"
+    ]
+   },
+   {
+    "title": "2024 financial and operating trends in private clubs",
+    "summary": "This 2024 report, drawing from the most recent audited annual reports of private clubs and associations compiled by RSM US LLP, provides essential insights into the challenges and opportunities within this evolving industry.",
+    "published_date": "2024-11-18",
+    "article_url": "https://rsmus.com/insights/industries/private-clubs/2024-financial-and-operating-trends-in-private-clubs.html",
+    "tags": [
+     "Private clubs",
+     "Florida"
+    ]
+   },
+   {
+    "title": "2024 private clubs compensation survey report",
+    "summary": "RSM US LLP's annual compensation survey encompasses salary data for over 100 roles across Florida's private clubs. Carefully crafted to include essential compensation insights, this report will contribute to effective financial management within your club.",
+    "published_date": "2024-09-12",
+    "article_url": "https://rsmus.com/insights/industries/private-clubs/2024-private-clubs-compensation-survey-report.html",
+    "tags": [
+     "Private clubs"
+    ]
+   }
   ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
+  "product_page_url": "https://rsmus.com/insights/industries/private-clubs/2026-private-clubs-compensation-survey-report.html",
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  }
  },
  {
-  "title": "HCM software implementation: A step-by-step process",
-  "summary": "Effective HCM implementation aligns technology with strategy through disciplined governance.",
-  "published_date": "2026-05-20",
-  "article_url": "https://rsmus.com/insights/services/business-strategy-operations/implementing-hcm-software.html",
-  "tags": [
-   "Business applications",
-   "Modern work solutions"
+  "articles": [
+   {
+    "title": "Workday Adaptive Planning for Government Contractors",
+    "summary": "Join RSM for a live demonstration of Workday Adaptive Planning and see how government contractors can streamline budgeting, forecasting, planning and indirect rate modeling.",
+    "published_date": "2026-09-01",
+    "article_url": "https://rsmus.com/events/2026-events/workday-adaptive-planning-for-government-contractors.html",
+    "tags": [
+     "Business applications",
+     "Government contracting"
+    ]
+   },
+   {
+    "title": "Managing cyber risks in government contracting",
+    "summary": "RSM discusses how to manage cyber risks in the government contracting industry.",
+    "published_date": "2026-05-13",
+    "article_url": "https://rsmus.com/insights/industries/government-contracting/2026-cybersecurity-mmbi-government-contracting-snapshot.html",
+    "tags": [
+     "Government contracting",
+     "Cybersecurity"
+    ]
+   },
+   {
+    "title": "Defense contractor accountability under a new executive order",
+    "summary": "A new executive order expands accountability expectations across the defense industrial base.",
+    "published_date": "2026-03-16",
+    "article_url": "https://rsmus.com/insights/industries/government-contracting/defense-contractor-accountability.html",
+    "tags": [
+     "Government contracting"
+    ]
+   },
+   {
+    "title": "Workday Adaptive Planning for Government Contractors",
+    "summary": "Join RSM for a live demonstration of Workday Adaptive Planning and see how government contractors can streamline budgeting, forecasting, planning and indirect rate modeling.",
+    "published_date": "2026-09-01",
+    "article_url": "https://rsmus.com/events/2026-events/workday-adaptive-planning-for-government-contractors.html",
+    "tags": [
+     "Business applications",
+     "Government contracting"
+    ]
+   },
+   {
+    "title": "Managing cyber risks in government contracting",
+    "summary": "RSM discusses how to manage cyber risks in the government contracting industry.",
+    "published_date": "2026-05-13",
+    "article_url": "https://rsmus.com/insights/industries/government-contracting/2026-cybersecurity-mmbi-government-contracting-snapshot.html",
+    "tags": [
+     "Government contracting",
+     "Cybersecurity"
+    ]
+   },
+   {
+    "title": "Defense contractor accountability under a new executive order",
+    "summary": "A new executive order expands accountability expectations across the defense industrial base.",
+    "published_date": "2026-03-16",
+    "article_url": "https://rsmus.com/insights/industries/government-contracting/defense-contractor-accountability.html",
+    "tags": [
+     "Government contracting"
+    ]
+   }
   ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
+  "product_page_url": "https://rsmus.com/insights/industries/government-contracting/when-nontraditional-becomes-strategic.html",
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  }
  },
  {
-  "title": "The human touch in AI-powered auditing: Why relationships matter more than ever",
-  "summary": "RSM explores how AI improves audit efficiency while human judgment and relationships remain key to trust and quality. Learn more.",
-  "published_date": "2026-02-06",
-  "article_url": "https://rsmus.com/insights/services/audit/human-touch-in-ai-powered-auditing-relationships-matter-more-than-ever.html",
-  "tags": [
-   "Audit"
+  "articles": [
+   {
+    "title": "How third-party risk management strengthens manufacturing supply chains",
+    "summary": "RSM examines how third-party risk management strengthens manufacturing supply chains. Learn more.",
+    "published_date": "2026-06-29",
+    "article_url": "https://rsmus.com/insights/industries/manufacturing/third-party-risk-management-manufacturing-supply-chains.html",
+    "tags": [
+     "Manufacturing",
+     "Supply chain"
+    ]
+   },
+   {
+    "title": "Why are middle market manufacturing companies becoming more complex?",
+    "summary": "RSM US highlights the growing complexity of middle market manufacturers. Learn more.",
+    "published_date": "2025-11-26",
+    "article_url": "https://rsmus.com/insights/industries/manufacturing/middle-market-manufacturing-complexity.html",
+    "tags": [
+     "Manufacturing",
+     "The Real Economy"
+    ]
+   },
+   {
+    "title": "The rise of digital twins in modern manufacturing",
+    "summary": "Such simulations can test drive improvements before implementation on the factory floor.",
+    "published_date": "2025-10-28",
+    "article_url": "https://rsmus.com/insights/industries/manufacturing/digital-twins-transforming-modern-manufacturing.html",
+    "tags": [
+     "Manufacturing"
+    ]
+   },
+   {
+    "title": "How third-party risk management strengthens manufacturing supply chains",
+    "summary": "RSM examines how third-party risk management strengthens manufacturing supply chains. Learn more.",
+    "published_date": "2026-06-29",
+    "article_url": "https://rsmus.com/insights/industries/manufacturing/third-party-risk-management-manufacturing-supply-chains.html",
+    "tags": [
+     "Manufacturing",
+     "Supply chain"
+    ]
+   },
+   {
+    "title": "Why are middle market manufacturing companies becoming more complex?",
+    "summary": "RSM US highlights the growing complexity of middle market manufacturers. Learn more.",
+    "published_date": "2025-11-26",
+    "article_url": "https://rsmus.com/insights/industries/manufacturing/middle-market-manufacturing-complexity.html",
+    "tags": [
+     "Manufacturing",
+     "The Real Economy"
+    ]
+   },
+   {
+    "title": "The rise of digital twins in modern manufacturing",
+    "summary": "Such simulations can test drive improvements before implementation on the factory floor.",
+    "published_date": "2025-10-28",
+    "article_url": "https://rsmus.com/insights/industries/manufacturing/digital-twins-transforming-modern-manufacturing.html",
+    "tags": [
+     "Manufacturing"
+    ]
+   },
+   {
+    "title": "Data analytics consulting services Data analytics consulting services",
+    "summary": "Leverage your data to make informed decisions, enhance processes and gain a competitive advantage.",
+    "article_url": "https://rsmus.com/services/digital-transformation/data-analytics.html",
+    "tags": []
+   },
+   {
+    "title": "Global operations and supply chain strategy Global operations and supply chain strategy",
+    "summary": "Our global operations and supply chain consultants will work with you to understand your business and help you make strategically sound decisions.",
+    "article_url": "https://rsmus.com/services/business-strategy-operations/global-operations-supply-chain-strategy.html",
+    "tags": []
+   },
+   {
+    "title": "Supply chain inventory management services Supply chain inventory management services",
+    "summary": "RSM can help you optimize your supply chain inventory management. Learn more.",
+    "article_url": "https://rsmus.com/services/business-strategy-operations/supply-chain-services/supply-chain-inventory-management-services.html",
+    "tags": []
+   },
+   {
+    "title": "Data analytics consulting services Data analytics consulting services",
+    "summary": "Leverage your data to make informed decisions, enhance processes and gain a competitive advantage.",
+    "article_url": "https://rsmus.com/services/digital-transformation/data-analytics.html",
+    "tags": []
+   },
+   {
+    "title": "Global operations and supply chain strategy Global operations and supply chain strategy",
+    "summary": "Our global operations and supply chain consultants will work with you to understand your business and help you make strategically sound decisions.",
+    "article_url": "https://rsmus.com/services/business-strategy-operations/global-operations-supply-chain-strategy.html",
+    "tags": []
+   },
+   {
+    "title": "Supply chain inventory management services Supply chain inventory management services",
+    "summary": "RSM can help you optimize your supply chain inventory management. Learn more.",
+    "article_url": "https://rsmus.com/services/business-strategy-operations/supply-chain-services/supply-chain-inventory-management-services.html",
+    "tags": []
+   }
   ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
+  "product_page_url": "https://rsmus.com/insights/industries/manufacturing/chemical-inventory-management-strategies.html",
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  }
  },
  {
-  "title": "Build audit resilience into your company’s DNA",
-  "summary": "RSM explains how to build a resilient process for your regular financial statement audit.",
-  "published_date": "2025-10-22",
-  "article_url": "https://rsmus.com/insights/services/audit/build-audit-resilience-into-your-companys-dna.html",
-  "tags": [
-   "Audit"
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  },
+  "error": "Crawler error: waiting for selector \".cmp-card-wrapper\" failed: timeout 30000ms exceeded",
+  "error_code": "wait_element_timeout"
+ },
+ {
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  },
+  "error": "Crawler error: waiting for selector \".cmp-card-wrapper\" failed: timeout 30000ms exceeded",
+  "error_code": "wait_element_timeout"
+ },
+ {
+  "input": {
+   "url": "https://rsmus.com/insights.html"
+  },
+  "error": "Crawler error: waiting for selector \".cmp-card-wrapper\" failed: timeout 30000ms exceeded",
+  "error_code": "wait_element_timeout"
+ },
+ {
+  "articles": [
+   {
+    "title": "Revenue recognition for multi-year SaaS contracts under ASC 606",
+    "summary": "Guidance on allocating transaction price when renewal options carry a material right, with worked examples for annual and multi-year billing.",
+    "published_date": "2026-08-21",
+    "article_url": "https://example-advisory.com/insights/asc-606-saas",
+    "tags": [
+     "Accounting",
+     "Technology"
+    ]
+   },
+   {
+    "title": "R&D capitalisation under Section 174: what changed for tax year 2026",
+    "summary": "Amortisation requirements for domestic and foreign research expenditure, and the cash-tax impact for companies with large engineering headcount.",
+    "published_date": "2026-08-20",
+    "article_url": "https://example-advisory.com/insights/section-174-2026",
+    "tags": [
+     "Tax",
+     "R&D"
+    ]
+   },
+   {
+    "title": "Lease accounting practical expedients: common errors in year-three audits",
+    "summary": "The disclosure gaps auditors are flagging most often under ASC 842, and how to remediate discount-rate documentation before fieldwork.",
+    "published_date": "2026-08-19",
+    "article_url": "https://example-advisory.com/insights/asc-842-year-three",
+    "tags": [
+     "Audit",
+     "Leases"
+    ]
+   },
+   {
+    "title": "State pass-through entity tax elections: a 2026 planning checklist",
+    "summary": "Which states still offer a PTET workaround, the election deadlines that moved this year, and the modelling required before committing.",
+    "published_date": "2026-08-18",
+    "article_url": "https://example-advisory.com/insights/ptet-2026-checklist",
+    "tags": [
+     "Tax",
+     "SALT"
+    ]
+   },
+   {
+    "title": "Cybersecurity disclosure controls for private companies preparing to list",
+    "summary": "Building the incident-materiality assessment process that public-company reporting will demand, eighteen months before you need it.",
+    "published_date": "2026-08-17",
+    "article_url": "https://example-advisory.com/insights/cyber-disclosure-pre-ipo",
+    "tags": [
+     "Risk",
+     "IPO Readiness"
+    ]
+   },
+   {
+    "title": "Transfer pricing documentation thresholds for mid-market groups",
+    "summary": "When a local file becomes mandatory, the penalty regimes that changed in 2026, and a proportionate approach for groups under $500m revenue.",
+    "published_date": "2026-08-16",
+    "article_url": "https://example-advisory.com/insights/transfer-pricing-midmarket",
+    "tags": [
+     "Tax",
+     "International"
+    ]
+   }
   ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Modernize your audit process",
-  "summary": "RSM explains why—and how—CFOs should modernize their organization’s audit process. Learn more about the modern audit.",
-  "published_date": "2025-10-14",
-  "article_url": "https://rsmus.com/insights/services/audit/modernize-your-audit-process.html",
-  "tags": [
-   "Audit"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Information technology",
-  "summary": "RSM offers managed services to help companies continue operations and maintain essential back-office functions",
-  "article_url": "https://rsmus.com/services/managed-services/managed-it-solutions.html",
-  "tags": [],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Construction and real estate industry outlook",
-  "summary": "The outlook on data centers, senior living and the office market.",
-  "published_date": "2026-06-02",
-  "article_url": "https://rsmus.com/insights/industries/real-estate/real-estate-outlook.html",
-  "tags": [
-   "Outlook",
-   "Real estate"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Mark Your Calendar: Opportunity Zone Tax Deferrals End in 2026",
-  "summary": "Capital gains reinvested in Qualified Opportunity Zones will be taxed on Dec. 31, 2026.",
-  "published_date": "2026-01-19",
-  "article_url": "https://rsmus.com/insights/services/business-tax/mark-calendar-opportunity-zone-tax-deferrals-end.html",
-  "tags": [
-   "Personal tax planning",
-   "Real estate"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "The OBBBA rekindles opportunity zones: What it means for real estate",
-  "summary": "RSM explains how the Big Beautiful Bill reshapes opportunity zones with new incentives and reporting rules for real estate investors.",
-  "published_date": "2025-08-08",
-  "article_url": "https://rsmus.com/insights/services/business-tax/obbba-tax-opportunity-zones.html",
-  "tags": [
-   "Real estate",
-   "Business tax"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Even private clubs have unclaimed property exposure",
-  "summary": "Private clubs are often overlooked for unclaimed property, but payroll and vendor checks, membership fees, and equity interests could qualify.",
-  "published_date": "2025-05-15",
-  "article_url": "https://rsmus.com/insights/tax-alerts/2025/private-clubs-unclaimed-property-exposure.html",
-  "tags": [
-   "Private clubs",
-   "State & local tax"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "2024 financial and operating trends in private clubs",
-  "summary": "This 2024 report, drawing from the most recent audited annual reports of private clubs and associations compiled by RSM US LLP, provides essential insights into the challenges and opportunities within this evolving industry.",
-  "published_date": "2024-11-18",
-  "article_url": "https://rsmus.com/insights/industries/private-clubs/2024-financial-and-operating-trends-in-private-clubs.html",
-  "tags": [
-   "Private clubs",
-   "Florida"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "2024 private clubs compensation survey report",
-  "summary": "RSM US LLP's annual compensation survey encompasses salary data for over 100 roles across Florida's private clubs. Carefully crafted to include essential compensation insights, this report will contribute to effective financial management within your club.",
-  "published_date": "2024-09-12",
-  "article_url": "https://rsmus.com/insights/industries/private-clubs/2024-private-clubs-compensation-survey-report.html",
-  "tags": [
-   "Private clubs"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Workday Adaptive Planning for Government Contractors",
-  "summary": "Join RSM for a live demonstration of Workday Adaptive Planning and see how government contractors can streamline budgeting, forecasting, planning and indirect rate modeling.",
-  "published_date": "2026-09-01",
-  "article_url": "https://rsmus.com/events/2026-events/workday-adaptive-planning-for-government-contractors.html",
-  "tags": [
-   "Business applications",
-   "Government contracting"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Managing cyber risks in government contracting",
-  "summary": "RSM discusses how to manage cyber risks in the government contracting industry.",
-  "published_date": "2026-05-13",
-  "article_url": "https://rsmus.com/insights/industries/government-contracting/2026-cybersecurity-mmbi-government-contracting-snapshot.html",
-  "tags": [
-   "Government contracting",
-   "Cybersecurity"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Defense contractor accountability under a new executive order",
-  "summary": "A new executive order expands accountability expectations across the defense industrial base.",
-  "published_date": "2026-03-16",
-  "article_url": "https://rsmus.com/insights/industries/government-contracting/defense-contractor-accountability.html",
-  "tags": [
-   "Government contracting"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "How third-party risk management strengthens manufacturing supply chains",
-  "summary": "RSM examines how third-party risk management strengthens manufacturing supply chains. Learn more.",
-  "published_date": "2026-06-29",
-  "article_url": "https://rsmus.com/insights/industries/manufacturing/third-party-risk-management-manufacturing-supply-chains.html",
-  "tags": [
-   "Manufacturing",
-   "Supply chain"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Why are middle market manufacturing companies becoming more complex?",
-  "summary": "RSM US highlights the growing complexity of middle market manufacturers. Learn more.",
-  "published_date": "2025-11-26",
-  "article_url": "https://rsmus.com/insights/industries/manufacturing/middle-market-manufacturing-complexity.html",
-  "tags": [
-   "Manufacturing",
-   "The Real Economy"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "The rise of digital twins in modern manufacturing",
-  "summary": "Such simulations can test drive improvements before implementation on the factory floor.",
-  "published_date": "2025-10-28",
-  "article_url": "https://rsmus.com/insights/industries/manufacturing/digital-twins-transforming-modern-manufacturing.html",
-  "tags": [
-   "Manufacturing"
-  ],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Data analytics consulting services Data analytics consulting services",
-  "summary": "Leverage your data to make informed decisions, enhance processes and gain a competitive advantage.",
-  "article_url": "https://rsmus.com/services/digital-transformation/data-analytics.html",
-  "tags": [],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Global operations and supply chain strategy Global operations and supply chain strategy",
-  "summary": "Our global operations and supply chain consultants will work with you to understand your business and help you make strategically sound decisions.",
-  "article_url": "https://rsmus.com/services/business-strategy-operations/global-operations-supply-chain-strategy.html",
-  "tags": [],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Supply chain inventory management services Supply chain inventory management services",
-  "summary": "RSM can help you optimize your supply chain inventory management. Learn more.",
-  "article_url": "https://rsmus.com/services/business-strategy-operations/supply-chain-services/supply-chain-inventory-management-services.html",
-  "tags": [],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
- },
- {
-  "title": "Revenue recognition for multi-year SaaS contracts under ASC 606",
-  "summary": "Guidance on allocating transaction price when renewal options carry a material right, with worked examples for annual and multi-year billing.",
-  "published_date": "2026-08-21",
-  "article_url": "https://example-advisory.com/insights/asc-606-saas",
-  "tags": [
-   "Accounting",
-   "Technology"
-  ],
-  "_firm": "advisory-digest.vercel.app",
-  "_source": "https://advisory-digest.vercel.app/control/insights.html"
- },
- {
-  "title": "R&D capitalisation under Section 174: what changed for tax year 2026",
-  "summary": "Amortisation requirements for domestic and foreign research expenditure, and the cash-tax impact for companies with large engineering headcount.",
-  "published_date": "2026-08-20",
-  "article_url": "https://example-advisory.com/insights/section-174-2026",
-  "tags": [
-   "Tax",
-   "R&D"
-  ],
-  "_firm": "advisory-digest.vercel.app",
-  "_source": "https://advisory-digest.vercel.app/control/insights.html"
- },
- {
-  "title": "Lease accounting practical expedients: common errors in year-three audits",
-  "summary": "The disclosure gaps auditors are flagging most often under ASC 842, and how to remediate discount-rate documentation before fieldwork.",
-  "published_date": "2026-08-19",
-  "article_url": "https://example-advisory.com/insights/asc-842-year-three",
-  "tags": [
-   "Audit",
-   "Leases"
-  ],
-  "_firm": "advisory-digest.vercel.app",
-  "_source": "https://advisory-digest.vercel.app/control/insights.html"
- },
- {
-  "title": "State pass-through entity tax elections: a 2026 planning checklist",
-  "summary": "Which states still offer a PTET workaround, the election deadlines that moved this year, and the modelling required before committing.",
-  "published_date": "2026-08-18",
-  "article_url": "https://example-advisory.com/insights/ptet-2026-checklist",
-  "tags": [
-   "Tax",
-   "SALT"
-  ],
-  "_firm": "advisory-digest.vercel.app",
-  "_source": "https://advisory-digest.vercel.app/control/insights.html"
- },
- {
-  "title": "Cybersecurity disclosure controls for private companies preparing to list",
-  "summary": "Building the incident-materiality assessment process that public-company reporting will demand, eighteen months before you need it.",
-  "published_date": "2026-08-17",
-  "article_url": "https://example-advisory.com/insights/cyber-disclosure-pre-ipo",
-  "tags": [
-   "Risk",
-   "IPO Readiness"
-  ],
-  "_firm": "advisory-digest.vercel.app",
-  "_source": "https://advisory-digest.vercel.app/control/insights.html"
- },
- {
-  "title": "Transfer pricing documentation thresholds for mid-market groups",
-  "summary": "When a local file becomes mandatory, the penalty regimes that changed in 2026, and a proportionate approach for groups under $500m revenue.",
-  "published_date": "2026-08-16",
-  "article_url": "https://example-advisory.com/insights/transfer-pricing-midmarket",
-  "tags": [
-   "Tax",
-   "International"
-  ],
-  "_firm": "advisory-digest.vercel.app",
-  "_source": "https://advisory-digest.vercel.app/control/insights.html"
+  "input": {
+   "url": "https://advisory-digest.vercel.app/control/insights.html"
+  }
  },
  {
   "title": "Reviewing AI in Finance Processes: Practical Audit Considerations for Controllers",
@@ -414,9 +704,7 @@
   "product_page_url": "https://www.bdo.com/insights/assurance/reviewing-ai-in-finance-processes-practical-audit-considerations-for-controllers",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "New Tariffs and Minimum Import Prices on Polysilicon, Derivatives and Solar Products",
@@ -429,9 +717,7 @@
   "product_page_url": "https://www.bdo.com/insights/tax/new-tariffs-and-minimum-import-prices-on-polysilicon-derivatives-and-solar-products",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "Finding High-Value AI Use Case Opportunities",
@@ -440,9 +726,7 @@
   "product_page_url": "https://www.bdo.com/insights/advisory/finding-high-value-ai-use-case-opportunities",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "A Smarter Approach to Legacy Planning",
@@ -455,9 +739,7 @@
   "product_page_url": "https://www.bdo.com/insights/tax/a-smarter-approach-to-legacy-planning",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "ERP Readiness for AI Assessment",
@@ -466,9 +748,7 @@
   "product_page_url": "https://www.bdo.com/insights/digital/erp-readiness-for-ai-assessment",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "The Unintended Consequences of Repeat Revenue",
@@ -481,9 +761,7 @@
   "product_page_url": "https://www.bdo.com/insights/advisory/the-unintended-consequences-of-repeat-revenue",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "Senate Taxwriters Approve Bill to Expand Taxpayer Protections",
@@ -496,9 +774,7 @@
   "product_page_url": "https://www.bdo.com/insights/tax/senate-taxwriters-approve-bill-to-expand-taxpayer-protections",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "Global Privacy eBook Executive Summary",
@@ -507,9 +783,7 @@
   "product_page_url": "https://www.bdo.com/insights/advisory/global-privacy-ebook-executive-summary",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "article_url": "https://insights.bdo.com/Global-Privacy-AI-Data-Governance-for-Resilience-Trust-eBook.html",
@@ -517,9 +791,7 @@
   "product_page_url": "https://www.bdo.com/insights/advisory/global-privacy-ai-and-data-governance-for-resilience-and-trust-ebook",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "BDO's Legal Tech Talk Podcast",
@@ -528,9 +800,7 @@
   "product_page_url": "https://www.bdo.com/insights/advisory/bdos-legal-tech-talk-podcast-season-4-episode-14-ai-is-changing-us-what-lawyers-need",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "Operational Resilience Starts with Data",
@@ -543,9 +813,7 @@
   "product_page_url": "https://www.bdo.com/insights/advisory/operational-resilience-starts-with-data",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "Are You Getting Full Value From Your ERP Investment?",
@@ -554,9 +822,7 @@
   "product_page_url": "https://www.bdo.com/insights/digital/are-you-getting-full-value-from-your-erp-investment",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "Government Property Management: Why Audit Readiness Starts Long Before a PMSA",
@@ -569,9 +835,7 @@
   "product_page_url": "https://www.bdo.com/insights/industry-specialty-consulting/government-property-management-why-audit-readiness-starts-long-before-a-pmsa",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "60-second Retail Podcast",
@@ -580,9 +844,7 @@
   "product_page_url": "https://www.bdo.com/insights/industries/retail-consumer-products/60-second-retail-podcast-episode-265-the-ripple-effects-of-a-bad-forecast",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "BDO Talks Total Tax Podcast",
@@ -591,9 +853,7 @@
   "product_page_url": "https://www.bdo.com/insights/tax/bdo-talks-total-tax-podcast",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "BDO in the Boardroom Podcast Series",
@@ -602,9 +862,7 @@
   "product_page_url": "https://www.bdo.com/insights/assurance/changing-seats-at-the-strategy-table-perspectives-from-an-operator-overseer-enterprise-leader",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "AI Deployment Communication Plan Checklist",
@@ -617,9 +875,7 @@
   "product_page_url": "https://www.bdo.com/insights/advisory/ai-deployment-communication-plan-checklist",
   "input": {
    "url": "https://www.bdo.com/insights"
-  },
-  "_firm": "bdo.com",
-  "_source": "https://www.bdo.com/insights"
+  }
  },
  {
   "title": "Modernizing and consolidating an enterprise EHR",
@@ -638,9 +894,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/modernizing-and-consolidating-an-enterprise-ehr",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Mainstreaming alternatives: The rise of alternative property sectors",
@@ -655,9 +909,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/mainstreaming-alternatives",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Healthcare M&A update: H1 2026",
@@ -677,9 +929,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/healthcare-ma-update-h1-2026",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "CY 2027 OPPS proposed rule: 11 key changes to prepare for",
@@ -694,9 +944,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/cy-2027-opps-proposed-rule-changes",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Technology M&A update: H1 2026",
@@ -717,9 +965,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/technology-ma-update-h1-2026",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Find success for capital project readiness: Align scope, funding, and controls",
@@ -739,9 +985,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/capital-project-readiness-for-utilities",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Mission critical: Why patient access underpins your entire strategic plan",
@@ -758,9 +1002,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/patient-access-strategy-for-healthcare-leaders",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Texas increases R&D tax credit rate and makes them refundable",
@@ -777,9 +1019,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/texas-refundable-rd-tax-credit",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Food and beverage M&A update: H1 2026",
@@ -798,9 +1038,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/food-and-beverage-ma-update-h1-2026",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Building the bridge from healthcare strategy to measurable results",
@@ -817,9 +1055,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/healthcare-strategy-deployment",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Extended Producer Responsibility (EPR) laws: What businesses need to know",
@@ -839,9 +1075,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/packaging-epr-laws-businesses",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "AI Applied: Get more value from ERP and legacy systems",
@@ -859,9 +1093,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/ai-for-digital-transformation-erp-systems",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Medicare geographic reclassification can help hospitals improve reimbursement",
@@ -877,9 +1109,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/medicare-geographic-reclassification-hospitals",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Why great leaders don’t always make a great leadership team",
@@ -896,9 +1126,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/healthcare-leadership-team-performance",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Four foundational questions for Tribal health leadership",
@@ -916,9 +1144,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/tribal-health-leadership-strategy",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Build stronger Tribal broadband programs with better grant, contract, and project controls",
@@ -937,9 +1163,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/tribal-broadband-programs-grant-management",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "The coordination challenge behind healthcare strategy execution",
@@ -956,9 +1180,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/healthcare-strategy-execution",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Why M&A can’t pause during the public company journey",
@@ -976,9 +1198,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/programmatic-ma-public-company",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Why access problems don't require a bigger checkbook in healthcare",
@@ -996,9 +1216,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/healthcare-access-existing-capacity",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Beyond the myth: Why better patient access doesn’t mean burned-out doctors",
@@ -1015,9 +1233,7 @@
   "product_page_url": "https://www.bakertilly.com/insights/patient-access-and-physician-burnout",
   "input": {
    "url": "https://www.bakertilly.com/insights"
-  },
-  "_firm": "bakertilly.com",
-  "_source": "https://www.bakertilly.com/insights"
+  }
  },
  {
   "title": "Building Defensible Speed With AI Agents",
@@ -1027,9 +1243,7 @@
   "product_page_url": "https://www.crowe.com/insights/building-defensible-speed-with-ai-agents",
   "input": {
    "url": "https://www.crowe.com/insights"
-  },
-  "_firm": "crowe.com",
-  "_source": "https://www.crowe.com/insights"
+  }
  },
  {
   "title": "August 2026 Financial Reporting, Governance, and Risk Management",
@@ -1040,9 +1254,7 @@
   "product_page_url": "https://www.crowe.com/insights/financial-institutions-executive-briefing/august-2026-financial-reporting-governance-and-risk-management",
   "input": {
    "url": "https://www.crowe.com/insights"
-  },
-  "_firm": "crowe.com",
-  "_source": "https://www.crowe.com/insights"
+  }
  },
  {
   "title": "California, Colorado Tax Software and SaaS in 2027",
@@ -1055,9 +1267,50 @@
   "product_page_url": "https://www.crowe.com/insights/tax-news-highlights/california-colorado-tax-software-and-saas-in-2027",
   "input": {
    "url": "https://www.crowe.com/insights"
-  },
-  "_firm": "crowe.com",
-  "_source": "https://www.crowe.com/insights"
+  }
+ },
+ {
+  "title": "How LDTI Shapes Insurance Income Statements",
+  "published_date": "2026-08-18T00:00:00.000Z",
+  "article_url": "https://www.crowe.com/insights",
+  "tags": [],
+  "product_page_url": "https://www.crowe.com/insights/how-ldti-shapes-insurance-income-statements",
+  "input": {
+   "url": "https://www.crowe.com/insights"
+  }
+ },
+ {
+  "title": "Smarter Public Sector Auditing Through Automation",
+  "published_date": "2026-07-24T00:00:00.000Z",
+  "article_url": "https://www.crowe.com/insights",
+  "tags": [],
+  "product_page_url": "https://www.crowe.com/insights/asset/s/smarter-public-sector-auditing-through-automation-rec",
+  "input": {
+   "url": "https://www.crowe.com/insights"
+  }
+ },
+ {
+  "title": "Illinois Enacts Major Tax Changes",
+  "summary": "In summary Illinois’ fiscal year 2027 budget includes several significant changes to its tax law. In addition to enacting several new taxes, the state has modified the pass-through entity tax and extended expiring provisions, including certain tax credits.",
+  "published_date": "2026-08-20T00:00:00.000Z",
+  "article_url": "https://www.crowe.com/insights/tax-news-highlights",
+  "tags": [
+   "Tax News Highlights"
+  ],
+  "product_page_url": "https://www.crowe.com/insights/tax-news-highlights/illinois-enacts-major-tax-changes-2026",
+  "input": {
+   "url": "https://www.crowe.com/insights"
+  }
+ },
+ {
+  "title": "Future of Fintech: Cyber, Digital Assets, and AI Use Cases",
+  "published_date": "2026-07-30T00:00:00.000Z",
+  "article_url": "https://www.crowe.com/insights",
+  "tags": [],
+  "product_page_url": "https://www.crowe.com/insights/asset/f/future-of-fintech-cyber-digital-assets-and-ai-use-cases-rec",
+  "input": {
+   "url": "https://www.crowe.com/insights"
+  }
  },
  {
   "title": "Identity and Access Management Meets HR: Governing AI Agents",
@@ -1069,9 +1322,17 @@
   "product_page_url": "https://www.crowe.com/insights/crowe-cyber-watch/identity-and-access-management-meets-hr-governing-ai-agents",
   "input": {
    "url": "https://www.crowe.com/insights"
-  },
-  "_firm": "crowe.com",
-  "_source": "https://www.crowe.com/insights"
+  }
+ },
+ {
+  "title": "Crowe ExPErtise Webinar Series: Performance Improvement Strategies for Portfolio Growth",
+  "published_date": "2026-07-29T00:00:00.000Z",
+  "article_url": "https://www.crowe.com/insights",
+  "tags": [],
+  "product_page_url": "https://www.crowe.com/insights/asset/e/expertise-series-performance-improvement-strategies-for-portfolio-growth-rec",
+  "input": {
+   "url": "https://www.crowe.com/insights"
+  }
  },
  {
   "title": "Acumatica Beacon: Your New Hub for Acumatica Knowledge",
@@ -1079,9 +1340,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/acumatica/acumatica-beacon-your-new-hub-for-acumatica-knowledge",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "How to Read, Review, and Respond to IRS Notices",
@@ -1108,9 +1367,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/irs-notices",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "The Cost of Accepting Foreign Capital Without a Withholding Plan",
@@ -1127,9 +1384,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/real-estate/the-cost-of-accepting-foreign-capital-without-a-withholding-plan",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Farm Entities Face Important FSA Filing Deadline in 2026",
@@ -1145,9 +1400,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/agribusiness/farm-entities-face-important-fsa-filing-deadline-in-2026",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Cash Flow Forecast: Why Every Manufacturer Needs a Rolling 13-Week Forecast",
@@ -1162,9 +1415,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/manufacturing/cash-flow-forecast-why-every-manufacturer-needs-a-rolling-13-week-forecast",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "NCAA Compliance: Changes to Agreed-Upon Procedures Impact Finance Reporting",
@@ -1179,9 +1430,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/25/ncaa-compliance-changes-to-agreed-upon-procedures-impact-finance-reporting",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Opportunity Zones 2.0: What the Permanent Program Means for Operating Businesses",
@@ -1196,9 +1445,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/opportunity-zones-for-operating-businesses",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Nonprofits Can Claim Green Energy Tax Credits, But Timing Matters",
@@ -1213,9 +1460,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/nonprofit-energy-tax-credits",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Turning ERP Investments Into Strategic Value",
@@ -1233,9 +1478,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/erp-investments",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "A Smarter Way to Manage the Month-End Close With Close Workspace",
@@ -1251,9 +1494,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/sage/a-smarter-way-to-manage-the-month-end-close-with-close-workspace",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "How to Validate a Domain in Sage Intacct",
@@ -1268,9 +1509,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/sage/how-to-validate-a-domain-in-sage-intacct",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Wisconsin Offers Sales Tax Exemption for Nuclear Fusion Projects",
@@ -1284,9 +1523,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/wisconsin-offers-sales-tax-exemption-for-nuclear-fusion-projects",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Sage Intacct for Schools: Automating Grant Tracking and Billing",
@@ -1301,9 +1538,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/sage/sage-intacct-for-schools-automating-grant-tracking-and-billing",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "AFS Goes From Tight Timeline to Trusted System With Sage Intacct",
@@ -1311,9 +1546,7 @@
   "product_page_url": "https://godigital.claconnect.com/insights/case-study/afs-goes-from-tight-timeline-to-trusted-system-with-sage-intacct/",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Beyond Wills and Trusts: The Benefits of Comprehensive Estate Planning",
@@ -1327,9 +1560,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/comprehensive-estate-planning-benefits",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "CLA Foundation Awards Opportunity Scholarships to Help Build Workforce",
@@ -1343,9 +1574,7 @@
   "product_page_url": "https://www.claconnect.com/en/media/2026/cla-foundation-awards-opportunity-scholarships",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "R&D Tax Credits for Agriculture: What Qualifies?",
@@ -1360,9 +1589,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/agricultural-r-and-d-credits",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Qualified Opportunity Zones: The New Guidance to Adopt Now",
@@ -1396,9 +1623,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/qualified-opportunity-zones-guidance",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "CLA Announcing Initiative to Co-Build AI-Native Accounting Platform with Digits",
@@ -1412,9 +1637,7 @@
   "product_page_url": "https://www.claconnect.com/en/media/2026/cla-announcing-initiative-to-cobuild-ainative-accounting-platform",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Why Growing Real Estate Companies Need Professional Controller Services",
@@ -1429,9 +1652,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/real-estate/why-growing-real-estate-companies-need-professional-controller-services",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Building a Foundation for Data-Driven Impact",
@@ -1439,9 +1660,7 @@
   "product_page_url": "https://partners.wsj.com/clifton-larson-allen/changes-in-tax-policy/building-a-foundation-for-data-driven-impact/",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Federal Scholarship Tax Credit: Next Steps for SGOs",
@@ -1456,9 +1675,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/federal-scholarship-tax-credit-and-sgos",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Ditch the Spreadsheet: Dynamic Allocations for Schools in Sage Intacct",
@@ -1474,9 +1691,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/sage/ditch-the-spreadsheet-dynamic-allocations-for-schools-in-sage-intacct",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Short-Term Rental Profitability Starts With Tax and Financial Planning",
@@ -1492,9 +1707,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/real-estate/short-term-rental-profitability-starts-with-tax-and-financial-planning",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "340B Program Targeted: Proposal, Reimbursement Cut, Medicaid Impact",
@@ -1510,9 +1723,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/health-care/340b-program-targeted-proposal-reimbursement-cut-medicaid-impact",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "GASB 105 Clarifies Subsequent Event Reporting",
@@ -1528,9 +1739,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/gasb-105",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Manufacturing Happy Hour Hits the Road: 10 Takeaways From Northeast Tour",
@@ -1545,9 +1754,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/manufacturing/manufacturing-happy-hour-hits-the-road-10-takeaways-from-northeast-tour",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "California Nonresident Withholding: How To Comply with the Complex Rules",
@@ -1572,9 +1779,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/california-nonresident-withholding",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Revenue Recognition for Nonprofits – How to Get It Right",
@@ -1592,9 +1797,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/nonprofit-revenue-recognition",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Underwriting Mixed-Use Property: Where Stability Meets Execution Risk",
@@ -1611,9 +1814,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/real-estate/underwriting-mixed-use-property-where-stability-meets-execution-risk",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Build PWA Compliance Into Your Clean Energy Credit Plan",
@@ -1640,9 +1841,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/pwa-compliance",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "ASC 740: Income Tax Accounting Impacts From Federal Tax Changes",
@@ -1660,9 +1859,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/25/asc-740-income-tax-accounting-changes",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Maintain Finance Function Continuity When a Key Employee Leaves",
@@ -1675,9 +1872,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/finance-function-continuity",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Transportation Performance Analytics — Connecting Financial Data to Decisions",
@@ -1692,9 +1887,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/logistics/transportation-performance-analytics-connecting-financial-data-to-decisions",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Income Tax Implications of Grantor and Non-Grantor Trusts",
@@ -1711,9 +1904,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/income-tax-implications-of-grantor-and-nongrantor-trusts",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "IEEPA Tariff Refunds: 4 Common Tax Reporting Issues",
@@ -1728,9 +1919,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/manufacturing/ieepa-tariff-refunds-4-common-tax-reporting-issues",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "HUD and LIHTC Projects: Audit Risks Hidden in Everyday Compliance",
@@ -1748,9 +1937,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/hud-and-lihtc-projects",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Traditional Fund Accounting vs. Net Asset Accounting in Sage Intacct",
@@ -1765,9 +1952,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/sage/traditional-fund-accounting-vs-net-asset-accounting-in-sage-intacct",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Strategies to Find Top Talent in Today’s Professional Landscape",
@@ -1782,9 +1967,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/24/strategies-to-find-top-talent-in-todays-professional-landscape",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "From AI Activity to AI Value",
@@ -1792,9 +1975,7 @@
   "product_page_url": "https://godigital.claconnect.com/insights/white-paper/from-ai-activity-to-ai-value/",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Gain Deeper Insight Into Nonprofit Performance With Fund-Level Reporting",
@@ -1802,9 +1983,7 @@
   "product_page_url": "https://godigital.claconnect.com/insights/article/fund-level-reporting-for-nonprofits/",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "CLA Wealth Advisors Ranked 45th on Financial Advisor Magazine’s 2026 RIA Ranking",
@@ -1818,9 +1997,7 @@
   "product_page_url": "https://www.claconnect.com/en/media/2026/cla-wealth-advisors-ranks-no-45-on-2026-ria-ranking",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Scaling With Financial Clarity",
@@ -1828,9 +2005,7 @@
   "product_page_url": "https://www.claconnect.com/en/get-started/client-accounting-and-advisory-services/scaling-with-financial-clarity",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "CLA Named Best Company to Work For By U.S. News & World Report",
@@ -1844,9 +2019,7 @@
   "product_page_url": "https://www.claconnect.com/en/media/2026/cla-named-best-company-to-work-for-by-us-world-news-world-report",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Inside the LEAD ACO: Medicare’s Next Value Model",
@@ -1861,9 +2034,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/lead-aco",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "The New Housing Act: How Real Estate Investors, Developers May Benefit",
@@ -1878,9 +2049,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/road-to-housing-act",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "The Business Impact of Trump’s Tariffs: What to Know Now",
@@ -1901,9 +2070,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/25/the-impact-of-trumps-tariffs-a-comprehensive-analysis",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Opportunity Zones: How Census Tract Changes Affect Eligibility and Planning",
@@ -1918,9 +2085,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/opportunity-zone-census-tract-changes",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Clouse Ace Hardware Gets Future Ready With Improved Financial Reporting",
@@ -1935,9 +2100,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/case-studies/ace-hardware-gets-future-ready",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "CJR-X: New Mandatory Joint Replacement Model on Horizon",
@@ -1953,9 +2116,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/health-care/cjrx-new-mandatory-joint-replacement-model-on-horizon",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "AI Automation in Acumatica: Practical Control, Security, and Consistency",
@@ -1963,9 +2124,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/acumatica/ai-automation-in-acumatica-practical-control-security-and-consistency",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Build a Financial Foundation You Can Trust",
@@ -1994,9 +2153,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/build-financial-foundation",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "2026 Mid-Year CLA Outlook: Slower Economic Growth, New Opportunities",
@@ -2011,9 +2168,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/cla-midyear-outlook",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Put Strategic Alignment to Work After the Sale",
@@ -2029,9 +2184,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/strategic-alignment-value-creation",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Use ASU 2025-06 to Modernize Your Software Capitalization Policy",
@@ -2055,9 +2208,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/software-capitalization",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Tax-Exempt Hospitals Might Face Additional Reporting Requirements",
@@ -2072,9 +2223,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/blogs/health-care/tax-exempt-hospitals-might-face-additional-reporting-requirements",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "CLA Heartbeat Index: Strong Economic Confidence Meets New AI Reality Check",
@@ -2089,9 +2238,7 @@
   "product_page_url": "https://www.claconnect.com/en/media/2026/cla-heartbeat-index-strong-economic-confidence-meets-new-ai-reality-check",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Sales Tax Will Apply to SaaS in California and Colorado in 2027",
@@ -2106,9 +2253,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/saas-sales-tax-california-colorado",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "CLA Heartbeat Index™: The Voice of Business",
@@ -2116,9 +2261,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/white-papers/cla-heartbeat-index",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Forming or Reinstating Your Nonprofit? Get the Process Right",
@@ -2134,9 +2277,7 @@
   "product_page_url": "https://www.claconnect.com/en/resources/articles/26/forming-a-nonprofit",
   "input": {
    "url": "https://www.claconnect.com/en/resources"
-  },
-  "_firm": "claconnect.com",
-  "_source": "https://www.claconnect.com/en/resources"
+  }
  },
  {
   "title": "Comment: PCAOB standard setting",
@@ -2154,9 +2295,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/audit/2026/comment-letters/pcaob-standard-setting",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Proposed regs address Section 898 and PTEP FTC rules",
@@ -2174,9 +2313,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/newsletters/tax/2026/hot-topics/aug-11/proposed-regs-address-section-898-and-ptep-ftc-rules",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Managing tax, other risks for a globally mobile workforce",
@@ -2194,9 +2331,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/tax/2026/managing-tax-other-risks-for-a-globally-mobile-workforce",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Massachusetts temporarily decouples from OBBBA provisions",
@@ -2214,9 +2349,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/alerts/tax/2026/salt/k-o/ma-temporarily-decouples-from-obbba-provisions-08-14",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Insurance CFOs: Are your finance workflows AI-ready?",
@@ -2234,9 +2367,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/insurance/2026/insurance-cfos-are-your-finance-workflows-ai-ready",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Accounting for environmental credits and environmental credit obligations",
@@ -2254,9 +2385,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/audit/2026/snapshot/august/accounting-for-environmental-credits",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "The unexpected obstacle to AI-enabled SOX and internal audit",
@@ -2274,9 +2403,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/advisory/2026/the-unexpected-obstacle-to-ai-enabled-sox-and-internal-audit",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Manage fraud risks in data center construction",
@@ -2294,9 +2421,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/real-estate/2026/manage-fraud-risks-in-data-center-construction",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Bank strengthens oversight of 1,000+ AI initiatives without slowing innovation",
@@ -2314,9 +2439,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/case-studies/banking/2026/global-bank-strengthens-oversight-of-ai-initiatives",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "AI has redefined tech M&A. Has your strategy kept up?",
@@ -2334,9 +2457,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/pe/2026/ai-has-redefined-tech-ma",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Top Finance Democrat proposes AI data center tax",
@@ -2354,9 +2475,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/newsletters/tax/2026/hot-topics/aug-11/top-finance-democrat-proposes-ai-data-center-tax",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Tariff roundup: Sec. 301 suits, IEEPA refund developments",
@@ -2374,9 +2493,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/newsletters/tax/2026/hot-topics/aug-11/tariff-roundup-sec-301-suits-ieepa-refund-developments",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "New Sirius opinion narrows ‘limited partner’ definition",
@@ -2394,9 +2511,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/alerts/tax/2026/flash/new-sirius-opinion-narrows-limited-partner-definition",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Transforming healthcare workforce models for the AI era",
@@ -2414,9 +2529,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/health-care/2026/transforming-healthcare-workforce-models-for-the-ai-era",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "AI isn’t the differentiator — resilient operations are",
@@ -2434,9 +2547,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/manufacturing/2026/ai-isnt-the-differentiator-resilient-operations-are",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "How AI-powered outsourcing helps you operate to transform",
@@ -2454,9 +2565,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/advisory/2026/how-ai-powered-outsourcing-helps-you-operate-to-transform",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Inform resilience with dynamic risk intelligence",
@@ -2474,9 +2583,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/advisory/2026/inform-resilience-with-dynamic-risk-intelligence",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Looking at the future of global mobility tax",
@@ -2494,9 +2601,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/newsletters/tax/2026/hcb/august/looking-at-the-future-of-global-mobility-tax",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "Beyond clean data: Logistics AI needs what only you know",
@@ -2514,9 +2619,7 @@
   "product_page_url": "https://www.grantthornton.com/insights/articles/transportation/2026/logistics-ai-needs-what-only-you-know",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  },
  {
   "title": "IRS proposes elective Section 987 exemption for CFCs",
@@ -2534,8 +2637,6 @@
   "product_page_url": "https://www.grantthornton.com/insights/alerts/tax/2026/flash/irs-proposes-elective-section-987-exemption-for-cfcs",
   "input": {
    "url": "https://www.grantthornton.com/insights"
-  },
-  "_firm": "grantthornton.com",
-  "_source": "https://www.grantthornton.com/insights"
+  }
  }
 ]

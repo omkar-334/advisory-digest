@@ -36,6 +36,21 @@
       "collector_id": "c_mt5vx74mzar3afcrv",
       "url": "https://www.crowe.com/insights",
       "status": "live"
+    },
+    {
+      "firm": "claconnect.com",
+      "name": "CLA",
+      "collector_id": "c_mt5wb3m12m48uhzx5",
+      "url": "https://www.claconnect.com/en/resources",
+      "status": "live"
+    },
+    {
+      "firm": "grantthornton.com",
+      "name": "Grant Thornton",
+      "collector_id": "c_mt5w1v571ibeftw93o",
+      "url": "https://www.grantthornton.com/insights",
+      "status": "live",
+      "note": "CLI poll timed out at 600s but generation completed server-side."
     }
   ]
 }
