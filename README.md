@@ -146,6 +146,15 @@ Contract report: [`docs/data/health.json`](docs/data/health.json).
 
 ## Adding a source
 
+The dashboard has an **Add a source** tab: paste a listing-page URL and get a verdict in a
+couple of seconds, backed by `api/check-source.mjs` running on Vercel. Building a collector
+takes several minutes, so that stays a terminal command; deciding whether a source *qualifies*
+is instant, and no credits are spent on a target that was never going to pass.
+
+To enable it on a deployment, set `OPENAI_API_KEY` in the Vercel project environment. Without
+it the endpoint returns a clear "not configured" message rather than failing.
+
+
 Anyone can propose a site. The pipeline decides whether it is eligible before spending a
 credit on generating a scraper:
 
