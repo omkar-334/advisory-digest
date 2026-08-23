@@ -6,11 +6,16 @@ preferences, so they are pinned here rather than left to whoever edits onboard.p
 No network and no API key: the gate is a pure function over a classifier verdict.
 """
 import importlib.util
+import sys
 from pathlib import Path
 
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
+# onboard.py is a script, not a package member: it imports its siblings by bare name the way
+# it does when executed directly, so scripts/ has to be importable here too.
+sys.path.insert(0, str(ROOT / "scripts"))
+
 spec = importlib.util.spec_from_file_location("onboard", ROOT / "scripts" / "onboard.py")
 onboard = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(onboard)
