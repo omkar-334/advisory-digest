@@ -156,17 +156,60 @@ git commit -am "control: newsroom redesign" && git push
 
 ---
 
-## [2:35 – 2:50] Learning and growth
-**Screen:** Add a source tab. Paste a `.gov` URL, click Check it, let the refusal appear.
+## [2:35 – 2:50] Add a source, live
+**Screen:** Add a source tab.
 
-> Last thing. Anyone can propose a source, and it gets assessed before a credit is spent.
-> Government sites, logins and paywalls are refused in code — not worked around.
+Paste the **eligible** example first, click *Check it*, wait ~2s for the verdict:
+
+```
+https://www.skadden.com/insights
+```
+
+> Anyone can propose a source. This is a law firm that isn't in the fleet at all — and in
+> two seconds it's identified the publisher, counted the articles, and written the
+> extraction brief itself.
+
+Clear the field, paste the **refusal** example, click *Check it*:
+
+```
+https://eprocure.gov.in/cppp/latestactivetendersnew/cpppdata
+```
+
+> And this one is refused. Government site — barred by the rules, and rejected on the
+> domain itself, not just on what the model thinks.
 >
 > The distinction I ended up caring most about: being blocked as a bot is a transport
 > problem, and Bright Data solves it. Being behind a login is a permission boundary, and
 > that's where we stop.
 
 **Screen:** back to the matrix. Hold for two seconds.
+
+---
+
+## About the Add a source demo
+
+**Use these two URLs. Do not delete an existing collector to re-add it live.**
+
+Building a collector takes **4 to 20 minutes** — two of ours blew a 600-second timeout
+during the build. That is dead air you cannot edit around in a three-minute video, and if
+the rebuild fails on camera you have destroyed a working source for nothing.
+
+What is genuinely live is the **eligibility check**, which returns in about two seconds.
+That is the part worth filming.
+
+| URL | Expected | Why this one |
+|---|---|---|
+| `https://www.skadden.com/insights` | **Eligible** | A law firm, not in the fleet, so nothing is at risk. Already verified: publisher identified as Skadden, ~10 articles, confidence 0.9, extraction brief auto-written |
+| `https://eprocure.gov.in/cppp/latestactivetendersnew/cpppdata` | **Not eligible** | Instant, unambiguous, and demonstrates rule 7 compliance to a judge without any explaining |
+
+**Requires** `OPENAI_API_KEY` set in the Vercel project environment. Test both URLs on the
+live site before you record — if the key is missing the endpoint returns
+"Source checking is not configured" rather than a verdict.
+
+**If you really want to show a build on camera**, use Crowe (`c_mt5vx74mzar3afcrv`): it
+built cleanly first try, returns 403 to a plain request so the unblocker has a visible job
+to do, and only has 9 articles so the verifying run is quick. Record it separately and cut
+it in at 4× speed. Never do it in the live take.
 
 ---
 
