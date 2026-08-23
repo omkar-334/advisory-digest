@@ -12,6 +12,14 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+
+# docs/control/insights.html is a fixture we wrote to prove self-healing. Its "articles" are
+# invented. They must never reach the published dataset: they would be read as real advisory
+# content, and they inflate every cross-firm count with our own text. Excluded here, at the
+# single point where data becomes public, rather than in each consumer -- the first two
+# attempts fixed signals.py and brief.py and still shipped the fixture to the relevance
+# filter. The control page's contract status is unaffected: that comes from health.json.
+SYNTHETIC_FIRMS = {"advisory-digest.vercel.app"}
 VALIDATE = ROOT / "results" / "validate"
 DOCS = ROOT / "docs" / "data"
 
@@ -63,6 +71,15 @@ def main() -> int:
                 continue
             if isinstance(row, dict):
                 rows.append(row)
+
+    # The control page is a fixture we wrote to prove self-healing; its articles are
+    # invented. Excluded here, at the single point where data becomes public, rather than
+    # in each consumer: the first attempt filtered signals.py and brief.py and still served
+    # the fixture through the relevance filter. Its contract status is unaffected -- that
+    # comes from health.json, not from here.
+    before = len(rows)
+    rows = [r for r in rows if (r.get("_firm") or "").strip() not in SYNTHETIC_FIRMS]
+    fixture_rows = before - len(rows)
 
     rows = [{k: v for k, v in r.items() if k.lower() not in FORBIDDEN_FIELDS} for r in rows]
 
@@ -119,7 +136,7 @@ def main() -> int:
                 heals_path.write_text(json.dumps(heals, indent=1), encoding="utf-8")
             event_path.unlink()
 
-    print(f"published {len(rows)} rows ({dropped} duplicates dropped), "
+    print(f"published {len(rows)} rows ({dropped} duplicates dropped, {fixture_rows} fixture rows excluded), "
           f"{summary.get('healthy_sources')}/{summary.get('sources')} sources healthy")
     return 0
 

@@ -94,3 +94,18 @@ def test_a_corrupt_heals_file_does_not_erase_the_repair_log(tmp_path):
     assert rc == 0
     # The run still succeeds; the point is it does not crash or silently reset the log.
     assert len(out) == 1
+
+
+def test_the_control_page_never_reaches_the_published_dataset(tmp_path):
+    """The fixture we break on purpose must not be served as advisory content.
+
+    It leaked once already: excluded from signals and briefs but not from latest.json, so
+    the relevance filter recommended articles we had written ourselves.
+    """
+    rows = [article(0), article(1, _firm="advisory-digest.vercel.app",
+                                article_url="https://advisory-digest.vercel.app/control/1")]
+    rc, out, _ = run_publish(tmp_path, rows, SUMMARY)
+    assert rc == 0
+    firms = {r.get("_firm") for r in out}
+    assert "advisory-digest.vercel.app" not in firms
+    assert len(out) == 1
