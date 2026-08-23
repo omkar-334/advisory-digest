@@ -25,9 +25,14 @@ newsroom:
 That is the justification for the fleet. Without it, twelve collectors are just twelve
 scrapers feeding a list.
 
-`scripts/signals.py` computes this from titles, summaries and tags already collected. No
-model call, no external service: a topic qualifies only when at least two independent firms
-cover it, and topics are ranked by breadth of recent independent coverage.
+`scripts/classify_topics.py` builds a canonical taxonomy from the corpus and assigns each
+article one to three labels from it; `scripts/signals.py` then ranks topics by how many
+independent firms cover them. A topic qualifies only when at least two distinct firms do.
+
+The first version of this matched topics with a hand-written dictionary of regexes. That is
+the same maintenance burden this project argues against, so it was replaced by a classifier.
+The patterns survive as an offline fallback, so a fork with no API key still produces a
+working site.
 
 ## Who it is for
 
@@ -138,6 +143,35 @@ commit, and the push triggers CI to detect the break and repair it with no human
 
 Full published dataset: [`docs/data/latest.json`](docs/data/latest.json).
 Contract report: [`docs/data/health.json`](docs/data/health.json).
+
+## Adding a source
+
+Anyone can propose a site. The pipeline decides whether it is eligible before spending a
+credit on generating a scraper:
+
+```bash
+./scripts/onboard.py https://www.example-firm.com/insights --dry-run   # classify only
+./scripts/onboard.py https://www.example-firm.com/insights             # build and register
+```
+
+```
+fetch -> classify (LLM) -> gate -> create collector -> run -> validate -> register
+```
+
+Three rejections are absolute, and are enforced in code rather than left to judgement:
+
+| Rejected | Why |
+|---|---|
+| government sites | barred by rule 7, and Scraper Studio returns `Domain not allowed` |
+| login walls | barred by rule 6. Nothing here attempts to authenticate |
+| paywalls | barred by rule 6 |
+
+A **403 is not a rejection**. `crowe.com` and `marcumllp.com` both refuse a plain request and
+both work through Bright Data's unblocking layer, which is the reason to route through it.
+Pre-judging a target with `curl` would have thrown away two working sources.
+
+Adding a firm is one command plus one line in `scripts/collectors.json`. No new parser, no
+new selectors, which is the whole difference from maintaining a file per firm.
 
 ## Running it
 

@@ -51,11 +51,23 @@ jobs:
       - name: Publish to the site
         run: python3 scripts/publish.py
 
+      # Topic classification needs an API key. Without one, signals.py falls back to
+      # patterns rather than failing the run, so a fork still produces a working site.
+      - name: Classify topics
+        if: env.OPENAI_API_KEY != ''
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python3 scripts/classify_topics.py
+        continue-on-error: true
+
+      - name: Compute cross-firm signals
+        run: python3 scripts/signals.py
+
       - name: Commit refreshed data
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/data results/validate/summary-latest.json
+          git add docs/data results/validate/summary-latest.json scripts/collectors.json
           git diff --staged --quiet || git commit -m "data: scheduled refresh $(date -u +%FT%TZ)"
           git push
 

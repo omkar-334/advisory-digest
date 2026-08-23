@@ -1,0 +1,27 @@
+{
+  "url": "https://eprocure.gov.in/cppp/latestactivetendersnew/cpppdata",
+  "http_status": 200,
+  "verdict": {
+    "is_listing_page": true,
+    "publisher": "Government of India",
+    "content_type": "tenders",
+    "requires_login": false,
+    "has_paywall": false,
+    "is_government": true,
+    "personal_data_risk": "none",
+    "article_count_estimate": 100,
+    "available_fields": [
+      "title",
+      "summary",
+      "published_date",
+      "article_url",
+      "tags"
+    ],
+    "suggested_description": "Extract the title, summary, published_date (in ISO 8601 format), absolute article_url, and tags from each tender listing on this page. Do not include author names or any personal data.",
+    "confidence": 0.95,
+    "reason": "The page lists multiple active tenders with relevant information, fitting the criteria for a listing page without login or paywall."
+  },
+  "blocked": [
+    "government site: barred by the hackathon rules, and Scraper Studio rejects these domains with 'Domain not allowed'"
+  ]
+}

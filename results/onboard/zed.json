@@ -1,0 +1,25 @@
+{
+  "url": "https://zed.dev/releases/stable/1.16.1",
+  "http_status": 200,
+  "verdict": {
+    "is_listing_page": true,
+    "publisher": "Zed",
+    "content_type": "release notes",
+    "requires_login": false,
+    "has_paywall": false,
+    "is_government": false,
+    "personal_data_risk": "none",
+    "article_count_estimate": 10,
+    "available_fields": [
+      "title",
+      "summary",
+      "published_date",
+      "article_url",
+      "tags"
+    ],
+    "suggested_description": "Extract the title, summary, published_date (in ISO 8601 format), absolute article_url, and tags from each release note entry on this page. Do not include author names or any personal data.",
+    "confidence": 0.9,
+    "reason": "The page lists multiple release notes with distinct titles and links, fitting the criteria for a listing page."
+  },
+  "blocked": []
+}

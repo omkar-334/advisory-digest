@@ -30,16 +30,30 @@ if [ ! -s "$OUT/fleet-$STAMP.list" ]; then
   exit 1
 fi
 
-PARTS=()
+# Run collectors concurrently. Running a collector does not consume an AI-Flow generation
+# slot, so this is not bound by the 3-job cap that applies to `scraper create` and `heal`.
+# Sequential runs of a 13-collector fleet took roughly 40 minutes, which is too slow for CI.
+CONCURRENCY="${FLEET_CONCURRENCY:-4}"
+running=0
 while read -r cid url; do
   [ -z "$cid" ] && continue
   echo "$url" >> "$EXPECTED"
   part="$OUT/part-$STAMP-$cid.json"
   echo "[$STAMP] $cid -> $url" | tee -a "$OUT/run.log"
-  ./node_modules/.bin/bdata scraper run "$cid" "$url" \
-    --timeout 900 --json --pretty -o "$part" >>"$OUT/run.log" 2>&1
-  [ -s "$part" ] && PARTS+=("$part") || echo "  no output for $cid" | tee -a "$OUT/run.log"
+  (
+    ./node_modules/.bin/bdata scraper run "$cid" "$url" \
+      --timeout 900 --json --pretty -o "$part" >>"$OUT/run.log" 2>&1
+    [ -s "$part" ] || echo "  no output for $cid" >> "$OUT/run.log"
+  ) &
+  running=$(( running + 1 ))
+  if [ "$running" -ge "$CONCURRENCY" ]; then wait -n 2>/dev/null || wait; running=$(( running - 1 )); fi
 done < "$OUT/fleet-$STAMP.list"
+wait
+
+PARTS=()
+for part in "$OUT"/part-"$STAMP"-*.json; do
+  [ -s "$part" ] && PARTS+=("$part")
+done
 
 # Merge every collector's envelopes into one payload so the contract sees the whole fleet.
 python3 - "$COMBINED" "${PARTS[@]}" <<'PY'

@@ -1,0 +1,25 @@
+{
+  "url": "https://www.skadden.com/insights",
+  "http_status": 200,
+  "verdict": {
+    "is_listing_page": true,
+    "publisher": "Skadden, Arps, Slate, Meagher & Flom LLP and Affiliates",
+    "content_type": "professional articles",
+    "requires_login": false,
+    "has_paywall": false,
+    "is_government": false,
+    "personal_data_risk": "none",
+    "article_count_estimate": 10,
+    "available_fields": [
+      "title",
+      "summary",
+      "published_date",
+      "article_url",
+      "tags"
+    ],
+    "suggested_description": "Extract the title, summary, published_date in ISO 8601 format, absolute article_url, and tags from each article card on this page. Do not include author names or any personal data.",
+    "confidence": 0.9,
+    "reason": "The page contains multiple articles with distinct titles and summaries, indicating it is a listing page. There is no login or paywall, and the content is professional in nature without personal data."
+  },
+  "blocked": []
+}

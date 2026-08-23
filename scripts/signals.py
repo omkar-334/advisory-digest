@@ -27,9 +27,10 @@ DOCS = ROOT / "docs" / "data"
 RECENT_DAYS = 30
 MIN_FIRMS = 2
 
-# Subjects worth tracking, with the surface forms firms actually use for them. Kept
-# explicit rather than inferred: a wrong cluster is worse than a missing one here.
-TOPICS = {
+# Fallback only. scripts/classify_topics.py produces docs/data/topics.json with LLM-assigned
+# labels, which is what this uses when present. These patterns exist so the pipeline still
+# produces signals with no API key and no network, e.g. in CI on a fork.
+FALLBACK_TOPICS = {
     "Section 174 / R&D capitalisation": r"section\s*174|r&d\s*(capitali|expens|credit)|research\s+and\s+experimental",
     "Tariffs and trade": r"\btariff|trade\s+polic|customs\s+dut|import\s+dut",
     "Revenue recognition (ASC 606)": r"asc\s*606|revenue\s+recognition",
@@ -78,17 +79,42 @@ def main() -> int:
     now = max(dates) if dates else datetime.now(timezone.utc)
     cutoff = now - timedelta(days=RECENT_DAYS)
 
-    signals = []
-    for topic, pattern in TOPICS.items():
-        rx = re.compile(pattern, re.I)
-        by_firm = defaultdict(list)
+    # Prefer LLM-assigned topics; fall back to patterns when they are not available.
+    topics_path = DOCS / "topics.json"
+    assigned, source = {}, "regex-fallback"
+    if topics_path.exists():
+        try:
+            payload = json.loads(topics_path.read_text())
+            assigned = payload.get("assignments") or {}
+            if assigned:
+                source = f"llm:{payload.get('model', 'unknown')}"
+        except (OSError, json.JSONDecodeError):
+            pass
+
+    if assigned:
+        buckets = defaultdict(lambda: defaultdict(list))
         for r in rows:
-            haystack = " ".join([
-                r.get("title") or "", r.get("summary") or "",
-                " ".join(r.get("tags") or []),
-            ])
-            if rx.search(haystack):
-                by_firm[r.get("_firm", "unknown")].append(r)
+            key = r.get("article_url") or r.get("title")
+            for topic in assigned.get(key, []):
+                buckets[topic][r.get("_firm", "unknown")].append(r)
+        topic_iter = list(buckets.items())
+    else:
+        topic_iter = []
+        for topic, pattern in FALLBACK_TOPICS.items():
+            rx = re.compile(pattern, re.I)
+            by_firm = defaultdict(list)
+            for r in rows:
+                haystack = " ".join([
+                    r.get("title") or "", r.get("summary") or "",
+                    " ".join(r.get("tags") or []),
+                ])
+                if rx.search(haystack):
+                    by_firm[r.get("_firm", "unknown")].append(r)
+            if by_firm:
+                topic_iter.append((topic, by_firm))
+
+    signals = []
+    for topic, by_firm in topic_iter:
 
         if len(by_firm) < MIN_FIRMS:
             continue
@@ -119,6 +145,7 @@ def main() -> int:
                  reverse=True)
 
     out = {
+        "topic_source": source,
         "generated_from": len(rows),
         "window_days": RECENT_DAYS,
         "as_of": now.date().isoformat(),
