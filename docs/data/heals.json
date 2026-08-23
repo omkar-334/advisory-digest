@@ -4,7 +4,7 @@
   "firm": "advisory-digest.vercel.app",
   "collector": "c_mt5tj2ej2p93igloht",
   "kind": "verification",
-  "resolved": true,
+  "outcome": "repaired",
   "trigger": "Markup changed deliberately: CSS classes renamed and the headline nested one level deeper.",
   "diagnosis": "The page layout has changed and the scraper now returns no articles at all. The class names and element nesting it matched on no longer exist.",
   "metrics": [
@@ -16,11 +16,28 @@
   ]
  },
  {
+  "stamp": "20260823T134500Z",
+  "firm": "bdo.com",
+  "collector": "c_mt5tervz3swmvphrq",
+  "kind": "production",
+  "outcome": "no_change_needed",
+  "trigger": "Contract reported published_date at 47%. Investigated after the heal returned status: done with nothing altered.",
+  "diagnosis": "The scraper was not broken. BDO's listing mixes dated articles with evergreen podcast hubs, an eBook summary and an assessment tool, none of which carry a publication date. The contract assumed every listed item is a dated article.",
+  "resolution": "Contract corrected instead: partial date coverage is content, coverage below 25% is a break. Pinned by tests.",
+  "metrics": [
+   {
+    "label": "published_date populated",
+    "before": "47%",
+    "after": "47%"
+   }
+  ]
+ },
+ {
   "stamp": "20260823T143500Z",
   "firm": "bakertilly.com",
   "collector": "c_mt5vy4lr2psac64sae",
   "kind": "production",
-  "resolved": true,
+  "outcome": "repaired",
   "trigger": "Found by the contract on a routine run. Not staged.",
   "diagnosis": "'article_url' was empty on 20 of 20 articles and 'published_date' on 20 of 20. Both selectors had stopped matching the article cards.",
   "metrics": [

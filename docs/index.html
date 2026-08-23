@@ -147,7 +147,21 @@ input:focus{outline:none;border-color:var(--ink)}
 .heal .when{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-3)}
 .heal h4{margin:2px 0 5px;font-size:.95rem;font-weight:600}
 .heal p{margin:0 0 4px;font-size:.86rem;color:var(--ink-2);max-width:74ch}
+.heal{border-left:2px solid var(--verified)}
+.heal.warn{border-left-color:var(--unread)}
+.heal.bad{border-left-color:var(--exception)}
 .heal .trigger{font-size:.82rem;color:var(--ink-3);font-style:italic;margin:0 0 5px}
+.heal .resolution{font-size:.85rem;color:var(--ink);margin:6px 0 0;
+  border-left:2px solid var(--rule-2);padding-left:11px}
+.heal .unmoved{font-size:.78rem;color:var(--ink-3);margin:7px 0 0;
+  font-family:'IBM Plex Mono',monospace}
+.cadence{border:1px solid var(--rule-2);background:var(--card);padding:13px 16px;
+  margin:18px 0 0;font-size:.86rem;color:var(--ink-2);max-width:none}
+.cadence b{color:var(--ink)}
+.cadence .next{display:block;margin-top:5px;font-family:'IBM Plex Mono',monospace;
+  font-size:.76rem;color:var(--ink-3)}
+.eyebrow span{font-family:'IBM Plex Mono',monospace;text-transform:none;letter-spacing:0;
+  color:var(--ink-3)}
 .delta-tbl{border-collapse:collapse;margin-top:9px;font-family:'IBM Plex Mono',monospace;
   font-size:.78rem}
 .delta-tbl td{padding:2px 12px 2px 0;vertical-align:baseline}
@@ -262,9 +276,10 @@ footer b{color:var(--ink-2)}
       nothing downstream changes. <strong>A failed run is not a break</strong> and is never
       sent for repair.
     </p>
+    <div class="cadence" id="cadence"></div>
     <div class="eyebrow">Contract status by source</div>
     <table class="ledger" id="ledger"></table>
-    <div class="eyebrow">Repairs to source scrapers</div>
+    <div class="eyebrow">Repair log <span id="healCount"></span></div>
     <div id="healsProd"></div>
     <div class="eyebrow">Self-healing verification</div>
     <p class="lede" style="margin-top:0">
@@ -335,22 +350,50 @@ const NAMES = {
 const firmName = h => NAMES[h] || (h||'').replace(/^www\./,'').split('.')[0]
   .replace(/\b\w/g,c=>c.toUpperCase());
 
-let ROWS=[], HEALTH=null, HEALS=[], SIGNALS=null, activeFirm=null;
+let ROWS=[], HEALTH=null, HEALS=[], SIGNALS=null, SCHEDULE=null, activeFirm=null;
 
 async function load(){
   const get = async p => { try { const r = await fetch(p,{cache:'no-store'});
     return r.ok ? await r.json() : null; } catch { return null; } };
-  [ROWS, HEALTH, HEALS, SIGNALS] = await Promise.all([
+  [ROWS, HEALTH, HEALS, SIGNALS, SCHEDULE] = await Promise.all([
     get('data/latest.json').then(v=>v||[]),
     get('data/health.json'),
     get('data/heals.json').then(v=>v||[]),
     get('data/signals.json'),
+    get('data/schedule.json'),
   ]);
   render();
 }
 
-function render(){ renderStamp(); renderMatrix(); renderSignals(); renderChips();
-  renderList(); renderLedger(); renderHeals(); }
+function render(){ renderStamp(); renderCadence(); renderMatrix(); renderSignals();
+  renderChips(); renderList(); renderLedger(); renderHeals(); }
+
+/* The loop runs whether or not anyone is watching. Saying when it next runs is the
+   difference between "it healed once in a demo" and "it maintains itself". */
+function renderCadence(){
+  const el = $('#cadence');
+  if(!el) return;
+  const hrs = SCHEDULE?.cadence_hours || 12;
+  const nextRun = () => {
+    const now = new Date();
+    const hours = (SCHEDULE?.cron?.match(/^\S+\s+([\d,]+)/)?.[1] || '3,15')
+      .split(',').map(Number).sort((a,b)=>a-b);
+    for(const h of hours){
+      const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), h));
+      if(d > now) return d;
+    }
+    const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()+1, hours[0]));
+    return d;
+  };
+  const next = nextRun();
+  const mins = Math.max(0, Math.round((next - new Date())/60000));
+  const inWords = mins < 60 ? `${mins} min` : `${Math.floor(mins/60)}h ${mins%60}m`;
+  el.innerHTML =
+    `<b>Checked every ${hrs} hours.</b> Every collector runs against the contract; a break is
+     repaired in place automatically, a failed run is re-run rather than healed.
+     <span class="next">Next check in ${esc(inWords)} &middot;
+     ${esc(next.toISOString().replace('T',' ').slice(0,16))} UTC</span>`;
+}
 
 function renderStamp(){
   const n = ROWS.length, pf = HEALTH?.per_firm || {};
@@ -469,6 +512,12 @@ function renderLedger(){
     }).join('') + '</tbody>';
 }
 
+const OUTCOME = {
+  repaired:         ['ok',  'Repaired'],
+  no_change_needed: ['warn','No repair needed'],
+  failed:           ['bad', 'Repair failed'],
+};
+
 function healCard(h){
   // Show the measurements that moved. Baker Tilly returned the same 20 rows before and
   // after; what the repair actually restored was two fields from 0% to 100%, and a row
@@ -477,24 +526,32 @@ function healCard(h){
     : (h.before_rows!==undefined && h.after_rows!==undefined
         ? [{label:'articles extracted', before:h.before_rows, after:h.after_rows}] : []);
   const moved = metrics.filter(m=>String(m.before)!==String(m.after));
-  const shown = moved.length ? moved : metrics;
-  return `<div class="heal">
-    <div class="when">${esc(h.stamp||'')} &middot; collector <b>${esc(h.collector||'')}</b> unchanged</div>
-    <h4>${esc(firmName(h.firm||'')) || 'Fleet'} repaired in place</h4>
+  const still = metrics.filter(m=>String(m.before)===String(m.after));
+  const outcome = OUTCOME[h.outcome || (h.resolved===false?'failed':'repaired')] || OUTCOME.repaired;
+  const heading = outcome[0]==='ok' ? 'repaired in place'
+                : outcome[0]==='warn' ? 'needed no repair' : 'could not be repaired';
+  return `<div class="heal ${outcome[0]}">
+    <div class="when">${esc(h.stamp||'')} &middot; collector <b>${esc(h.collector||'')}</b> unchanged
+      &middot; <span class="state ${outcome[0]}">${outcome[1]}</span></div>
+    <h4>${esc(firmName(h.firm||'')) || 'Fleet'} ${heading}</h4>
     ${h.trigger?`<p class="trigger">${esc(h.trigger)}</p>`:''}
     <p>${esc(h.diagnosis||'')}</p>
-    ${shown.length?`<table class="delta-tbl">${shown.map(m=>`
+    ${h.resolution?`<p class="resolution">${esc(h.resolution)}</p>`:''}
+    ${moved.length?`<table class="delta-tbl">${moved.map(m=>`
       <tr><td>${esc(m.label)}</td><td class="was">${esc(m.before)}</td>
-      <td class="arrow">→</td><td class="now">${esc(m.after)}</td></tr>`).join('')}
-      ${moved.length && moved.length<metrics.length
-        ? `<tr class="same"><td colspan="4">${metrics.length-moved.length} measurement(s) unchanged</td></tr>`:''}
-    </table>`:''}
+      <td class="arrow">→</td><td class="now">${esc(m.after)}</td></tr>`).join('')}</table>`:''}
+    ${still.length?`<p class="unmoved">${still.map(m=>
+      `${esc(m.label)} unchanged at ${esc(m.after)}`).join(' · ')}</p>`:''}
   </div>`;
 }
 
 function renderHeals(){
   const prod = HEALS.filter(h=>(h.kind||'production')!=='verification');
   const test = HEALS.filter(h=>h.kind==='verification');
+  const cnt = $('#healCount');
+  if(cnt) cnt.textContent = HEALS.length
+    ? `${prod.length} on source scrapers, ${test.length} verification`
+    : '';
   $('#healsProd').innerHTML = prod.length
     ? prod.slice().reverse().map(healCard).join('')
     : '<div class="empty">No source scraper has needed repair yet.</div>';
