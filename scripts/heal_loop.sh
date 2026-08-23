@@ -39,7 +39,12 @@ attempt=1
 while [ "$attempt" -le "$MAX_ATTEMPTS" ]; do
   # Only firms the contract named are repaired, each through its own collector.
   # A firm whose run failed never appears in this list.
-  python3 scripts/broken_sources.py > "$OUT/broken-$STAMP.tsv" 2>>"$LOG"
+  # A crash here writes an empty file, which is indistinguishable from "nothing to heal"
+  # unless the exit status is checked. Reporting success while the fleet is still broken
+  # is the one thing this loop must never do.
+  if ! python3 scripts/broken_sources.py > "$OUT/broken-$STAMP.tsv" 2>>"$LOG"; then
+    log "broken_sources.py failed; cannot tell what is heal-worthy"; exit 2
+  fi
   if [ ! -s "$OUT/broken-$STAMP.tsv" ]; then
     log "nothing heal-worthy remains"; exit 0
   fi
@@ -49,9 +54,12 @@ while [ "$attempt" -le "$MAX_ATTEMPTS" ]; do
     [ -z "$cid" ] && continue
     log "healing $firm ($cid)"
     log "  prompt: $problems"
+    # ${APPROVAL[@]+...} because REVIEW=1 leaves the array empty, and expanding an empty
+    # array under `set -u` is an error on bash before 4.4 (macOS ships 3.2).
+    # </dev/null so the CLI cannot swallow the TSV this loop is reading from stdin.
     ./node_modules/.bin/bdata scraper heal "$cid" "$problems" \
-      --url "$url" "${APPROVAL[@]}" --timeout 900 \
-      --json --pretty -o "$OUT/heal-$STAMP-$firm.json" >>"$LOG" 2>&1
+      --url "$url" ${APPROVAL[@]+"${APPROVAL[@]}"} --timeout 900 \
+      --json --pretty -o "$OUT/heal-$STAMP-$firm.json" </dev/null >>"$LOG" 2>&1
     log "  heal exit=$?. A 'done' status is not proof of repair; the re-run below decides."
     if [ "$REVIEW" = "1" ]; then
       log "  awaiting review: bdata scraper approve $cid   (or --reject)"
@@ -74,6 +82,11 @@ while [ "$attempt" -le "$MAX_ATTEMPTS" ]; do
   fi
   if [ "$RC" -eq 1 ]; then
     log "runs failing; stopping rather than healing blind"; exit 1
+  fi
+  if [ "$RC" -ne 2 ]; then
+    # Same rule as the first run: only a 2 means "a real break", so any other code must not
+    # send us round the loop to heal again off a summary that may be stale.
+    log "unexpected exit $RC"; exit 1
   fi
   attempt=$(( attempt + 1 ))
 done

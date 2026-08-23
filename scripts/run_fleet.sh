@@ -49,13 +49,20 @@ while read -r cid url; do
   echo "[$STAMP] $cid -> $url" | tee -a "$OUT/run.log"
   (
     ./node_modules/.bin/bdata scraper run "$cid" "$url" \
-      --timeout 900 --json --pretty -o "$part" >>"$OUT/run.log" 2>&1
+      --timeout 900 --json --pretty -o "$part" </dev/null >>"$OUT/run.log" 2>&1
     [ -s "$part" ] || echo "  no output for $cid" >> "$OUT/run.log"
   ) &
   running=$(( running + 1 ))
   if [ "$running" -ge "$CONCURRENCY" ]; then
-    wait -n 2>/dev/null || wait
-    running=$(( running - 1 ))
+    if wait -n 2>/dev/null; then
+      running=$(( running - 1 ))
+    else
+      # bash before 4.3 has no `wait -n` at all (macOS ships 3.2), and on a shell that does
+      # have it a reaped job that exited non-zero lands here too. Either way the fallback is
+      # to drain every job, so the counter has to be reset rather than decremented by one.
+      wait
+      running=0
+    fi
   fi
 done < "$LIST"
 wait

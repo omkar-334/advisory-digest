@@ -131,7 +131,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: run-logs-${{ github.run_number }}
+          name: run-logs-${{ github.run_number }}-${{ github.run_attempt }}
           path: |
             results/heal_loop/
             results/run_fleet/run.log
