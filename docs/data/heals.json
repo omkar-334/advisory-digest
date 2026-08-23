@@ -2,19 +2,43 @@
  {
   "stamp": "20260823T133000Z",
   "firm": "advisory-digest.vercel.app",
-  "diagnosis": "The page layout of advisory-digest.vercel.app has changed and the scraper now returns no articles at all. The class names and element nesting it matched on no longer exist.",
   "collector": "c_mt5tj2ej2p93igloht",
+  "kind": "verification",
   "resolved": true,
-  "before_rows": 0,
-  "after_rows": 6
+  "trigger": "Markup changed deliberately: CSS classes renamed and the headline nested one level deeper.",
+  "diagnosis": "The page layout has changed and the scraper now returns no articles at all. The class names and element nesting it matched on no longer exist.",
+  "metrics": [
+   {
+    "label": "articles extracted",
+    "before": "0",
+    "after": "6"
+   }
+  ]
  },
  {
   "stamp": "20260823T143500Z",
   "firm": "bakertilly.com",
-  "diagnosis": "On bakertilly.com, 'article_url' was empty on 20 of 20 articles (0% populated) and 'published_date' on 20 of 20. Both selectors had stopped matching the article cards.",
   "collector": "c_mt5vy4lr2psac64sae",
+  "kind": "production",
   "resolved": true,
-  "before_rows": 20,
-  "after_rows": 20
+  "trigger": "Found by the contract on a routine run. Not staged.",
+  "diagnosis": "'article_url' was empty on 20 of 20 articles and 'published_date' on 20 of 20. Both selectors had stopped matching the article cards.",
+  "metrics": [
+   {
+    "label": "article_url populated",
+    "before": "0%",
+    "after": "100%"
+   },
+   {
+    "label": "published_date populated",
+    "before": "0%",
+    "after": "100%"
+   },
+   {
+    "label": "articles extracted",
+    "before": "20",
+    "after": "20"
+   }
+  ]
  }
 ]

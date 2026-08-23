@@ -147,8 +147,17 @@ input:focus{outline:none;border-color:var(--ink)}
 .heal .when{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-3)}
 .heal h4{margin:2px 0 5px;font-size:.95rem;font-weight:600}
 .heal p{margin:0 0 4px;font-size:.86rem;color:var(--ink-2);max-width:74ch}
-.heal .delta{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--verified);
-  font-weight:600}
+.heal .trigger{font-size:.82rem;color:var(--ink-3);font-style:italic;margin:0 0 5px}
+.delta-tbl{border-collapse:collapse;margin-top:9px;font-family:'IBM Plex Mono',monospace;
+  font-size:.78rem}
+.delta-tbl td{padding:2px 12px 2px 0;vertical-align:baseline}
+.delta-tbl td:first-child{color:var(--ink-3);font-family:'IBM Plex Sans',sans-serif;
+  font-size:.82rem;padding-right:18px}
+.delta-tbl .was{color:var(--exception);text-decoration:line-through}
+.delta-tbl .arrow{color:var(--ink-3);padding:0 4px 0 0}
+.delta-tbl .now{color:var(--verified);font-weight:600}
+.delta-tbl .same td{color:var(--ink-3);font-size:.74rem;padding-top:5px;
+  font-family:'IBM Plex Sans',sans-serif;font-style:italic}
 
 /* ── add source ── */
 .form{border:1px solid var(--rule-2);background:var(--card);padding:22px;max-width:760px}
@@ -200,6 +209,7 @@ footer b{color:var(--ink-2)}
     </div>
     <nav role="tablist">
       <button class="tab" role="tab" aria-selected="true"  data-view="consensus">Consensus</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="signals">Top signals</button>
       <button class="tab" role="tab" aria-selected="false" data-view="feed">Articles</button>
       <button class="tab" role="tab" aria-selected="false" data-view="health">Pipeline</button>
       <button class="tab" role="tab" aria-selected="false" data-view="add">Add a source</button>
@@ -225,7 +235,14 @@ footer b{color:var(--ink-2)}
       <span id="matrixNote"></span>
     </div>
 
-    <div class="eyebrow">What they said</div>
+  </section>
+
+  <section id="signals" hidden>
+    <p class="lede">
+      Subjects ranked by how many firms covered them <strong>independently</strong>, most
+      agreement first, with what each firm actually published.
+    </p>
+    <div class="eyebrow">Ranked by independent coverage</div>
     <div id="sigList"></div>
   </section>
 
@@ -247,8 +264,14 @@ footer b{color:var(--ink-2)}
     </p>
     <div class="eyebrow">Contract status by source</div>
     <table class="ledger" id="ledger"></table>
-    <div class="eyebrow">Repair log</div>
-    <div id="heals"></div>
+    <div class="eyebrow">Repairs to source scrapers</div>
+    <div id="healsProd"></div>
+    <div class="eyebrow">Self-healing verification</div>
+    <p class="lede" style="margin-top:0">
+      A page in this repository, broken on purpose, so the loop can be shown repairing a
+      real markup change rather than a staged schema extension.
+    </p>
+    <div id="healsTest"></div>
   </section>
 
   <section id="add" hidden>
@@ -372,7 +395,7 @@ function renderMatrix(){
 }
 
 function renderSignals(){
-  const sigs = (SIGNALS?.signals || []).slice(0, 8);
+  const sigs = (SIGNALS?.signals || []);
   if(!sigs.length){ $('#sigList').innerHTML = '<div class="empty">Nothing yet.</div>'; return; }
   const totalFirms = new Set(ROWS.map(r=>r._firm)).size || 1;
   $('#sigList').innerHTML = sigs.map(s=>`
@@ -446,18 +469,38 @@ function renderLedger(){
     }).join('') + '</tbody>';
 }
 
+function healCard(h){
+  // Show the measurements that moved. Baker Tilly returned the same 20 rows before and
+  // after; what the repair actually restored was two fields from 0% to 100%, and a row
+  // count alone made a successful repair look like a no-op.
+  const metrics = h.metrics && h.metrics.length ? h.metrics
+    : (h.before_rows!==undefined && h.after_rows!==undefined
+        ? [{label:'articles extracted', before:h.before_rows, after:h.after_rows}] : []);
+  const moved = metrics.filter(m=>String(m.before)!==String(m.after));
+  const shown = moved.length ? moved : metrics;
+  return `<div class="heal">
+    <div class="when">${esc(h.stamp||'')} &middot; collector <b>${esc(h.collector||'')}</b> unchanged</div>
+    <h4>${esc(firmName(h.firm||'')) || 'Fleet'} repaired in place</h4>
+    ${h.trigger?`<p class="trigger">${esc(h.trigger)}</p>`:''}
+    <p>${esc(h.diagnosis||'')}</p>
+    ${shown.length?`<table class="delta-tbl">${shown.map(m=>`
+      <tr><td>${esc(m.label)}</td><td class="was">${esc(m.before)}</td>
+      <td class="arrow">→</td><td class="now">${esc(m.after)}</td></tr>`).join('')}
+      ${moved.length && moved.length<metrics.length
+        ? `<tr class="same"><td colspan="4">${metrics.length-moved.length} measurement(s) unchanged</td></tr>`:''}
+    </table>`:''}
+  </div>`;
+}
+
 function renderHeals(){
-  if(!HEALS.length){ $('#heals').innerHTML =
-    '<div class="empty">No repairs yet. When the contract breaks, the fix is recorded here.</div>';
-    return; }
-  $('#heals').innerHTML = HEALS.slice().reverse().map(h=>`
-    <div class="heal">
-      <div class="when">${esc(h.stamp||'')} &middot; collector ${esc(h.collector||'')} unchanged</div>
-      <h4>${esc(firmName(h.firm||'')) || 'Fleet'} repaired in place</h4>
-      <p>${esc(h.diagnosis||'')}</p>
-      ${(h.before_rows!==undefined&&h.after_rows!==undefined)
-        ? `<div class="delta">${h.before_rows} → ${h.after_rows} articles</div>`:''}
-    </div>`).join('');
+  const prod = HEALS.filter(h=>(h.kind||'production')!=='verification');
+  const test = HEALS.filter(h=>h.kind==='verification');
+  $('#healsProd').innerHTML = prod.length
+    ? prod.slice().reverse().map(healCard).join('')
+    : '<div class="empty">No source scraper has needed repair yet.</div>';
+  $('#healsTest').innerHTML = test.length
+    ? test.slice().reverse().map(healCard).join('')
+    : '<div class="empty">No verification run recorded.</div>';
 }
 
 /* ── add a source ── */
@@ -508,7 +551,7 @@ document.addEventListener('click', e=>{
   const tab = e.target.closest('.tab');
   if(tab){
     document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected', t===tab));
-    ['consensus','feed','health','add'].forEach(v=>
+    ['consensus','signals','feed','health','add'].forEach(v=>
       $('#'+v).hidden = tab.dataset.view!==v);
   }
   const chip = e.target.closest('.chip[data-firm]');

@@ -74,6 +74,12 @@ def main() -> int:
     event_path = ROOT / "results" / "heal_loop" / "last-event.json"
     if event_path.exists():
         event = json.loads(event_path.read_text())
+        # The control page is ours, broken on purpose to prove the loop runs unattended.
+        # It is recorded as a verification rather than mixed in with real source repairs.
+        event.setdefault(
+            "kind",
+            "verification" if "advisory-digest" in (event.get("firm") or "") else "production",
+        )
         if not any(h.get("stamp") == event.get("stamp") for h in heals):
             heals.append(event)
             heals_path.write_text(json.dumps(heals, indent=1))
