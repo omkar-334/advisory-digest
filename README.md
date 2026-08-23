@@ -225,6 +225,11 @@ CI runs it daily and on any change to the control page
 and `OPENAI_API_KEY` as repository secrets; without the latter, topic classification falls
 back to patterns rather than failing the run.
 
+## API reference
+
+Endpoints, published data shapes, exit codes and environment variables:
+**[API.md](API.md)**.
+
 ## Repository layout
 
 | Path | What it is |
