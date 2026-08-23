@@ -44,13 +44,31 @@ Scraper Studio generates extraction code against a specific site. A collector bu
 returns nothing for BDO or Crowe, and `heal` will not bridge that gap: it repairs a collector
 against **its own** target when that target changes.
 
-We established this the expensive way. An early heal was asked to generalise the RSM collector
-across eleven unseen layouts; it ran for forty minutes and returned `status: error`. The
-collector was left untouched, which is worth knowing on its own: heal is non-destructive.
+We established this the expensive way. An early attempt fed twelve firm URLs to a single
+collector built against RSM; eleven returned nothing. Healing it to "cover all of them" ran
+for forty minutes and returned `status: error`. The collector was left untouched, which is
+worth knowing on its own: heal is non-destructive.
 
 So the fleet is one collector per newsroom layout, registered in `scripts/collectors.json`.
 What is shared across the fleet is the contract and the repair loop, which is where the
-leverage actually is.
+leverage actually is: adding a firm means adding one collector, not another bespoke parser
+with its own selectors to maintain.
+
+## Proven self-healing run
+
+A real markup change on a page we control, repaired without a human writing the fix:
+
+| Stage | Result |
+|---|---|
+| Collector `c_mt5tj2ej2p93igloht` against v1 markup | 6 articles |
+| Redesign pushed: classes renamed, headline nested one level deeper | site serving v2 |
+| Same collector against v2 | **0 articles** |
+| `scripts/validate.py` | exit 2, `0/1 sources healthy` |
+| Heal prompt | generated from the contract's own diagnosis |
+| `bdata scraper heal --auto-approve` | `status: done` |
+| Same collector, same URL, after the repair | **6 articles** |
+
+The Collector ID never changed, so nothing downstream was touched.
 
 Two of the twelve targets (`crowe.com`, `marcumllp.com`) return HTTP 403 to a plain request,
 so the unblocking layer is doing real work rather than decorating the pitch. And Bright Data
