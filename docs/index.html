@@ -105,6 +105,11 @@ input[type=search]:focus{outline:none;border-color:var(--accent)}
 footer{border-top:1px solid var(--line);margin-top:48px;padding:22px 0 40px;
   color:var(--ink-3);font-size:.78rem}
 footer a{color:var(--ink-2)}
+.policy{margin-top:6px;max-width:78ch}
+.policy summary{cursor:pointer;color:var(--ink-2);font-weight:500}
+.policy summary:hover{color:var(--ink)}
+.policy p{margin:.6rem 0 0;line-height:1.6}
+.policy strong{color:var(--ink-2)}
 [hidden]{display:none !important}
 @media(max-width:640px){.stats{gap:20px}.wrap{padding:0 16px}}
 </style>
@@ -155,9 +160,26 @@ footer a{color:var(--ink-2)}
 </main>
 
 <footer class="wrap">
-  Built with <a href="https://brightdata.com">Bright Data Scraper Studio</a> for the
-  Into the Scrape-Verse hackathon. Public pages only, no personal data collected.
-  <span id="built"></span>
+  <p style="margin:0 0 10px">
+    Built with <a href="https://brightdata.com">Bright Data Scraper Studio</a> for the
+    Into the Scrape-Verse hackathon.<span id="built"></span>
+  </p>
+  <details class="policy">
+    <summary>Scraping policy</summary>
+    <p>
+      Public article listing pages only. Government sites, login-walled content and
+      paywalled content are <strong>refused in code</strong>, not worked around: nothing
+      here attempts to authenticate, bypass a login, or reuse a session cookie. Pages
+      about private individuals are out of scope, and author bylines are dropped at
+      extraction time.
+    </p>
+    <p>
+      A site returning <strong>HTTP 403 to a plain request is not refused</strong>. Several
+      legitimate sources block naive clients and work correctly through Bright Data's
+      unblocking layer. Being blocked as a bot is a transport problem; being behind a login
+      is a permission boundary, and we stop at the boundary.
+    </p>
+  </details>
 </footer>
 
 <script>

@@ -183,12 +183,35 @@ cp .env.example .env          # add your Bright Data API key
 uv run --with pytest pytest tests/
 ```
 
-## Data ethics
+## Scraping policy
 
-Public listing pages only. No login, no paywall, no government sites (barred by rule 7 and
-blocked by Scraper Studio). Author bylines are excluded at extraction time, the contract fails
-the run if they ever appear, and `scripts/publish.py` strips them again before anything reaches
-the published site.
+What this project will and will not collect. These are commitments enforced in code and
+pinned by tests in `tests/test_onboard_gate.py`, not preferences.
+
+**Refused outright, by `scripts/onboard.py`:**
+
+| Refused | Why |
+|---|---|
+| Government websites | Barred by hackathon rule 7. Scraper Studio also returns `Domain not allowed` for them. Rejected on the host suffix (`.gov`, `.gov.in`, `.gov.uk`, `.mil`, ...) as well as on the classifier's judgement, because a language model can be wrong and the rule does not depend on its opinion |
+| Login-walled content | Barred by rule 6. **Nothing in this project attempts to authenticate, bypass a login, or reuse a session cookie.** A source behind a login is refused, not worked around |
+| Paywalled content | Barred by rule 6 |
+| Pages about private individuals | Out of scope regardless of the rules |
+| Anything that is not an article listing | A single article or a homepage is not a source |
+
+**An HTTP 403 is explicitly NOT a rejection.**
+
+`crowe.com` and `marcumllp.com` both refuse a plain request and both work correctly through
+Bright Data's unblocking layer, which is the reason to route through an unblocker in the
+first place. Rejecting a candidate on status code would have silently discarded two working
+sources. `gate()` therefore never sees the HTTP status, and a test asserts it never will.
+
+The distinction matters and is easy to blur: **being blocked as a bot is a transport
+problem that Bright Data solves. Being behind a login is a permission boundary, and we
+stop there.**
+
+**On the data itself:** public listing pages only. Author bylines are excluded at extraction
+time, the contract fails the run if one ever appears, and `scripts/publish.py` strips them
+again before anything reaches the published site.
 
 ## Layout
 
