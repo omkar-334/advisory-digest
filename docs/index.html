@@ -4,180 +4,293 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Advisory Digest</title>
+<meta name="description" content="What the accounting profession is reacting to, read across twelve firm newsrooms.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
+/* ── Greenbar ──────────────────────────────────────────────────────────────
+   Named for the striped continuous-form paper accounting ledgers ran on.
+   Paper ground, ledger stripe, ink text, oxblood for exceptions.
+   Three states are load-bearing here and the palette encodes all three:
+   verified / exception / unread — passing, broken, and could-not-run.       */
 :root{
-  --bg:#0b0d11; --panel:#12151c; --panel-2:#171b24; --line:#232937;
-  --ink:#e8ebf0; --ink-2:#98a2b3; --ink-3:#646e82;
-  --ok:#4ade80; --warn:#fbbf24; --bad:#f87171; --accent:#7dd3fc;
-  --radius:12px;
+  --paper:#FBFAF7;   --bar:#EEF3EA;   --card:#FFFFFF;
+  --ink:#16202B;     --ink-2:#4A5765; --ink-3:#8A94A0;
+  --rule:#DCDBD2;    --rule-2:#C6C5BA;
+  --verified:#1F6F4A; --exception:#A32B2B; --unread:#B0770F;
+  --mark:#16202B;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:Inter,system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.55;
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:15px;line-height:1.6;
   -webkit-font-smoothing:antialiased}
-.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
-code,.mono{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+h1,h2,h3,.cond{font-family:'IBM Plex Sans Condensed','IBM Plex Sans',sans-serif}
+a{color:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--verified);outline-offset:2px}
 
-/* ---- header ---- */
-header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#10131a,#0b0d11);
-  padding:34px 0 0}
-.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-h1{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin:0}
-.tagline{color:var(--ink-2);font-size:.9rem;max-width:62ch;margin:.5rem 0 0}
-.stats{display:flex;gap:28px;flex-wrap:wrap;margin:24px 0 0;padding:0 0 22px}
-.stat .n{font-size:1.5rem;font-weight:700;line-height:1.1;font-family:'JetBrains Mono',monospace}
-.stat .l{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-top:3px}
-.tabs{display:flex;gap:2px;margin-top:4px}
-.tab{background:none;border:0;border-bottom:2px solid transparent;color:var(--ink-3);
-  font:inherit;font-size:.88rem;font-weight:500;padding:10px 16px;cursor:pointer}
+/* ── masthead ── */
+.mast{border-bottom:2px solid var(--ink);background:var(--paper);
+  position:sticky;top:0;z-index:20}
+.mast .row{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+  padding:16px 0 0;flex-wrap:wrap}
+.wordmark{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:1.32rem;
+  letter-spacing:-.012em;margin:0;text-transform:uppercase}
+.wordmark span{color:var(--ink-3);font-weight:500}
+.stamp{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--ink-3);
+  letter-spacing:.02em;text-align:right;line-height:1.5}
+nav{display:flex;gap:0;margin-top:14px;flex-wrap:wrap}
+.tab{appearance:none;background:none;border:0;border-bottom:3px solid transparent;
+  font-family:'IBM Plex Sans Condensed',sans-serif;font-size:.86rem;font-weight:600;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);
+  padding:9px 16px 9px 0;margin-right:22px;cursor:pointer;transition:color .12s}
 .tab:hover{color:var(--ink-2)}
-.tab[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
+.tab[aria-selected=true]{color:var(--ink);border-bottom-color:var(--ink)}
 
-/* ---- controls ---- */
-.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:22px 0 16px}
-input[type=search]{background:var(--panel);border:1px solid var(--line);border-radius:8px;
-  color:var(--ink);font:inherit;font-size:.88rem;padding:8px 12px;min-width:250px;flex:1}
-input[type=search]:focus{outline:none;border-color:var(--accent)}
-.chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;color:var(--ink-2);
-  font:inherit;font-size:.78rem;padding:5px 12px;cursor:pointer;white-space:nowrap}
-.chip:hover{border-color:#33405a;color:var(--ink)}
-.chip[aria-pressed=true]{background:#1b2740;border-color:var(--accent);color:var(--accent)}
+/* ── section furniture ── */
+.lede{max-width:66ch;color:var(--ink-2);font-size:.95rem;margin:26px 0 4px}
+.lede strong{color:var(--ink);font-weight:600}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);margin:30px 0 10px;
+  display:flex;align-items:center;gap:12px}
+.eyebrow::after{content:'';flex:1;height:1px;background:var(--rule)}
 
-/* ---- article list ---- */
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-  padding:18px 20px;margin-bottom:10px;transition:border-color .15s}
-.card:hover{border-color:#2d3648}
-.card h3{margin:0 0 6px;font-size:1rem;font-weight:600;letter-spacing:-.01em}
-.card h3 a{color:var(--ink);text-decoration:none}
-.card h3 a:hover{color:var(--accent)}
-.summary{color:var(--ink-2);font-size:.87rem;margin:0 0 10px}
-.meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.75rem;color:var(--ink-3)}
-.firm{color:var(--accent);font-weight:500}
-.tag{background:var(--panel-2);border-radius:5px;padding:2px 7px;font-size:.7rem;color:var(--ink-2)}
+/* ── the coverage matrix: the one thing this page is for ── */
+.matrix-shell{border:1px solid var(--rule-2);background:var(--card);overflow-x:auto}
+table.matrix{border-collapse:collapse;width:100%;min-width:760px}
+table.matrix thead th{position:sticky;top:0;background:var(--card);z-index:2}
+table.matrix th.topic{text-align:left;font-family:'IBM Plex Sans Condensed',sans-serif;
+  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;padding:12px 14px;border-bottom:1px solid var(--rule-2);width:34%}
+table.matrix th.firm{padding:12px 0 10px;border-bottom:1px solid var(--rule-2);
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:500;
+  color:var(--ink-3);letter-spacing:.04em;width:52px}
+table.matrix th.firm span{display:block;writing-mode:vertical-rl;transform:rotate(180deg);
+  margin:0 auto;white-space:nowrap;max-height:88px;overflow:hidden}
+table.matrix th.count{padding:12px 14px 10px;border-bottom:1px solid var(--rule-2);
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--ink-3);
+  text-align:right;letter-spacing:.04em;font-weight:500;width:58px}
+table.matrix tbody tr:nth-child(odd){background:var(--bar)}
+table.matrix tbody tr:hover{background:#E4EDDF}
+td.topic{padding:9px 14px;font-weight:500;font-size:.87rem;line-height:1.35}
+td.cell{text-align:center;padding:9px 0}
+td.count{text-align:right;padding:9px 14px;font-family:'IBM Plex Mono',monospace;
+  font-size:.82rem;font-weight:600}
+.pip{display:inline-block;width:11px;height:11px;background:var(--mark);border-radius:1px}
+.pip.none{background:transparent;border:1px solid var(--rule-2);width:9px;height:9px}
+.matrix-key{display:flex;gap:22px;flex-wrap:wrap;font-size:.74rem;color:var(--ink-3);
+  margin:10px 2px 0;align-items:center}
+.matrix-key b{color:var(--ink-2);font-weight:500}
 
-/* ---- signals ---- */
-.sig{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-  padding:16px 18px;margin-bottom:10px}
-.sig .top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.sig .n{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--accent);
-  line-height:1}
-.sig .n small{font-size:.68rem;color:var(--ink-3);font-weight:500;letter-spacing:.06em;
-  text-transform:uppercase;display:block;margin-top:2px;font-family:Inter,sans-serif}
-.sig h3{margin:0;font-size:1rem;font-weight:600;flex:1;min-width:200px}
-.sig .who{margin:10px 0 0;display:flex;gap:5px;flex-wrap:wrap}
-.sig .who span{background:var(--panel-2);border-radius:5px;padding:2px 8px;font-size:.72rem;
-  color:var(--ink-2)}
-.sig ul{margin:12px 0 0;padding:0;list-style:none;border-top:1px solid var(--line);padding-top:10px}
-.sig ul li{font-size:.83rem;padding:3px 0;color:var(--ink-2)}
-.sig ul li a{color:var(--ink);text-decoration:none}
-.sig ul li a:hover{color:var(--accent)}
-.sig ul li .src{color:var(--ink-3);font-size:.74rem}
+/* ── signal detail ── */
+.sig{border-bottom:1px solid var(--rule);padding:18px 0}
+.sig:last-child{border-bottom:0}
+.sig .hd{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.sig .tally{font-family:'IBM Plex Mono',monospace;font-size:1.45rem;font-weight:600;
+  color:var(--verified);line-height:1}
+.sig h3{margin:0;font-size:1.02rem;font-weight:600;flex:1;min-width:220px;letter-spacing:-.005em}
+.sig .of{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-3)}
+.sig ul{margin:11px 0 0;padding:0;list-style:none}
+.sig li{padding:3px 0 3px 16px;position:relative;font-size:.87rem;color:var(--ink-2)}
+.sig li::before{content:'';position:absolute;left:0;top:.72em;width:6px;height:1px;
+  background:var(--rule-2)}
+.sig li a{color:var(--ink);text-decoration:none;border-bottom:1px solid transparent}
+.sig li a:hover{border-bottom-color:var(--ink)}
+.sig li .src{color:var(--ink-3);font-size:.76rem;font-family:'IBM Plex Mono',monospace}
 
-/* ---- health ---- */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-.hcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
-.hcard .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.hname{font-weight:600;font-size:.9rem}
-.badge{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
-  padding:3px 8px;border-radius:5px}
-.badge.ok{background:#0f2e1d;color:var(--ok)} .badge.bad{background:#331416;color:var(--bad)}
-.badge.warn{background:#332409;color:var(--warn)}
-.bar{height:4px;background:var(--panel-2);border-radius:3px;margin:12px 0 8px;overflow:hidden}
-.bar span{display:block;height:100%;background:var(--ok)}
-.bar.bad span{background:var(--bad)}
-.problem{color:var(--bad);font-size:.78rem;margin-top:8px;line-height:1.45}
-.hmeta{color:var(--ink-3);font-size:.76rem}
+/* ── feed ── */
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:20px 0 6px}
+input[type=search],input[type=url]{background:var(--card);border:1px solid var(--rule-2);
+  color:var(--ink);font:inherit;font-size:.9rem;padding:9px 12px;border-radius:2px;
+  min-width:230px;flex:1}
+input:focus{outline:none;border-color:var(--ink)}
+.chip{background:var(--card);border:1px solid var(--rule-2);border-radius:2px;
+  color:var(--ink-2);font:inherit;font-size:.76rem;padding:5px 11px;cursor:pointer;
+  font-family:'IBM Plex Mono',monospace;white-space:nowrap}
+.chip:hover{border-color:var(--ink-3)}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.item{padding:15px 0;border-bottom:1px solid var(--rule);display:grid;
+  grid-template-columns:120px 1fr;gap:22px}
+.item .side{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-3);
+  line-height:1.7;padding-top:2px}
+.item .side b{display:block;color:var(--ink-2);font-weight:500}
+.item h3{margin:0 0 3px;font-size:1rem;font-weight:600;line-height:1.35;letter-spacing:-.005em}
+.item h3 a{text-decoration:none;border-bottom:1px solid transparent}
+.item h3 a:hover{border-bottom-color:var(--ink)}
+.item p{margin:0;color:var(--ink-2);font-size:.88rem}
+.item .tags{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
+.item .tags span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--ink-3);
+  border:1px solid var(--rule);padding:1px 6px;border-radius:2px}
 
-/* ---- heal timeline ---- */
-.tl{border-left:2px solid var(--line);margin:18px 0 0;padding:0 0 0 20px;list-style:none}
-.tl li{position:relative;padding:0 0 20px}
-.tl li::before{content:'';position:absolute;left:-27px;top:5px;width:10px;height:10px;
-  border-radius:50%;background:var(--warn);border:2px solid var(--bg)}
-.tl li.ok::before{background:var(--ok)}
-.tl .when{font-size:.72rem;color:var(--ink-3);font-family:'JetBrains Mono',monospace}
-.tl .what{font-size:.87rem;margin:2px 0 0}
-.tl .detail{font-size:.79rem;color:var(--ink-2);margin:4px 0 0}
+/* ── health ── */
+.ledger{width:100%;border-collapse:collapse;border:1px solid var(--rule-2);background:var(--card)}
+.ledger th{text-align:left;font-family:'IBM Plex Sans Condensed',sans-serif;font-size:.7rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:600;
+  padding:11px 14px;border-bottom:1px solid var(--rule-2)}
+.ledger td{padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top;font-size:.88rem}
+.ledger tbody tr:nth-child(odd){background:var(--bar)}
+.ledger td.num{font-family:'IBM Plex Mono',monospace;text-align:right;width:82px}
+.state{font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.state.ok{color:var(--verified)} .state.bad{color:var(--exception)} .state.warn{color:var(--unread)}
+.state::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;
+  margin-right:7px;vertical-align:baseline;background:currentColor}
+.note{color:var(--exception);font-size:.82rem;margin-top:4px;max-width:62ch}
+.note.warn{color:var(--unread)}
 
-.empty{color:var(--ink-3);text-align:center;padding:56px 20px;font-size:.9rem}
-footer{border-top:1px solid var(--line);margin-top:48px;padding:22px 0 40px;
-  color:var(--ink-3);font-size:.78rem}
-footer a{color:var(--ink-2)}
-.policy{margin-top:6px;max-width:78ch}
-.policy summary{cursor:pointer;color:var(--ink-2);font-weight:500}
-.policy summary:hover{color:var(--ink)}
-.policy p{margin:.6rem 0 0;line-height:1.6}
-.policy strong{color:var(--ink-2)}
-[hidden]{display:none !important}
-@media(max-width:640px){.stats{gap:20px}.wrap{padding:0 16px}}
+/* ── heal log ── */
+.heal{border-left:2px solid var(--verified);padding:2px 0 2px 18px;margin:0 0 20px}
+.heal .when{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-3)}
+.heal h4{margin:2px 0 5px;font-size:.95rem;font-weight:600}
+.heal p{margin:0 0 4px;font-size:.86rem;color:var(--ink-2);max-width:74ch}
+.heal .delta{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--verified);
+  font-weight:600}
+
+/* ── add source ── */
+.form{border:1px solid var(--rule-2);background:var(--card);padding:22px;max-width:760px}
+.form .row{display:flex;gap:9px;flex-wrap:wrap}
+button.go{appearance:none;background:var(--ink);color:var(--paper);border:0;border-radius:2px;
+  font-family:'IBM Plex Sans Condensed',sans-serif;font-size:.86rem;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;padding:9px 20px;cursor:pointer}
+button.go:hover{background:#0B131C}
+button.go[disabled]{background:var(--ink-3);cursor:progress}
+.verdict{margin-top:18px;border-top:1px solid var(--rule);padding-top:16px}
+.verdict .head{font-family:'IBM Plex Sans Condensed',sans-serif;font-size:1.05rem;
+  font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+.verdict .head.ok{color:var(--verified)} .verdict .head.no{color:var(--exception)}
+.verdict dl{display:grid;grid-template-columns:auto 1fr;gap:3px 16px;margin:12px 0 0;
+  font-size:.86rem}
+.verdict dt{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-3);
+  text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.verdict dd{margin:0}
+.reject{border-left:2px solid var(--exception);padding:3px 0 3px 14px;margin:12px 0 0}
+.reject b{display:block;font-size:.88rem}
+.reject span{font-size:.83rem;color:var(--ink-2)}
+pre.cmd{background:var(--ink);color:#E8EDE4;font-family:'IBM Plex Mono',monospace;
+  font-size:.78rem;padding:11px 13px;overflow-x:auto;margin:12px 0 0;border-radius:2px}
+.policy-note{font-size:.83rem;color:var(--ink-2);margin-top:16px;max-width:70ch}
+.policy-note b{color:var(--ink)}
+
+.empty{color:var(--ink-3);padding:44px 0;font-size:.9rem;border-top:1px solid var(--rule)}
+footer{border-top:2px solid var(--ink);margin-top:52px;padding:20px 0 46px;
+  font-size:.8rem;color:var(--ink-3)}
+footer details{margin-top:10px;max-width:80ch}
+footer summary{cursor:pointer;color:var(--ink-2);font-weight:500}
+footer p{margin:.6rem 0 0;line-height:1.65}
+footer b{color:var(--ink-2)}
+@media(max-width:720px){
+  .wrap{padding:0 16px}
+  .item{grid-template-columns:1fr;gap:6px}
+  .item .side{display:flex;gap:12px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 
-<header>
+<header class="mast">
   <div class="wrap">
-    <div class="brand"><h1>Advisory Digest</h1></div>
-    <p class="tagline">
-      Tax, audit and compliance guidance from accounting and advisory firm newsrooms, in one
-      feed. Collected by a fleet of Bright Data collectors that repair themselves, in place,
-      when a firm rebuilds its site.
-    </p>
-    <div class="stats" id="stats"></div>
-    <div class="tabs" role="tablist">
-      <button class="tab" role="tab" aria-selected="true"  data-view="feed">Feed</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="signals">Signals</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="health">Pipeline health</button>
+    <div class="row">
+      <h1 class="wordmark">Advisory Digest <span>/ cross-firm</span></h1>
+      <div class="stamp" id="stamp"></div>
     </div>
+    <nav role="tablist">
+      <button class="tab" role="tab" aria-selected="true"  data-view="consensus">Consensus</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="feed">Articles</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="health">Pipeline</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="add">Add a source</button>
+    </nav>
   </div>
 </header>
 
 <main class="wrap">
-  <section id="feed">
+
+  <!-- ── the thesis: what several firms independently agree is worth writing about ── -->
+  <section id="consensus">
+    <p class="lede">
+      One firm publishing five times is marketing. <strong>Five firms publishing once each is
+      a development.</strong> This reads twelve accounting and advisory newsrooms at once and
+      ranks subjects by how many of them covered it independently.
+    </p>
+
+    <div class="eyebrow">Coverage matrix</div>
+    <div class="matrix-shell"><table class="matrix" id="matrix"></table></div>
+    <div class="matrix-key">
+      <span><span class="pip"></span> &nbsp;firm covered this subject</span>
+      <span><span class="pip none"></span> &nbsp;no coverage</span>
+      <span id="matrixNote"></span>
+    </div>
+
+    <div class="eyebrow">What they said</div>
+    <div id="sigList"></div>
+  </section>
+
+  <section id="feed" hidden>
     <div class="controls">
-      <input type="search" id="q" placeholder="Search titles and summaries…" autocomplete="off">
+      <input type="search" id="q" placeholder="Search titles and summaries" autocomplete="off"
+             aria-label="Search articles">
       <span id="firmChips" style="display:flex;gap:6px;flex-wrap:wrap"></span>
     </div>
     <div id="list"></div>
   </section>
 
-  <section id="signals" hidden>
-    <p class="tagline" style="margin:18px 0 4px">
-      What the profession is reacting to. A topic counts here only when
-      <strong>independent firms</strong> cover it: one firm publishing five times is
-      marketing, five firms publishing once each means something changed.
+  <section id="health" hidden>
+    <p class="lede">
+      Every source is checked against one contract after every run. A break is repaired in
+      place by <strong>Bright Data's self-healing</strong>, keeping the same collector ID, so
+      nothing downstream changes. <strong>A failed run is not a break</strong> and is never
+      sent for repair.
     </p>
-    <div id="sigList"></div>
+    <div class="eyebrow">Contract status by source</div>
+    <table class="ledger" id="ledger"></table>
+    <div class="eyebrow">Repair log</div>
+    <div id="heals"></div>
   </section>
 
-  <section id="health" hidden>
-    <div class="controls"><strong style="font-size:.9rem">Contract status by source</strong></div>
-    <div class="grid" id="hgrid"></div>
-    <div class="controls" style="margin-top:32px"><strong style="font-size:.9rem">Self-healing history</strong></div>
-    <ul class="tl" id="timeline"></ul>
+  <section id="add" hidden>
+    <p class="lede">
+      Propose any public newsroom or insights page. It is assessed before a single credit is
+      spent building a scraper for it.
+    </p>
+    <form class="form" id="addForm">
+      <label for="srcUrl" class="eyebrow" style="margin:0 0 8px">Listing page URL</label>
+      <div class="row">
+        <input type="url" id="srcUrl" placeholder="https://www.example-advisory.com/insights"
+               required autocomplete="off">
+        <button class="go" type="submit" id="checkBtn">Check it</button>
+      </div>
+      <p class="policy-note">
+        Refused in code, not by judgement: <b>government sites</b>, <b>login-walled content</b>,
+        <b>paywalled content</b>, and pages about private individuals. Nothing here attempts to
+        authenticate or reuse a session. A site returning <b>HTTP 403 to a plain request is not
+        refused</b> — being blocked as a bot is a transport problem Bright Data solves; being
+        behind a login is a permission boundary, and we stop there.
+      </p>
+      <div class="verdict" id="verdict" hidden></div>
+    </form>
   </section>
+
 </main>
 
 <footer class="wrap">
-  <p style="margin:0 0 10px">
-    Built with <a href="https://brightdata.com">Bright Data Scraper Studio</a> for the
-    Into the Scrape-Verse hackathon.<span id="built"></span>
-  </p>
-  <details class="policy">
+  <div>Built on <a href="https://brightdata.com">Bright Data Scraper Studio</a> for Into the Scrape-Verse.</div>
+  <details>
     <summary>Scraping policy</summary>
     <p>
-      Public article listing pages only. Government sites, login-walled content and
-      paywalled content are <strong>refused in code</strong>, not worked around: nothing
-      here attempts to authenticate, bypass a login, or reuse a session cookie. Pages
-      about private individuals are out of scope, and author bylines are dropped at
-      extraction time.
+      Public article listing pages only. Government sites, login-walled content and paywalled
+      content are <b>refused in code</b>, not worked around: nothing here attempts to
+      authenticate, bypass a login, or reuse a session cookie. Pages about private individuals
+      are out of scope, and author bylines are dropped at extraction time.
     </p>
     <p>
-      A site returning <strong>HTTP 403 to a plain request is not refused</strong>. Several
-      legitimate sources block naive clients and work correctly through Bright Data's
-      unblocking layer. Being blocked as a bot is a transport problem; being behind a login
-      is a permission boundary, and we stop at the boundary.
+      A site returning <b>HTTP 403 to a plain request is not refused</b>. Several legitimate
+      sources block naive clients and work correctly through Bright Data's unblocking layer.
+      Being blocked as a bot is a transport problem; being behind a login is a permission
+      boundary, and we stop at the boundary.
     </p>
   </details>
 </footer>
@@ -186,150 +299,221 @@ footer a{color:var(--ink-2)}
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fmtDate = d => {
-  const t = Date.parse(d);
-  return isNaN(t) ? (d || '—')
-    : new Date(t).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-};
-const prettyFirm = h => (h||'').replace(/\.(com|org|in|net|html)$/,'')
-  .replace(/^(www\.)?/,'').split('.')[0]
-  .replace(/llp$/,' LLP').replace(/us$/,'').replace(/\b\w/g,c=>c.toUpperCase());
+const fmtDate = d => { const t = Date.parse(d);
+  return isNaN(t) ? '—' : new Date(t).toLocaleDateString('en-GB',
+    {day:'2-digit',month:'short',year:'numeric'}); };
 
-let ROWS = [], HEALTH = null, HEALS = [], SIGNALS = null, activeFirm = null;
+const NAMES = {
+  'rsmus.com':'RSM','bdo.com':'BDO','crowe.com':'Crowe','bakertilly.com':'Baker Tilly',
+  'claconnect.com':'CLA','grantthornton.com':'Grant Thornton','cohnreznick.com':'CohnReznick',
+  'eisneramper.com':'EisnerAmper','marcumllp.com':'Marcum','plantemoran.com':'Plante Moran',
+  'withum.com':'Withum','pwc.com':'PwC','advisory-digest.vercel.app':'Control page'
+};
+const firmName = h => NAMES[h] || (h||'').replace(/^www\./,'').split('.')[0]
+  .replace(/\b\w/g,c=>c.toUpperCase());
+
+let ROWS=[], HEALTH=null, HEALS=[], SIGNALS=null, activeFirm=null;
 
 async function load(){
   const get = async p => { try { const r = await fetch(p,{cache:'no-store'});
     return r.ok ? await r.json() : null; } catch { return null; } };
-  ROWS   = (await get('data/latest.json')) || [];
-  HEALTH = (await get('data/health.json'));
-  HEALS  = (await get('data/heals.json')) || [];
-  SIGNALS = (await get('data/signals.json'));
+  [ROWS, HEALTH, HEALS, SIGNALS] = await Promise.all([
+    get('data/latest.json').then(v=>v||[]),
+    get('data/health.json'),
+    get('data/heals.json').then(v=>v||[]),
+    get('data/signals.json'),
+  ]);
   render();
 }
 
-function render(){ renderStats(); renderChips(); renderList(); renderSignals(); renderHealth(); renderTimeline(); }
+function render(){ renderStamp(); renderMatrix(); renderSignals(); renderChips();
+  renderList(); renderLedger(); renderHeals(); }
 
-function renderSignals(){
-  const sigs = SIGNALS?.signals || [];
-  if(!sigs.length){ $('#sigList').innerHTML =
-    `<div class="empty">No cross-firm signals yet. Generated by <code>scripts/signals.py</code>.</div>`;
-    return; }
-  $('#sigList').innerHTML = sigs.map(s=>`
-    <div class="sig">
-      <div class="top">
-        <div class="n">${s.recent_firms}<small>firms</small></div>
-        <h3>${esc(s.topic)}</h3>
-        <span class="hmeta">${s.articles} article${s.articles===1?'':'s'}</span>
-      </div>
-      <div class="who">${s.firm_list.map(f=>`<span>${esc(prettyFirm(f))}</span>`).join('')}</div>
-      ${s.examples?.length?`<ul>${s.examples.map(e=>`
-        <li>${e.url?`<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>`
-                   :esc(e.title)}
-          <span class="src">&mdash; ${esc(prettyFirm(e.firm))}${e.date?', '+esc(fmtDate(e.date)):''}</span></li>`
-      ).join('')}</ul>`:''}
-    </div>`).join('');
+function renderStamp(){
+  const n = ROWS.length, pf = HEALTH?.per_firm || {};
+  const ok = Object.values(pf).filter(v=>v.healthy).length, total = Object.keys(pf).length;
+  $('#stamp').innerHTML =
+    `${n} articles &middot; ${total} sources &middot; ${ok}/${total} contract passing` +
+    `<br>${HEALS.length} repair${HEALS.length===1?'':'s'}` +
+    (HEALTH?.stamp ? ` &middot; last run ${esc(HEALTH.stamp)}` : '');
 }
 
-function renderStats(){
-  const firms = new Set(ROWS.map(r=>r._firm).filter(Boolean));
-  const hp = HEALTH?.per_firm || {};
-  const healthy = Object.values(hp).filter(v=>v.healthy).length;
-  const total   = Object.keys(hp).length;
-  const s = [
-    [ROWS.length, 'Articles'],
-    [firms.size || total, 'Sources'],
-    [total ? `${healthy}/${total}` : '—', 'Contract passing'],
-    [HEALS.length, 'Self-heals'],
-  ];
-  $('#stats').innerHTML = s.map(([n,l])=>
-    `<div class="stat"><div class="n">${esc(n)}</div><div class="l">${esc(l)}</div></div>`).join('');
-  if (HEALTH?.stamp) $('#built').textContent = ` Last run ${HEALTH.stamp}.`;
+/* The matrix is the argument: subjects down the side, firms across the top, a mark where
+   a firm covered a subject. Reading a row tells you how broad the coverage is; reading a
+   column tells you what one firm is pushing. Neither is visible on any single site. */
+function renderMatrix(){
+  const sigs = (SIGNALS?.signals || []).slice(0, 12);
+  if(!sigs.length){
+    $('#matrix').innerHTML = '';
+    $('#matrixNote').textContent = 'No signals yet — run scripts/signals.py.';
+    return;
+  }
+  const firms = [...new Set(ROWS.map(r=>r._firm).filter(Boolean))]
+    .filter(f=>f!=='advisory-digest.vercel.app').sort();
+
+  const head = `<thead><tr><th class="topic">Subject</th>` +
+    firms.map(f=>`<th class="firm" title="${esc(firmName(f))}"><span>${esc(firmName(f))}</span></th>`).join('') +
+    `<th class="count">Firms</th></tr></thead>`;
+
+  const body = '<tbody>' + sigs.map(s=>{
+    const set = new Set(s.firm_list||[]);
+    return `<tr><td class="topic">${esc(s.topic)}</td>` +
+      firms.map(f=>`<td class="cell">${set.has(f)
+        ? `<span class="pip" title="${esc(firmName(f))} covered ${esc(s.topic)}"></span>`
+        : '<span class="pip none"></span>'}</td>`).join('') +
+      `<td class="count">${set.size}</td></tr>`;
+  }).join('') + '</tbody>';
+
+  $('#matrix').innerHTML = head + body;
+  $('#matrixNote').innerHTML =
+    `<b>${sigs.length}</b> subjects &times; <b>${firms.length}</b> firms` +
+    (SIGNALS?.topic_source?.startsWith('llm')
+      ? ` &middot; subjects classified by ${esc(SIGNALS.topic_source.split(':')[1])}` : '');
+}
+
+function renderSignals(){
+  const sigs = (SIGNALS?.signals || []).slice(0, 8);
+  if(!sigs.length){ $('#sigList').innerHTML = '<div class="empty">Nothing yet.</div>'; return; }
+  const totalFirms = new Set(ROWS.map(r=>r._firm)).size || 1;
+  $('#sigList').innerHTML = sigs.map(s=>`
+    <div class="sig">
+      <div class="hd">
+        <span class="tally">${s.firms}</span>
+        <span class="of">of ${totalFirms}<br>firms</span>
+        <h3>${esc(s.topic)}</h3>
+      </div>
+      ${s.examples?.length?`<ul>${s.examples.map(e=>`
+        <li>${e.url?`<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>`
+                    :esc(e.title)}
+          <span class="src"> ${esc(firmName(e.firm))}${e.date?' · '+esc(fmtDate(e.date)):''}</span>
+        </li>`).join('')}</ul>`:''}
+    </div>`).join('');
 }
 
 function renderChips(){
   const firms = [...new Set(ROWS.map(r=>r._firm).filter(Boolean))].sort();
   $('#firmChips').innerHTML = firms.map(f=>
-    `<button class="chip" data-firm="${esc(f)}" aria-pressed="${activeFirm===f}">${esc(prettyFirm(f))}</button>`
+    `<button type="button" class="chip" data-firm="${esc(f)}" aria-pressed="${activeFirm===f}">${esc(firmName(f))}</button>`
   ).join('');
 }
 
 function visible(){
-  const q = ($('#q').value || '').toLowerCase().trim();
+  const q = ($('#q').value||'').toLowerCase().trim();
   return ROWS.filter(r=>{
-    if (activeFirm && r._firm !== activeFirm) return false;
-    if (!q) return true;
-    return (`${r.title||''} ${r.summary||''} ${(r.tags||[]).join(' ')}`).toLowerCase().includes(q);
-  }).sort((a,b)=> Date.parse(b.published_date||0) - Date.parse(a.published_date||0));
+    if(activeFirm && r._firm!==activeFirm) return false;
+    if(!q) return true;
+    return `${r.title||''} ${r.summary||''} ${(r.tags||[]).join(' ')}`.toLowerCase().includes(q);
+  }).sort((a,b)=>Date.parse(b.published_date||0)-Date.parse(a.published_date||0));
 }
 
 function renderList(){
   const rows = visible();
-  if(!rows.length){
-    $('#list').innerHTML = `<div class="empty">${ROWS.length
-      ? 'No articles match that filter.'
-      : 'No data yet. The scheduled scrape publishes <code>docs/data/latest.json</code>.'}</div>`;
-    return;
-  }
+  if(!rows.length){ $('#list').innerHTML =
+    `<div class="empty">${ROWS.length?'Nothing matches that filter.':'No articles published yet.'}</div>`;
+    return; }
   $('#list').innerHTML = rows.map(r=>`
-    <article class="card">
-      <h3>${r.article_url ? `<a href="${esc(r.article_url)}" target="_blank" rel="noopener">${esc(r.title)}</a>`
-                          : esc(r.title)}</h3>
-      ${r.summary ? `<p class="summary">${esc(r.summary)}</p>` : ''}
-      <div class="meta">
-        <span class="firm">${esc(prettyFirm(r._firm))}</span>
-        <span>${esc(fmtDate(r.published_date))}</span>
-        ${(r.tags||[]).slice(0,4).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}
+    <article class="item">
+      <div class="side"><b>${esc(firmName(r._firm))}</b>${esc(fmtDate(r.published_date))}</div>
+      <div>
+        <h3>${r.article_url?`<a href="${esc(r.article_url)}" target="_blank" rel="noopener">${esc(r.title)}</a>`:esc(r.title)}</h3>
+        ${r.summary?`<p>${esc(r.summary)}</p>`:''}
+        ${(r.tags||[]).length?`<div class="tags">${(r.tags||[]).filter(Boolean).slice(0,5)
+          .map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}
       </div>
     </article>`).join('');
 }
 
-function renderHealth(){
-  const hp = HEALTH?.per_firm || {};
-  const keys = Object.keys(hp).sort();
-  if(!keys.length){ $('#hgrid').innerHTML =
-    `<div class="empty">No contract report yet. It is written by <code>scripts/validate.py</code>.</div>`;
-    return; }
-  $('#hgrid').innerHTML = keys.map(f=>{
-    const v = hp[f], pct = Math.min(100, (v.rows/10)*100);
-    return `<div class="hcard">
-      <div class="top">
-        <span class="hname">${esc(prettyFirm(f))}</span>
-        <span class="badge ${v.healthy?'ok':'bad'}">${v.healthy?'passing':'broken'}</span>
-      </div>
-      <div class="bar ${v.healthy?'':'bad'}"><span style="width:${pct}%"></span></div>
-      <div class="hmeta">${v.rows} article${v.rows===1?'':'s'} extracted</div>
-      ${(v.problems||[]).map(p=>`<div class="problem">${esc(p)}</div>`).join('')}
-    </div>`;
-  }).join('');
+/* Three states, not two. A source that could not run is amber, never red: it has not
+   broken, and sending it for repair would spend credits fixing a scraper that works. */
+function renderLedger(){
+  const pf = HEALTH?.per_firm || {};
+  const keys = Object.keys(pf).sort();
+  if(!keys.length){ $('#ledger').innerHTML =
+    '<tbody><tr><td class="empty">No contract report yet.</td></tr></tbody>'; return; }
+  $('#ledger').innerHTML =
+    `<thead><tr><th>Source</th><th>State</th><th style="text-align:right">Articles</th>
+     <th>Finding</th></tr></thead><tbody>` +
+    keys.map(f=>{
+      const v = pf[f];
+      const st = v.healthy ? ['ok','Passing']
+               : v.run_failed ? ['warn','Could not run'] : ['bad','Broken'];
+      const findings = v.run_failed
+        ? `<div class="note warn">Run failed${v.errors?` with ${v.errors} error${v.errors===1?'':'s'}`:''}. Not a broken selector, so it is not sent for repair. Re-run.</div>`
+        : (v.problems||[]).map(p=>`<div class="note">${esc(p)}</div>`).join('');
+      return `<tr><td><b>${esc(firmName(f))}</b></td>
+        <td><span class="state ${st[0]}">${st[1]}</span></td>
+        <td class="num">${v.rows}</td><td>${findings||''}</td></tr>`;
+    }).join('') + '</tbody>';
 }
 
-function renderTimeline(){
-  if(!HEALS.length){ $('#timeline').innerHTML =
-    `<li class="ok"><div class="what">No repairs needed yet.</div>
-     <div class="detail">When the contract breaks, CI writes the heal here automatically.</div></li>`;
+function renderHeals(){
+  if(!HEALS.length){ $('#heals').innerHTML =
+    '<div class="empty">No repairs yet. When the contract breaks, the fix is recorded here.</div>';
     return; }
-  $('#timeline').innerHTML = HEALS.slice().reverse().map(h=>`
-    <li class="${h.resolved?'ok':''}">
-      <div class="when">${esc(h.stamp||'')}</div>
-      <div class="what">${esc(h.resolved?'Repaired':'Repair attempted')} &mdash; ${esc(prettyFirm(h.firm||'fleet'))}</div>
-      <div class="detail"><strong>Broke:</strong> ${esc(h.diagnosis||'')}</div>
-      ${h.collector?`<div class="detail mono" style="color:var(--ink-3)">collector ${esc(h.collector)} &middot; unchanged</div>`:''}
-    </li>`).join('');
+  $('#heals').innerHTML = HEALS.slice().reverse().map(h=>`
+    <div class="heal">
+      <div class="when">${esc(h.stamp||'')} &middot; collector ${esc(h.collector||'')} unchanged</div>
+      <h4>${esc(firmName(h.firm||'')) || 'Fleet'} repaired in place</h4>
+      <p>${esc(h.diagnosis||'')}</p>
+      ${(h.before_rows!==undefined&&h.after_rows!==undefined)
+        ? `<div class="delta">${h.before_rows} → ${h.after_rows} articles</div>`:''}
+    </div>`).join('');
 }
+
+/* ── add a source ── */
+$('#addForm').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const url = $('#srcUrl').value.trim();
+  const box = $('#verdict'), btn = $('#checkBtn');
+  if(!url) return;
+  btn.disabled = true; btn.textContent = 'Checking…';
+  box.hidden = false;
+  box.innerHTML = '<div class="head">Assessing the page…</div>';
+  try{
+    const r = await fetch('/api/check-source',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({url})
+    });
+    const d = await r.json();
+    if(!r.ok){
+      box.innerHTML = `<div class="head no">Could not check it</div>
+        <p class="policy-note">${esc(d.error||'Something went wrong.')}
+        ${d.hint?'<br>'+esc(d.hint):''}</p>`;
+      return;
+    }
+    box.innerHTML = d.eligible ? eligibleHTML(d) : rejectedHTML(d);
+  }catch(err){
+    box.innerHTML = `<div class="head no">Could not check it</div>
+      <p class="policy-note">${esc(String(err))}</p>`;
+  }finally{ btn.disabled = false; btn.textContent = 'Check it'; }
+});
+
+const facts = d => `<dl>
+  ${d.publisher?`<dt>Publisher</dt><dd>${esc(d.publisher)}</dd>`:''}
+  ${d.content_type?`<dt>Page</dt><dd>${esc(d.content_type)}</dd>`:''}
+  ${d.article_count_estimate?`<dt>Articles</dt><dd>about ${esc(d.article_count_estimate)}</dd>`:''}
+  <dt>Status</dt><dd>HTTP ${esc(d.http_status)}</dd>
+</dl>${d.note?`<p class="policy-note">${esc(d.note)}</p>`:''}`;
+
+const eligibleHTML = d => `<div class="head ok">Eligible</div>${facts(d)}
+  ${d.description?`<p class="policy-note" style="margin-top:12px"><b>Extraction brief written for it:</b><br>${esc(d.description)}</p>`:''}
+  <pre class="cmd">${esc(d.command)}</pre>
+  <p class="policy-note">Building the collector takes a few minutes, so it runs from the
+  terminal rather than the browser. It is validated against the contract before it joins the fleet.</p>`;
+
+const rejectedHTML = d => `<div class="head no">Not eligible</div>${facts(d)}
+  ${d.blocked.map(b=>`<div class="reject"><b>${esc(b.rule)}</b><span>${esc(b.why)}</span></div>`).join('')}`;
 
 document.addEventListener('click', e=>{
   const tab = e.target.closest('.tab');
   if(tab){
     document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected', t===tab));
-    $('#feed').hidden    = tab.dataset.view!=='feed';
-    $('#signals').hidden = tab.dataset.view!=='signals';
-    $('#health').hidden  = tab.dataset.view!=='health';
+    ['consensus','feed','health','add'].forEach(v=>
+      $('#'+v).hidden = tab.dataset.view!==v);
   }
   const chip = e.target.closest('.chip[data-firm]');
-  if(chip){
-    activeFirm = activeFirm===chip.dataset.firm ? null : chip.dataset.firm;
-    renderChips(); renderList();
-  }
+  if(chip){ activeFirm = activeFirm===chip.dataset.firm ? null : chip.dataset.firm;
+    renderChips(); renderList(); }
 });
 $('#q').addEventListener('input', renderList);
 load();

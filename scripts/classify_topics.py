@@ -60,8 +60,11 @@ def call(system: str, user: str, schema: str) -> dict:
 
 
 def describe(row) -> str:
-    tags = ", ".join(row.get("tags") or [])
-    return f"{row.get('title','')} | {(row.get('summary') or '')[:170]}" + (f" | {tags}" if tags else "")
+    # Collectors sometimes emit nulls inside the tag list, so coerce rather than assume.
+    tags = ", ".join(str(t) for t in (row.get("tags") or []) if t)
+    title = str(row.get("title") or "").strip()
+    summary = str(row.get("summary") or "")[:170]
+    return " | ".join(x for x in (title, summary, tags) if x)
 
 
 def build_taxonomy(rows) -> list[str]:

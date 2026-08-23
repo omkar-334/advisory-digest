@@ -1,44 +1,108 @@
 {
- "stamp": "20260823T143955Z",
- "source": "results/run_fleet/fleet-20260823T143340Z.json",
- "total_rows": 193,
- "sources": 7,
- "healthy_sources": 7,
+ "stamp": "20260823T175358Z",
+ "source": "results/run_fleet/fleet-20260823T161051Z.json",
+ "total_rows": 226,
+ "sources": 13,
+ "healthy_sources": 8,
+ "failed_runs": 5,
+ "run_failures": [
+  "bakertilly.com: the run failed with 19 error(s) against 1 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
+  "bdo.com: the run failed with 1 error(s) against 0 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
+  "eisneramper.com: the run failed with 7 error(s) against 3 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
+  "grantthornton.com: the run failed with 20 error(s) against 0 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
+  "marcumllp.com: the run returned no output at all. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper."
+ ],
  "healthy": true,
  "per_firm": {
   "advisory-digest.vercel.app": {
    "rows": 6,
    "healthy": true,
+   "run_failed": false,
+   "errors": 0,
    "problems": []
   },
   "bakertilly.com": {
-   "rows": 20,
-   "healthy": true,
+   "rows": 1,
+   "healthy": false,
+   "run_failed": true,
+   "errors": 19,
    "problems": []
   },
   "bdo.com": {
-   "rows": 17,
-   "healthy": true,
+   "rows": 0,
+   "healthy": false,
+   "run_failed": true,
+   "errors": 1,
    "problems": []
   },
   "claconnect.com": {
    "rows": 60,
    "healthy": true,
+   "run_failed": false,
+   "errors": 0,
+   "problems": []
+  },
+  "cohnreznick.com": {
+   "rows": 10,
+   "healthy": true,
+   "run_failed": false,
+   "errors": 0,
    "problems": []
   },
   "crowe.com": {
    "rows": 9,
    "healthy": true,
+   "run_failed": false,
+   "errors": 0,
+   "problems": []
+  },
+  "eisneramper.com": {
+   "rows": 3,
+   "healthy": false,
+   "run_failed": true,
+   "errors": 7,
    "problems": []
   },
   "grantthornton.com": {
-   "rows": 20,
+   "rows": 0,
+   "healthy": false,
+   "run_failed": true,
+   "errors": 20,
+   "problems": []
+  },
+  "marcumllp.com": {
+   "rows": 0,
+   "healthy": false,
+   "run_failed": true,
+   "errors": 0,
+   "problems": []
+  },
+  "plantemoran.com": {
+   "rows": 4,
    "healthy": true,
+   "run_failed": false,
+   "errors": 0,
+   "problems": []
+  },
+  "pwc.com": {
+   "rows": 44,
+   "healthy": true,
+   "run_failed": false,
+   "errors": 1,
    "problems": []
   },
   "rsmus.com": {
-   "rows": 61,
+   "rows": 73,
    "healthy": true,
+   "run_failed": false,
+   "errors": 3,
+   "problems": []
+  },
+  "withum.com": {
+   "rows": 16,
+   "healthy": true,
+   "run_failed": false,
+   "errors": 0,
    "problems": []
   }
  },
@@ -47,5 +111,5 @@
   "min_field_coverage": 0.7,
   "min_healthy_sources": 0.6
  },
- "elapsed_sec": 0.003
+ "elapsed_sec": 0.005
 }
