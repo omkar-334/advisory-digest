@@ -10,30 +10,49 @@ credits repairing something that works.
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+SUMMARY = ROOT / "results" / "validate" / "summary-latest.json"
+REGISTRY = ROOT / "scripts" / "collectors.json"
+
+
+def read_json(path: Path):
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        print(f"cannot read {path}: {exc}", file=sys.stderr)
+        return None
 
 
 def main() -> int:
-    summary_path = ROOT / "results" / "validate" / "summary-latest.json"
-    if not summary_path.exists():
+    if not SUMMARY.exists():
         print("no contract summary", file=sys.stderr)
         return 1
-    summary = json.loads(summary_path.read_text())
-    registry = json.loads((ROOT / "scripts" / "collectors.json").read_text())["collectors"]
-    by_firm = {c["firm"]: c for c in registry if c.get("collector_id")}
+    summary = read_json(SUMMARY)
+    registry = read_json(REGISTRY)
+    if not isinstance(summary, dict) or not isinstance(registry, dict):
+        return 1
 
-    for firm, v in sorted(summary.get("per_firm", {}).items()):
+    # A firm can only be healed if it has both an id to heal and a URL to re-run against.
+    by_firm = {c["firm"]: c for c in registry.get("collectors") or []
+               if isinstance(c, dict) and c.get("firm")
+               and c.get("collector_id") and c.get("url")}
+
+    for firm, v in sorted((summary.get("per_firm") or {}).items()):
         if v.get("healthy") or v.get("run_failed"):
             continue
         entry = by_firm.get(firm)
         if not entry:
-            print(f"no collector registered for {firm}", file=sys.stderr)
+            print(f"no runnable collector registered for {firm}", file=sys.stderr)
             continue
-        # heal caps the prompt at 1000 characters.
-        diagnosis = " ".join(v.get("problems") or [])[:900]
+        # The heal loop reads these lines with `IFS=$'\t' read`, so any tab or newline
+        # inside a diagnosis would shift every column after it. heal caps the prompt at
+        # 1000 characters, hence the trim.
+        problems = " ".join(str(p) for p in v.get("problems") or [])
+        diagnosis = re.sub(r"\s+", " ", problems).strip()[:900]
         if diagnosis:
             print("\t".join([entry["collector_id"], entry["url"], firm, diagnosis]))
     return 0

@@ -29,8 +29,6 @@ import os
 import re
 import subprocess
 import sys
-import urllib.error
-import urllib.request
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
@@ -38,12 +36,16 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parent.parent
 REGISTRY = ROOT / "scripts" / "collectors.json"
 RESULTS = ROOT / "results" / "onboard"
+USAGE = "usage: onboard.py <listing-page-url> [--dry-run]"
 
 OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
 
 GOV_SUFFIXES = (".gov", ".gov.in", ".gov.uk", ".gov.au", ".mil", ".nic.in", ".gouv.fr")
+# Below this much visible text there is nothing for the classifier to judge, so it guesses.
+# api/check-source.mjs refuses on the same threshold.
+MIN_PAGE_TEXT = 200
 
 
 class TextExtractor(HTMLParser):
@@ -70,7 +72,7 @@ class TextExtractor(HTMLParser):
             if text:
                 self.parts.append(text)
 
-    def text(self, limit=6000):
+    def text(self, limit: int = 6000) -> str:
         return re.sub(r"\s+", " ", " ".join(self.parts))[:limit]
 
 
@@ -126,10 +128,19 @@ def openai_json(system: str, user: str, schema_hint: str) -> dict:
     )
     if proc.returncode != 0:
         raise RuntimeError(f"OpenAI request failed: {proc.stderr.strip()[:200]}")
-    body = json.loads(proc.stdout)
-    if "error" in body:
+    try:
+        body = json.loads(proc.stdout)
+    except ValueError:
+        raise RuntimeError(f"OpenAI returned no JSON: {proc.stdout.strip()[:200]}") from None
+    if isinstance(body, dict) and body.get("error"):
         raise RuntimeError(f"OpenAI error: {body['error'].get('message', '')[:200]}")
-    return json.loads(body["choices"][0]["message"]["content"])
+    try:
+        verdict = json.loads(body["choices"][0]["message"]["content"])
+    except (KeyError, IndexError, TypeError, ValueError):
+        raise RuntimeError(f"unusable classifier reply: {str(body)[:200]}") from None
+    if not isinstance(verdict, dict):
+        raise RuntimeError(f"classifier returned {type(verdict).__name__}, expected an object")
+    return verdict
 
 
 CLASSIFY_SYSTEM = """You screen candidate web sources for a scraping pipeline that collects
@@ -190,23 +201,34 @@ def slug(url: str) -> str:
 
 
 def register(firm: str, name: str, collector_id: str, url: str) -> None:
-    registry = json.loads(REGISTRY.read_text())
-    for c in registry["collectors"]:
-        if c["firm"] == firm:
+    """Upsert one collector into the fleet registry, keyed by firm.
+
+    Mirrors register_collector.py, which does the same for the shell path. A collector
+    that exists in Bright Data but not here is invisible to the fleet.
+    """
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    if not isinstance(registry, dict):
+        raise ValueError(f"{REGISTRY} is not a fleet registry")
+    collectors = registry.setdefault("collectors", [])
+    for c in collectors:
+        if c.get("firm") == firm:
             c.update({"collector_id": collector_id, "url": url, "status": "live"})
             break
     else:
-        registry["collectors"].append({"firm": firm, "name": name,
-                                       "collector_id": collector_id, "url": url,
-                                       "status": "live"})
-    REGISTRY.write_text(json.dumps(registry, indent=2) + "\n")
+        collectors.append({"firm": firm, "name": name, "collector_id": collector_id,
+                           "url": url, "status": "live"})
+    REGISTRY.write_text(json.dumps(registry, indent=2) + "\n", encoding="utf-8")
 
 
 def main(argv) -> int:
-    if len(argv) < 2:
-        print(__doc__.strip().splitlines()[2].strip(), file=sys.stderr)
+    urls = [a for a in argv[1:] if not a.startswith("-")]
+    if not urls:
+        print(USAGE, file=sys.stderr)
         return 1
-    url = argv[1]
+    url = urls[0]
+    if not re.match(r"^https?://", url, re.I):
+        print(f"{USAGE}\nnot a URL: {url!r}", file=sys.stderr)
+        return 1
     dry_run = "--dry-run" in argv
     RESULTS.mkdir(parents=True, exist_ok=True)
 
@@ -214,16 +236,23 @@ def main(argv) -> int:
     status, html, note = fetch(url)
     if note:
         print(f"      {note}")
-    if not html:
+    if not html.strip():
         print("      nothing to classify; aborting", file=sys.stderr)
         return 1
 
     parser = TextExtractor()
     parser.feed(html)
     text = parser.text()
+    if len(text) < MIN_PAGE_TEXT:
+        print("      page returned almost no readable text; aborting", file=sys.stderr)
+        return 1
 
     print(f"[2/5] classifying with {OPENAI_MODEL}")
-    verdict = classify(url, text, status)
+    try:
+        verdict = classify(url, text, status)
+    except RuntimeError as exc:
+        print(f"      {exc}", file=sys.stderr)
+        return 1
     print(f"      publisher: {verdict.get('publisher')}")
     print(f"      type: {verdict.get('content_type')} | "
           f"~{verdict.get('article_count_estimate')} articles | "
@@ -231,7 +260,7 @@ def main(argv) -> int:
 
     blocked = gate(url, verdict)
     report = {"url": url, "http_status": status, "verdict": verdict, "blocked": blocked}
-    (RESULTS / f"{slug(url)}.json").write_text(json.dumps(report, indent=2))
+    (RESULTS / f"{slug(url)}.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
 
     if blocked:
         print("[3/5] REJECTED")
@@ -251,14 +280,26 @@ def main(argv) -> int:
         return 0
 
     name = f"{slug(url)}-insights"
+    builder = ROOT / "scripts" / "create_collector.sh"
+    if not builder.exists():
+        print(f"      missing {builder}", file=sys.stderr)
+        return 1
+
     print(f"[4/5] building collector '{name}' (this takes several minutes)")
-    proc = subprocess.run([str(ROOT / "scripts" / "create_collector.sh"), name, url,
-                           description], capture_output=True, text=True)
+    proc = subprocess.run([str(builder), name, url, description],
+                          capture_output=True, text=True)
     envelopes = sorted((ROOT / "results" / "create_collector").glob(f"{name}-*.json"))
     if not envelopes:
         print(f"      build produced no envelope\n{proc.stdout[-400:]}", file=sys.stderr)
         return 1
-    env = json.loads(envelopes[-1].read_text())
+    try:
+        env = json.loads(envelopes[-1].read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        print(f"      cannot read {envelopes[-1]}: {exc}", file=sys.stderr)
+        return 1
+    if not isinstance(env, dict):
+        print(f"      {envelopes[-1]} is not a build envelope", file=sys.stderr)
+        return 1
     cid = env.get("collector_id")
     if env.get("status") != "done" or not cid:
         # A poll timeout is not proof of failure: generation often completes server-side
@@ -268,9 +309,16 @@ def main(argv) -> int:
         return 1
 
     print(f"[5/5] registering {cid}")
-    register((urlparse(url).hostname or "").lower().removeprefix("www."),
-             verdict.get("publisher") or slug(url).title(), cid, url)
-    print(f"      done. Run ./scripts/run_fleet.sh to validate it against the contract.")
+    try:
+        register((urlparse(url).hostname or "").lower().removeprefix("www."),
+                 verdict.get("publisher") or slug(url).title(), cid, url)
+    except (OSError, ValueError) as exc:
+        # The collector exists and cost several minutes to build. Print what it would
+        # take to register it by hand rather than losing it to a registry problem.
+        print(f"      could not update {REGISTRY}: {exc}\n"
+              f"      add it manually: collector_id={cid} url={url}", file=sys.stderr)
+        return 1
+    print("      done. Run ./scripts/run_fleet.sh to validate it against the contract.")
     return 0
 
 

@@ -78,12 +78,13 @@ def normalise(payload) -> tuple[list[tuple[dict, str]], list[str], dict[str, int
             errors[source] = errors.get(source, 0) + 1
             continue
 
-        nested = [v for k, v in env.items()
+        nested = [v for v in env.values()
                   if isinstance(v, list) and v and isinstance(v[0], dict)]
         if nested:
+            # The first element decides whether a list looks like records, but a group can
+            # still be ragged, so every row is checked before it reaches the contract.
             for group in nested:
-                for row in group:
-                    out.append((row, source))
+                out.extend((row, source) for row in group if isinstance(row, dict))
         elif any(f in env for f in REQUIRED):
             out.append((env, source))
     return out, sources, errors
@@ -294,6 +295,21 @@ def main() -> int:
         print(f"{len(pairs)} rows across {total - failed_runs} healthy source(s); "
               f"{failed_runs} source(s) failed to run", file=sys.stderr)
         return 1
+
+    # A run that collected nothing at all must never report success. Without this, an empty
+    # payload and no expected-URL list produce "contract OK: 0 rows across 0 sources" and
+    # CI goes green on a fleet that scraped nothing -- the exact silent failure this
+    # contract exists to prevent.
+    if not pairs:
+        print("HARD ERROR: the run produced no rows from any source. Nothing was collected, "
+              "so there is nothing to validate.", file=sys.stderr)
+        return 1
+
+    # Enough sources healthy to call the fleet healthy. Recorded in the summary either way.
+    if not fleet_ok:
+        print(f"only {healthy}/{total} sources healthy, below the "
+              f"{MIN_HEALTHY_SOURCES:.0%} threshold", file=sys.stderr)
+        return 2
 
     print(f"contract OK: {len(pairs)} rows across {total} sources, all healthy")
     return 0

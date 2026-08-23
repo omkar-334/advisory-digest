@@ -181,3 +181,22 @@ def test_source_that_never_reported_is_a_run_failure(tmp_path, ):
     assert proc.returncode == 1
     assert "no output at all" in proc.stderr
     assert "marcumllp" not in proc.stdout
+
+
+def test_empty_run_never_reports_success(tmp_path):
+    """A run that collected nothing must not go green.
+
+    Without this, an empty payload reports "contract OK: 0 rows across 0 sources" and CI
+    passes on a fleet that scraped nothing, which is the silent failure the contract exists
+    to prevent.
+    """
+    rc, out, err = run([], tmp_path)
+    assert rc == 1, f"empty run should be a hard error, got {rc}"
+    assert "no rows" in err.lower()
+
+
+def test_single_healthy_source_still_passes(tmp_path):
+    """The threshold must not fail a legitimately small fleet."""
+    payload = [envelope("https://rsmus.com/insights", [article(i) for i in range(5)])]
+    rc, out, _ = run(payload, tmp_path)
+    assert rc == 0, out

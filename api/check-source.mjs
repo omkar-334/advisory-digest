@@ -9,6 +9,9 @@
 // purpose: this endpoint is public, and a rule that only exists in the CLI is not a rule.
 
 const GOV_SUFFIXES = ['.gov', '.gov.in', '.gov.uk', '.gov.au', '.mil', '.nic.in', '.gouv.fr'];
+// Below this much visible text there is nothing for the classifier to judge, so it guesses.
+// scripts/onboard.py refuses on the same threshold.
+const MIN_PAGE_TEXT = 200;
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' +
            '(KHTML, like Gecko) Chrome/120.0 Safari/537.36';
 
@@ -16,7 +19,9 @@ function visibleText(html, limit = 6000) {
   return html
     .replace(/<(script|style|noscript|svg|head)[\s\S]*?<\/\1>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
-    .replace(/&[a-z]+;/gi, ' ')
+    // Numeric entities as well as named ones: a listing full of &#8217; would otherwise
+    // reach the classifier as noise.
+    .replace(/&(#\d+|#x[0-9a-f]+|[a-z]+);/gi, ' ')
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, limit);
@@ -111,13 +116,15 @@ export default async function handler(req, res) {
     if ([401, 403, 429].includes(status)) {
       note = `This site returns HTTP ${status} to a plain request. That is not disqualifying: ` +
              `Bright Data's unblocking layer usually handles it.`;
+    } else if (status >= 400) {
+      note = `This site returns HTTP ${status} to a plain request.`;
     }
   } catch (e) {
     return res.status(502).json({ error: `Could not reach that URL: ${String(e).slice(0, 140)}` });
   }
 
   const text = visibleText(html);
-  if (text.length < 200) {
+  if (text.length < MIN_PAGE_TEXT) {
     return res.status(422).json({ error: 'That page returned almost no readable text to assess.' });
   }
 
@@ -146,22 +153,28 @@ export default async function handler(req, res) {
       signal: AbortSignal.timeout(60000),
     });
     const body = await ai.json();
-    if (body.error) throw new Error(body.error.message || 'classifier error');
-    verdict = JSON.parse(body.choices[0].message.content);
+    if (body?.error) throw new Error(body.error.message || 'classifier error');
+    const content = body?.choices?.[0]?.message?.content;
+    if (typeof content !== 'string') throw new Error('classifier returned no reply');
+    verdict = JSON.parse(content);
+    // JSON mode guarantees valid JSON, not an object: a bare array or number here would
+    // read every gate field as undefined and wave the source through.
+    if (!verdict || typeof verdict !== 'object' || Array.isArray(verdict)) {
+      throw new Error('classifier reply was not an object');
+    }
   } catch (e) {
     return res.status(502).json({ error: `Could not assess that page: ${String(e).slice(0, 140)}` });
   }
 
   const blocked = gate(url, verdict);
-  const slug = (hostOf(url).replace(/^www\./, '').split('.')[0] || 'source')
-    .replace(/[^a-z0-9]+/g, '-');
-  const description = (verdict.suggested_description || '').slice(0, 500);
+  const eligible = blocked.length === 0;
+  const description = String(verdict.suggested_description || '').slice(0, 500);
 
   return res.status(200).json({
     url,
     http_status: status,
     note,
-    eligible: blocked.length === 0,
+    eligible,
     blocked,
     publisher: verdict.publisher || null,
     content_type: verdict.content_type || null,
@@ -169,8 +182,6 @@ export default async function handler(req, res) {
     confidence: verdict.confidence ?? null,
     reason: verdict.reason || '',
     description,
-    command: blocked.length
-      ? null
-      : `./scripts/onboard.py ${url}`,
+    command: eligible ? `./scripts/onboard.py ${url}` : null,
   });
 }

@@ -53,13 +53,23 @@ def call(system: str, user: str, schema: str) -> dict:
     )
     if proc.returncode != 0:
         raise RuntimeError(f"OpenAI request failed: {proc.stderr.strip()[:200]}")
-    body = json.loads(proc.stdout)
-    if "error" in body:
-        raise RuntimeError(f"OpenAI error: {body['error'].get('message','')[:200]}")
-    return json.loads(body["choices"][0]["message"]["content"])
+    try:
+        body = json.loads(proc.stdout)
+    except ValueError:
+        raise RuntimeError(f"OpenAI returned no JSON: {proc.stdout.strip()[:200]}") from None
+    if isinstance(body, dict) and body.get("error"):
+        raise RuntimeError(f"OpenAI error: {body['error'].get('message', '')[:200]}")
+    try:
+        content = body["choices"][0]["message"]["content"]
+        parsed = json.loads(content)
+    except (KeyError, IndexError, TypeError, ValueError):
+        raise RuntimeError(f"unusable classifier reply: {str(body)[:200]}") from None
+    if not isinstance(parsed, dict):
+        raise RuntimeError(f"classifier returned {type(parsed).__name__}, expected an object")
+    return parsed
 
 
-def describe(row) -> str:
+def describe(row: dict) -> str:
     # Collectors sometimes emit nulls inside the tag list, so coerce rather than assume.
     tags = ", ".join(str(t) for t in (row.get("tags") or []) if t)
     title = str(row.get("title") or "").strip()
@@ -67,7 +77,7 @@ def describe(row) -> str:
     return " | ".join(x for x in (title, summary, tags) if x)
 
 
-def build_taxonomy(rows) -> list[str]:
+def build_taxonomy(rows: list[dict]) -> list[str]:
     sample = [describe(r) for r in rows[:110]]
     system = (
         "You are organising articles published by accounting, tax, audit and advisory firms.\n"
@@ -81,13 +91,16 @@ def build_taxonomy(rows) -> list[str]:
         "- topics must be reusable across firms, never named after one firm"
     )
     out = call(system, "Articles:\n" + "\n".join(sample), '{"topics": [str]}')
-    topics = [t.strip() for t in out.get("topics", []) if t and t.strip()][:MAX_TOPICS]
+    proposed = out.get("topics")
+    if not isinstance(proposed, list):
+        proposed = []
+    topics = [t.strip() for t in proposed if isinstance(t, str) and t.strip()][:MAX_TOPICS]
     if not topics:
         raise RuntimeError("classifier returned no taxonomy")
     return topics
 
 
-def assign(rows, topics) -> dict:
+def assign(rows: list[dict], topics: list[str]) -> dict[str, list[str]]:
     system = (
         "Assign topics to each article from the CANONICAL LIST provided. Use only labels "
         "from that list, copied exactly.\n\n"
@@ -97,16 +110,21 @@ def assign(rows, topics) -> dict:
         "A wrong label is worse than no label, because these counts are used to claim that "
         "several firms independently covered the same subject."
     )
+    valid = set(topics)
+    canonical = "CANONICAL LIST:\n" + "\n".join(f"- {t}" for t in topics)
     mapping: dict[str, list[str]] = {}
     for start in range(0, len(rows), BATCH):
         chunk = rows[start:start + BATCH]
         listing = "\n".join(f"{i}. {describe(r)}" for i, r in enumerate(chunk))
-        user = (f"CANONICAL LIST:\n" + "\n".join(f"- {t}" for t in topics) +
-                f"\n\nArticles:\n{listing}")
-        out = call(system, user, '{"assignments": [{"index": int, "topics": [str]}]}')
-        valid = set(topics)
-        for a in out.get("assignments", []):
+        out = call(system, f"{canonical}\n\nArticles:\n{listing}",
+                   '{"assignments": [{"index": int, "topics": [str]}]}')
+        assignments = out.get("assignments")
+        for a in assignments if isinstance(assignments, list) else []:
+            if not isinstance(a, dict):
+                continue
             idx = a.get("index")
+            # The model numbers the articles back to us, so the index is untrusted input:
+            # an out-of-range one would silently label the wrong article.
             if not isinstance(idx, int) or not 0 <= idx < len(chunk):
                 continue
             labels = [t for t in (a.get("topics") or []) if t in valid][:3]
@@ -122,18 +140,30 @@ def main() -> int:
     if not src.exists():
         print("no published dataset", file=sys.stderr)
         return 1
-    rows = json.loads(src.read_text())
+    try:
+        rows = json.loads(src.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        print(f"cannot read {src}: {exc}", file=sys.stderr)
+        return 1
+    rows = [r for r in rows if isinstance(r, dict)] if isinstance(rows, list) else []
     if not rows:
         print("published dataset is empty", file=sys.stderr)
         return 1
 
-    print(f"building taxonomy from {len(rows)} articles using {MODEL}")
-    topics = build_taxonomy(rows)
-    print(f"  {len(topics)} topics: {', '.join(topics[:6])}...")
+    # Every failure below is an API or reply problem. signals.py falls back to its regex
+    # topics when topics.json is absent, so exiting without one degrades rather than breaks.
+    try:
+        print(f"building taxonomy from {len(rows)} articles using {MODEL}")
+        topics = build_taxonomy(rows)
+        print(f"  {len(topics)} topics: {', '.join(topics[:6])}...")
+        mapping = assign(rows, topics)
+    except RuntimeError as exc:
+        print(f"classification failed: {exc}", file=sys.stderr)
+        return 1
 
-    mapping = assign(rows, topics)
-    (DOCS / "topics.json").write_text(json.dumps(
-        {"model": MODEL, "topics": topics, "assignments": mapping}, indent=1))
+    (DOCS / "topics.json").write_text(
+        json.dumps({"model": MODEL, "topics": topics, "assignments": mapping}, indent=1),
+        encoding="utf-8")
     print(f"assigned topics to {len(mapping)}/{len(rows)} articles")
     return 0
 

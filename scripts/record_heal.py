@@ -15,38 +15,60 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 VALIDATE = ROOT / "results" / "validate"
+HEAL_LOOP = ROOT / "results" / "heal_loop"
+USAGE = "usage: record_heal.py <stamp> <exit-code-of-the-verifying-run>"
 
 
-def coverage(summary):
-    return {f: v.get("rows", 0) for f, v in (summary.get("per_firm") or {}).items()}
+def read_summary(path: Path) -> dict:
+    try:
+        summary = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        print(f"cannot read {path}: {exc}", file=sys.stderr)
+        return {}
+    return summary if isinstance(summary, dict) else {}
+
+
+def coverage(summary: dict) -> dict[str, int]:
+    """Rows per firm, which is what the timeline compares before and after a repair."""
+    return {firm: v.get("rows", 0)
+            for firm, v in (summary.get("per_firm") or {}).items()
+            if isinstance(v, dict)}
 
 
 def main(argv) -> int:
     if len(argv) < 3:
+        print(USAGE, file=sys.stderr)
         return 2
-    stamp, rc = argv[1], argv[2]
+    stamp, run_exit_code = argv[1], argv[2]
+
     after_path = VALIDATE / "summary-latest.json"
     if not after_path.exists():
+        print(f"no contract summary at {after_path}", file=sys.stderr)
         return 1
-    after = json.loads(after_path.read_text())
+    after = read_summary(after_path)
+    if not after:
+        return 1
 
-    # The run immediately before this one is the "before" picture.
+    # summary-latest.json is a copy of the newest stamped summary, so the run immediately
+    # before this one is the second-newest: index -2, not -1.
     snapshots = sorted(VALIDATE.glob("summary-2*.json"))
-    before = json.loads(snapshots[-2].read_text()) if len(snapshots) >= 2 else {}
+    before = read_summary(snapshots[-2]) if len(snapshots) >= 2 else {}
 
     b, a = coverage(before), coverage(after)
-    metrics = [{"label": f"{f} articles", "before": str(b.get(f, "—")), "after": str(a[f])}
-               for f in sorted(a) if str(b.get(f)) != str(a[f])]
+    metrics = [{"label": f"{firm} articles",
+                "before": str(b.get(firm, "—")), "after": str(a[firm])}
+               for firm in sorted(a) if str(b.get(firm)) != str(a[firm])]
 
-    (ROOT / "results" / "heal_loop").mkdir(parents=True, exist_ok=True)
-    (ROOT / "results" / "heal_loop" / "last-event.json").write_text(json.dumps({
+    resolved = run_exit_code == "0"
+    HEAL_LOOP.mkdir(parents=True, exist_ok=True)
+    (HEAL_LOOP / "last-event.json").write_text(json.dumps({
         "stamp": stamp,
-        "resolved": rc == "0",
+        "resolved": resolved,
         "healthy_sources": after.get("healthy_sources"),
         "sources": after.get("sources"),
         "metrics": metrics,
-    }, indent=1))
-    print(f"recorded heal outcome: resolved={rc == '0'}, {len(metrics)} measurement(s) moved")
+    }, indent=1), encoding="utf-8")
+    print(f"recorded heal outcome: resolved={resolved}, {len(metrics)} measurement(s) moved")
     return 0
 
 

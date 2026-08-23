@@ -52,17 +52,30 @@ FALLBACK_TOPICS = {
 }
 
 
-def parse_date(value):
+def parse_date(value) -> datetime | None:
+    """Best-effort ISO date parse. Scraped dates are free text, so failure is expected."""
     if not isinstance(value, str) or not value.strip():
         return None
     text = value.strip().replace("Z", "+00:00")
-    for fn in (datetime.fromisoformat, lambda t: datetime.strptime(t[:10], "%Y-%m-%d")):
+    for parse in (datetime.fromisoformat, lambda t: datetime.strptime(t[:10], "%Y-%m-%d")):
         try:
-            dt = fn(text)
-            return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+            dt = parse(text)
         except (ValueError, TypeError):
             continue
+        return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
     return None
+
+
+def firm_of(row: dict) -> str:
+    """validate.py stamps every published row with _firm, but a null survives a bad run,
+    and a None here would poison every sorted() over firm names."""
+    return row.get("_firm") or "unknown"
+
+
+def haystack(row: dict) -> str:
+    # Collectors sometimes emit nulls inside the tag list, so coerce rather than assume.
+    tags = " ".join(str(t) for t in (row.get("tags") or []) if t)
+    return " ".join([row.get("title") or "", row.get("summary") or "", tags])
 
 
 def main() -> int:
@@ -70,7 +83,15 @@ def main() -> int:
     if not src.exists():
         print("no published dataset yet", file=sys.stderr)
         return 1
-    rows = json.loads(src.read_text())
+    try:
+        rows = json.loads(src.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        print(f"cannot read {src}: {exc}", file=sys.stderr)
+        return 1
+    if not isinstance(rows, list):
+        print(f"{src} is not a list of articles", file=sys.stderr)
+        return 1
+    rows = [r for r in rows if isinstance(r, dict)]
     if not rows:
         print("published dataset is empty", file=sys.stderr)
         return 1
@@ -84,45 +105,41 @@ def main() -> int:
     assigned, source = {}, "regex-fallback"
     if topics_path.exists():
         try:
-            payload = json.loads(topics_path.read_text())
-            assigned = payload.get("assignments") or {}
-            if assigned:
-                source = f"llm:{payload.get('model', 'unknown')}"
-        except (OSError, json.JSONDecodeError):
-            pass
+            payload = json.loads(topics_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            payload = {}
+        candidate = payload.get("assignments") if isinstance(payload, dict) else None
+        if isinstance(candidate, dict) and candidate:
+            assigned = candidate
+            source = f"llm:{payload.get('model') or 'unknown'}"
 
     if assigned:
-        buckets = defaultdict(lambda: defaultdict(list))
+        grouped = defaultdict(lambda: defaultdict(list))
         for r in rows:
             key = r.get("article_url") or r.get("title")
-            for topic in assigned.get(key, []):
-                buckets[topic][r.get("_firm", "unknown")].append(r)
-        topic_iter = list(buckets.items())
+            for topic in assigned.get(key) or []:
+                grouped[topic][firm_of(r)].append(r)
+        by_topic = list(grouped.items())
     else:
-        topic_iter = []
+        by_topic = []
         for topic, pattern in FALLBACK_TOPICS.items():
             rx = re.compile(pattern, re.I)
             by_firm = defaultdict(list)
             for r in rows:
-                haystack = " ".join([
-                    r.get("title") or "", r.get("summary") or "",
-                    " ".join(r.get("tags") or []),
-                ])
-                if rx.search(haystack):
-                    by_firm[r.get("_firm", "unknown")].append(r)
+                if rx.search(haystack(r)):
+                    by_firm[firm_of(r)].append(r)
             if by_firm:
-                topic_iter.append((topic, by_firm))
+                by_topic.append((topic, by_firm))
 
     signals = []
-    for topic, by_firm in topic_iter:
-
+    for topic, by_firm in by_topic:
         if len(by_firm) < MIN_FIRMS:
             continue
 
         articles = [a for arts in by_firm.values() for a in arts]
         recent = [a for a in articles
                   if (d := parse_date(a.get("published_date"))) and d >= cutoff]
-        recent_firms = sorted({a.get("_firm") for a in recent}) or sorted(by_firm)
+        recent_firms = sorted({firm_of(a) for a in recent}) or sorted(by_firm)
 
         signals.append({
             "topic": topic,
@@ -132,7 +149,7 @@ def main() -> int:
             "recent_articles": len(recent),
             "recent_firms": len(recent_firms),
             "examples": [
-                {"title": a.get("title"), "firm": a.get("_firm"),
+                {"title": a.get("title"), "firm": firm_of(a),
                  "url": a.get("article_url"), "date": a.get("published_date")}
                 for a in sorted(recent or articles,
                                 key=lambda x: parse_date(x.get("published_date")) or cutoff,
@@ -151,7 +168,7 @@ def main() -> int:
         "as_of": now.date().isoformat(),
         "signals": signals,
     }
-    (DOCS / "signals.json").write_text(json.dumps(out, indent=1))
+    (DOCS / "signals.json").write_text(json.dumps(out, indent=1), encoding="utf-8")
     print(f"{len(signals)} cross-firm signals from {len(rows)} articles")
     for s in signals[:6]:
         print(f"  {s['recent_firms']:2d} firms | {s['topic']}")
