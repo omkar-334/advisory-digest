@@ -217,7 +217,7 @@ npm install
 cp .env.example .env          # BRIGHTDATA_API_KEY, and OPENAI_API_KEY for classification
 ./scripts/run_fleet.sh        # run + validate
 ./scripts/heal_loop.sh        # run, repair what broke, verify
-uv run --with pytest pytest tests/
+uv run --with pytest --with pyyaml pytest tests/
 ```
 
 CI runs it daily and on any change to the control page
@@ -246,7 +246,7 @@ Endpoints, published data shapes, exit codes and environment variables:
 | `scripts/publish.py` | publish rows, contract report and repair log |
 | `api/check-source.mjs` | in-browser eligibility check |
 | `docs/` | the deployed site, its data, and the control page |
-| `tests/` | 28 contract and gate tests, no network required |
+| `tests/` | 52 tests: contract, eligibility gate, publish, signals, workflows. No network |
 | `hackathon/` | rules, tips, resources, coding-agent prompts |
 
 Run artifacts under `results/` are gitignored: large and reproducible. What is committed is

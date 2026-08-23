@@ -130,46 +130,27 @@ jobs:
               sys.exit(1)
           PY
 
-      # A red run nobody looks at is not an alert. When a source is genuinely broken after
-      # healing, open an issue naming it, so degradation surfaces where work is tracked.
+      # A red run nobody looks at is not an alert. When a source is genuinely broken
+      # after healing, open an issue naming it so degradation surfaces where work is tracked.
       - name: Open an issue if a source is still broken
         if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          broken=$(python3 - <<'PY'
-          import json, pathlib
-          p = pathlib.Path('results/validate/summary-latest.json')
-          if not p.exists():
-              print(''); raise SystemExit
-          s = json.loads(p.read_text())
-          out = []
-          for firm, v in sorted(s.get('per_firm', {}).items()):
-              if not v['healthy'] and not v.get('run_failed'):
-                  problems = '; '.join(v.get('problems') or []) or 'no detail'
-                  out.append(f"- **{firm}** ({v['rows']} rows): {problems}")
-          print('\n'.join(out))
-          PY
-          )
-          [ -z "$broken" ] && { echo "::notice::Nothing genuinely broken; no issue opened."; exit 0; }
-
-          title="Contract broken after healing"
-          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number')
-          body=$(printf '%s
-
-%s
-
-%s
-' \
-            "The scheduled run repaired what it could and these sources are still failing the contract." \
-            "$broken" \
-            "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")
-
-          if [ -n "$existing" ]; then
-            gh issue comment "$existing" --body "$body"
+          python3 scripts/breakage_report.py > /tmp/breakage.md
+          if [ ! -s /tmp/breakage.md ]; then
+            echo "::notice::Nothing genuinely broken; no issue opened."
+            exit 0
+          fi
+          echo "" >> /tmp/breakage.md
+          echo "Run: $RUN_URL" >> /tmp/breakage.md
+          TITLE="Contract broken after healing"
+          NUM=$(gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$NUM" ]; then
+            gh issue comment "$NUM" --body-file /tmp/breakage.md
           else
-            gh issue create --title "$title" --body "$body" --label "" || \
-              gh issue create --title "$title" --body "$body"
+            gh issue create --title "$TITLE" --body-file /tmp/breakage.md
           fi
 
       - name: Always leave the logs behind
