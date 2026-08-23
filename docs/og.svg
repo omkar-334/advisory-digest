@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#FBFAF7"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#16202B"/>
+  <text x="80" y="126" font-family="IBM Plex Sans Condensed, Helvetica, sans-serif"
+        font-size="34" font-weight="700" fill="#16202B" letter-spacing="1">
+    ADVISORY DIGEST <tspan fill="#8A94A0">/ CROSS-FIRM</tspan></text>
+  <text x="80" y="238" font-family="IBM Plex Sans Condensed, Helvetica, sans-serif"
+        font-size="76" font-weight="700" fill="#16202B">One firm publishing five times</text>
+  <text x="80" y="316" font-family="IBM Plex Sans Condensed, Helvetica, sans-serif"
+        font-size="76" font-weight="700" fill="#8A94A0">is marketing.</text>
+  <text x="80" y="418" font-family="IBM Plex Sans Condensed, Helvetica, sans-serif"
+        font-size="76" font-weight="700" fill="#16202B">Several firms publishing once</text>
+  <text x="80" y="496" font-family="IBM Plex Sans Condensed, Helvetica, sans-serif"
+        font-size="76" font-weight="700" fill="#1F6F4A">each is a development.</text>
+  <g transform="translate(80,552)">
+    <rect x="0" y="0" width="1040" height="40" fill="#EEF3EA"/>
+    <g fill="#16202B">
+      <rect x="14" y="12" width="16" height="16"/><rect x="60" y="12" width="16" height="16"/>
+      <rect x="152" y="12" width="16" height="16"/><rect x="198" y="12" width="16" height="16"/>
+      <rect x="244" y="12" width="16" height="16"/><rect x="336" y="12" width="16" height="16"/>
+      <rect x="428" y="12" width="16" height="16"/><rect x="474" y="12" width="16" height="16"/>
+    </g>
+    <g fill="none" stroke="#C6C5BA">
+      <rect x="106.5" y="12.5" width="15" height="15"/><rect x="290.5" y="12.5" width="15" height="15"/>
+      <rect x="382.5" y="12.5" width="15" height="15"/><rect x="520.5" y="12.5" width="15" height="15"/>
+    </g>
+    <text x="576" y="27" font-family="IBM Plex Mono, monospace" font-size="17" fill="#8A94A0">
+      twelve newsrooms &#183; scrapers that repair themselves</text>
+  </g>
+</svg>
