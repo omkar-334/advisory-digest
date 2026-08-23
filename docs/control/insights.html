@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Control Newsroom (markup v1)</title>
+<style>
+ body{font-family:system-ui,-apple-system,sans-serif;margin:0;padding:2rem;background:#0f1115;color:#e6e8eb}
+ .wrap{max-width:820px;margin:0 auto}
+ h1{font-size:1.05rem;color:#9aa4b2;font-weight:600;margin:0 0 .4rem}
+ .note{color:#64748b;font-size:.82rem;line-height:1.5;margin:0 0 1.5rem}
+ .insight-card{border:1px solid #232833;border-radius:10px;padding:1.1rem;margin:.8rem 0;background:#151922}
+ .insight-title{font-weight:600;font-size:1rem;color:#e6e8eb;margin-bottom:.35rem}
+ .insight-summary{color:#94a3b8;font-size:.87rem;line-height:1.55}
+ .insight-date{color:#7dd3fc;font-size:.78rem;margin-top:.6rem}
+ .insight-tags{margin-top:.5rem}
+ .insight-tag{display:inline-block;background:#1e2530;color:#a5b4fc;font-size:.72rem;padding:.16rem .5rem;border-radius:999px;margin-right:.3rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Control Newsroom &mdash; markup version 1</h1>
+<p class="note">
+  A synthetic advisory-firm newsroom hosted in this repository. The scraper is built
+  against this structure, then the structure is changed in a commit. That turns
+  self-healing into something observable rather than something claimed: the site really
+  changes, the contract really breaks, and CI really repairs it with no human in the loop.
+</p>
+
+<div id="insight-list">
+  <article class="insight-card">
+    <h2 class="insight-title">Revenue recognition for multi-year SaaS contracts under ASC 606</h2>
+    <p class="insight-summary">Guidance on allocating transaction price when renewal options carry a material right, with worked examples for annual and multi-year billing.</p>
+    <div class="insight-date">2026-08-21</div>
+    <div class="insight-tags"><span class="insight-tag">Accounting</span><span class="insight-tag">Technology</span></div>
+    <a class="insight-link" href="https://example-advisory.com/insights/asc-606-saas">Read the analysis</a>
+  </article>
+
+  <article class="insight-card">
+    <h2 class="insight-title">R&amp;D capitalisation under Section 174: what changed for tax year 2026</h2>
+    <p class="insight-summary">Amortisation requirements for domestic and foreign research expenditure, and the cash-tax impact for companies with large engineering headcount.</p>
+    <div class="insight-date">2026-08-20</div>
+    <div class="insight-tags"><span class="insight-tag">Tax</span><span class="insight-tag">R&amp;D</span></div>
+    <a class="insight-link" href="https://example-advisory.com/insights/section-174-2026">Read the analysis</a>
+  </article>
+
+  <article class="insight-card">
+    <h2 class="insight-title">Lease accounting practical expedients: common errors in year-three audits</h2>
+    <p class="insight-summary">The disclosure gaps auditors are flagging most often under ASC 842, and how to remediate discount-rate documentation before fieldwork.</p>
+    <div class="insight-date">2026-08-19</div>
+    <div class="insight-tags"><span class="insight-tag">Audit</span><span class="insight-tag">Leases</span></div>
+    <a class="insight-link" href="https://example-advisory.com/insights/asc-842-year-three">Read the analysis</a>
+  </article>
+
+  <article class="insight-card">
+    <h2 class="insight-title">State pass-through entity tax elections: a 2026 planning checklist</h2>
+    <p class="insight-summary">Which states still offer a PTET workaround, the election deadlines that moved this year, and the modelling required before committing.</p>
+    <div class="insight-date">2026-08-18</div>
+    <div class="insight-tags"><span class="insight-tag">Tax</span><span class="insight-tag">SALT</span></div>
+    <a class="insight-link" href="https://example-advisory.com/insights/ptet-2026-checklist">Read the analysis</a>
+  </article>
+
+  <article class="insight-card">
+    <h2 class="insight-title">Cybersecurity disclosure controls for private companies preparing to list</h2>
+    <p class="insight-summary">Building the incident-materiality assessment process that public-company reporting will demand, eighteen months before you need it.</p>
+    <div class="insight-date">2026-08-17</div>
+    <div class="insight-tags"><span class="insight-tag">Risk</span><span class="insight-tag">IPO Readiness</span></div>
+    <a class="insight-link" href="https://example-advisory.com/insights/cyber-disclosure-pre-ipo">Read the analysis</a>
+  </article>
+
+  <article class="insight-card">
+    <h2 class="insight-title">Transfer pricing documentation thresholds for mid-market groups</h2>
+    <p class="insight-summary">When a local file becomes mandatory, the penalty regimes that changed in 2026, and a proportionate approach for groups under $500m revenue.</p>
+    <div class="insight-date">2026-08-16</div>
+    <div class="insight-tags"><span class="insight-tag">Tax</span><span class="insight-tag">International</span></div>
+    <a class="insight-link" href="https://example-advisory.com/insights/transfer-pricing-midmarket">Read the analysis</a>
+  </article>
+</div>
+</div>
+</body>
+</html>

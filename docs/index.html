@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Advisory Digest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0d11; --panel:#12151c; --panel-2:#171b24; --line:#232937;
+  --ink:#e8ebf0; --ink-2:#98a2b3; --ink-3:#646e82;
+  --ok:#4ade80; --warn:#fbbf24; --bad:#f87171; --accent:#7dd3fc;
+  --radius:12px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+code,.mono{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace}
+
+/* ---- header ---- */
+header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#10131a,#0b0d11);
+  padding:34px 0 0}
+.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+h1{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin:0}
+.tagline{color:var(--ink-2);font-size:.9rem;max-width:62ch;margin:.5rem 0 0}
+.stats{display:flex;gap:28px;flex-wrap:wrap;margin:24px 0 0;padding:0 0 22px}
+.stat .n{font-size:1.5rem;font-weight:700;line-height:1.1;font-family:'JetBrains Mono',monospace}
+.stat .l{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-top:3px}
+.tabs{display:flex;gap:2px;margin-top:4px}
+.tab{background:none;border:0;border-bottom:2px solid transparent;color:var(--ink-3);
+  font:inherit;font-size:.88rem;font-weight:500;padding:10px 16px;cursor:pointer}
+.tab:hover{color:var(--ink-2)}
+.tab[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
+
+/* ---- controls ---- */
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:22px 0 16px}
+input[type=search]{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+  color:var(--ink);font:inherit;font-size:.88rem;padding:8px 12px;min-width:250px;flex:1}
+input[type=search]:focus{outline:none;border-color:var(--accent)}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;color:var(--ink-2);
+  font:inherit;font-size:.78rem;padding:5px 12px;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:#33405a;color:var(--ink)}
+.chip[aria-pressed=true]{background:#1b2740;border-color:var(--accent);color:var(--accent)}
+
+/* ---- article list ---- */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 20px;margin-bottom:10px;transition:border-color .15s}
+.card:hover{border-color:#2d3648}
+.card h3{margin:0 0 6px;font-size:1rem;font-weight:600;letter-spacing:-.01em}
+.card h3 a{color:var(--ink);text-decoration:none}
+.card h3 a:hover{color:var(--accent)}
+.summary{color:var(--ink-2);font-size:.87rem;margin:0 0 10px}
+.meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.75rem;color:var(--ink-3)}
+.firm{color:var(--accent);font-weight:500}
+.tag{background:var(--panel-2);border-radius:5px;padding:2px 7px;font-size:.7rem;color:var(--ink-2)}
+
+/* ---- health ---- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.hcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.hcard .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.hname{font-weight:600;font-size:.9rem}
+.badge{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  padding:3px 8px;border-radius:5px}
+.badge.ok{background:#0f2e1d;color:var(--ok)} .badge.bad{background:#331416;color:var(--bad)}
+.badge.warn{background:#332409;color:var(--warn)}
+.bar{height:4px;background:var(--panel-2);border-radius:3px;margin:12px 0 8px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--ok)}
+.bar.bad span{background:var(--bad)}
+.problem{color:var(--bad);font-size:.78rem;margin-top:8px;line-height:1.45}
+.hmeta{color:var(--ink-3);font-size:.76rem}
+
+/* ---- heal timeline ---- */
+.tl{border-left:2px solid var(--line);margin:18px 0 0;padding:0 0 0 20px;list-style:none}
+.tl li{position:relative;padding:0 0 20px}
+.tl li::before{content:'';position:absolute;left:-27px;top:5px;width:10px;height:10px;
+  border-radius:50%;background:var(--warn);border:2px solid var(--bg)}
+.tl li.ok::before{background:var(--ok)}
+.tl .when{font-size:.72rem;color:var(--ink-3);font-family:'JetBrains Mono',monospace}
+.tl .what{font-size:.87rem;margin:2px 0 0}
+.tl .detail{font-size:.79rem;color:var(--ink-2);margin:4px 0 0}
+
+.empty{color:var(--ink-3);text-align:center;padding:56px 20px;font-size:.9rem}
+footer{border-top:1px solid var(--line);margin-top:48px;padding:22px 0 40px;
+  color:var(--ink-3);font-size:.78rem}
+footer a{color:var(--ink-2)}
+[hidden]{display:none !important}
+@media(max-width:640px){.stats{gap:20px}.wrap{padding:0 16px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand"><h1>Advisory Digest</h1></div>
+    <p class="tagline">
+      Tax, audit and compliance guidance from twelve accounting and advisory firms, in one
+      feed. Collected by a single Bright Data collector that repairs itself when a firm
+      rebuilds its newsroom.
+    </p>
+    <div class="stats" id="stats"></div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true"  data-view="feed">Feed</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="health">Pipeline health</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="feed">
+    <div class="controls">
+      <input type="search" id="q" placeholder="Search titles and summaries…" autocomplete="off">
+      <span id="firmChips" style="display:flex;gap:6px;flex-wrap:wrap"></span>
+    </div>
+    <div id="list"></div>
+  </section>
+
+  <section id="health" hidden>
+    <div class="controls"><strong style="font-size:.9rem">Contract status by source</strong></div>
+    <div class="grid" id="hgrid"></div>
+    <div class="controls" style="margin-top:32px"><strong style="font-size:.9rem">Self-healing history</strong></div>
+    <ul class="tl" id="timeline"></ul>
+  </section>
+</main>
+
+<footer class="wrap">
+  Built with <a href="https://brightdata.com">Bright Data Scraper Studio</a> for the
+  Into the Scrape-Verse hackathon. Public pages only, no personal data collected.
+  <span id="built"></span>
+</footer>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDate = d => {
+  const t = Date.parse(d);
+  return isNaN(t) ? (d || '—')
+    : new Date(t).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+};
+const prettyFirm = h => (h||'').replace(/\.(com|org|in|net|html)$/,'')
+  .replace(/^(www\.)?/,'').split('.')[0]
+  .replace(/llp$/,' LLP').replace(/us$/,'').replace(/\b\w/g,c=>c.toUpperCase());
+
+let ROWS = [], HEALTH = null, HEALS = [], activeFirm = null;
+
+async function load(){
+  const get = async p => { try { const r = await fetch(p,{cache:'no-store'});
+    return r.ok ? await r.json() : null; } catch { return null; } };
+  ROWS   = (await get('data/latest.json')) || [];
+  HEALTH = (await get('data/health.json'));
+  HEALS  = (await get('data/heals.json')) || [];
+  render();
+}
+
+function render(){ renderStats(); renderChips(); renderList(); renderHealth(); renderTimeline(); }
+
+function renderStats(){
+  const firms = new Set(ROWS.map(r=>r._firm).filter(Boolean));
+  const hp = HEALTH?.per_firm || {};
+  const healthy = Object.values(hp).filter(v=>v.healthy).length;
+  const total   = Object.keys(hp).length;
+  const s = [
+    [ROWS.length, 'Articles'],
+    [firms.size || total, 'Sources'],
+    [total ? `${healthy}/${total}` : '—', 'Contract passing'],
+    [HEALS.length, 'Self-heals'],
+  ];
+  $('#stats').innerHTML = s.map(([n,l])=>
+    `<div class="stat"><div class="n">${esc(n)}</div><div class="l">${esc(l)}</div></div>`).join('');
+  if (HEALTH?.stamp) $('#built').textContent = ` Last run ${HEALTH.stamp}.`;
+}
+
+function renderChips(){
+  const firms = [...new Set(ROWS.map(r=>r._firm).filter(Boolean))].sort();
+  $('#firmChips').innerHTML = firms.map(f=>
+    `<button class="chip" data-firm="${esc(f)}" aria-pressed="${activeFirm===f}">${esc(prettyFirm(f))}</button>`
+  ).join('');
+}
+
+function visible(){
+  const q = ($('#q').value || '').toLowerCase().trim();
+  return ROWS.filter(r=>{
+    if (activeFirm && r._firm !== activeFirm) return false;
+    if (!q) return true;
+    return (`${r.title||''} ${r.summary||''} ${(r.tags||[]).join(' ')}`).toLowerCase().includes(q);
+  }).sort((a,b)=> Date.parse(b.published_date||0) - Date.parse(a.published_date||0));
+}
+
+function renderList(){
+  const rows = visible();
+  if(!rows.length){
+    $('#list').innerHTML = `<div class="empty">${ROWS.length
+      ? 'No articles match that filter.'
+      : 'No data yet. The scheduled scrape publishes <code>docs/data/latest.json</code>.'}</div>`;
+    return;
+  }
+  $('#list').innerHTML = rows.map(r=>`
+    <article class="card">
+      <h3>${r.article_url ? `<a href="${esc(r.article_url)}" target="_blank" rel="noopener">${esc(r.title)}</a>`
+                          : esc(r.title)}</h3>
+      ${r.summary ? `<p class="summary">${esc(r.summary)}</p>` : ''}
+      <div class="meta">
+        <span class="firm">${esc(prettyFirm(r._firm))}</span>
+        <span>${esc(fmtDate(r.published_date))}</span>
+        ${(r.tags||[]).slice(0,4).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}
+      </div>
+    </article>`).join('');
+}
+
+function renderHealth(){
+  const hp = HEALTH?.per_firm || {};
+  const keys = Object.keys(hp).sort();
+  if(!keys.length){ $('#hgrid').innerHTML =
+    `<div class="empty">No contract report yet. It is written by <code>scripts/validate.py</code>.</div>`;
+    return; }
+  $('#hgrid').innerHTML = keys.map(f=>{
+    const v = hp[f], pct = Math.min(100, (v.rows/10)*100);
+    return `<div class="hcard">
+      <div class="top">
+        <span class="hname">${esc(prettyFirm(f))}</span>
+        <span class="badge ${v.healthy?'ok':'bad'}">${v.healthy?'passing':'broken'}</span>
+      </div>
+      <div class="bar ${v.healthy?'':'bad'}"><span style="width:${pct}%"></span></div>
+      <div class="hmeta">${v.rows} article${v.rows===1?'':'s'} extracted</div>
+      ${(v.problems||[]).map(p=>`<div class="problem">${esc(p)}</div>`).join('')}
+    </div>`;
+  }).join('');
+}
+
+function renderTimeline(){
+  if(!HEALS.length){ $('#timeline').innerHTML =
+    `<li class="ok"><div class="what">No repairs needed yet.</div>
+     <div class="detail">When the contract breaks, CI writes the heal here automatically.</div></li>`;
+    return; }
+  $('#timeline').innerHTML = HEALS.slice().reverse().map(h=>`
+    <li class="${h.resolved?'ok':''}">
+      <div class="when">${esc(h.stamp||'')}</div>
+      <div class="what">${esc(h.resolved?'Repaired':'Repair attempted')} &mdash; ${esc(prettyFirm(h.firm||'fleet'))}</div>
+      <div class="detail"><strong>Broke:</strong> ${esc(h.diagnosis||'')}</div>
+      ${h.collector?`<div class="detail mono" style="color:var(--ink-3)">collector ${esc(h.collector)} &middot; unchanged</div>`:''}
+    </li>`).join('');
+}
+
+document.addEventListener('click', e=>{
+  const tab = e.target.closest('.tab');
+  if(tab){
+    document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected', t===tab));
+    $('#feed').hidden   = tab.dataset.view!=='feed';
+    $('#health').hidden = tab.dataset.view!=='health';
+  }
+  const chip = e.target.closest('.chip[data-firm]');
+  if(chip){
+    activeFirm = activeFirm===chip.dataset.firm ? null : chip.dataset.firm;
+    renderChips(); renderList();
+  }
+});
+$('#q').addEventListener('input', renderList);
+load();
+</script>
+</body>
+</html>

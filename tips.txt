@@ -1,0 +1,16 @@
+One thing I'd emphasize
+
+The organizers explicitly say the self-healing capability is the differentiator, and judges will look for a real c_* Collector ID, downstream integration, and recovery when the website changes. Bright Data also exposes the scraper as an API and supports scheduling, so you can build the product around a continuously running collector rather than a one-off scrape.
+
+So I would structure any of these as:
+
+Discover → Scrape → Validate → Detect change → Heal → Re-scrape → Understand → Product
+
+rather than:
+
+Scrape → LLM → UI
+
+That distinction could make a big difference in judging.
+
+
+
