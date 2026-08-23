@@ -11,37 +11,21 @@ import json
 import sys
 from pathlib import Path
 
+from common import FORBIDDEN_FIELDS, SYNTHETIC_FIRMS, read_json
+
 ROOT = Path(__file__).resolve().parent.parent
 
-# docs/control/insights.html is a fixture we wrote to prove self-healing. Its "articles" are
-# invented. They must never reach the published dataset: they would be read as real advisory
-# content, and they inflate every cross-firm count with our own text. Excluded here, at the
-# single point where data becomes public, rather than in each consumer -- the first two
-# attempts fixed signals.py and brief.py and still shipped the fixture to the relevance
-# filter. The control page's contract status is unaffected: that comes from health.json.
-SYNTHETIC_FIRMS = {"advisory-digest.vercel.app"}
 VALIDATE = ROOT / "results" / "validate"
 DOCS = ROOT / "docs" / "data"
 
 # Kept in step with validate.py's FORBIDDEN_FIELDS. The contract rejects a run that
 # collects these; this is the second line of defence, in case a row reaches the site
 # through an older summary.
-FORBIDDEN_FIELDS = {"author", "author_name", "byline", "email", "phone"}
 
 
 def newest(pattern: str) -> Path | None:
     files = sorted(VALIDATE.glob(pattern))
     return files[-1] if files else None
-
-
-def read_json(path: Path, default):
-    """Read JSON, falling back to `default` and saying so. Every file read here is a
-    build artefact that a killed run can leave half-written."""
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, ValueError) as exc:
-        print(f"could not read {path}: {exc}", file=sys.stderr)
-        return default
 
 
 def main() -> int:

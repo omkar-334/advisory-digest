@@ -794,7 +794,9 @@ function renderMatrix(){
 function renderSignals(){
   const sigs = (SIGNALS?.signals || []);
   if(!sigs.length){ $('#sigList').innerHTML = '<div class="empty">Nothing yet.</div>'; return; }
-  const totalFirms = new Set(ROWS.map(r=>r._firm)).size || 1;
+  // Same denominator as the headline and the matrix. Counting differently here made
+  // "N of M firms" in Signals disagree with the same claim elsewhere on the page.
+  const totalFirms = new Set(ROWS.map(r=>r._firm).filter(Boolean)).size || 1;
   $('#sigList').innerHTML = sigs.map(s=>`
     <div class="sig">
       <div class="hd">

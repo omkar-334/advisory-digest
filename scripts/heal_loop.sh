@@ -74,7 +74,13 @@ while [ "$attempt" -le "$MAX_ATTEMPTS" ]; do
   log "re-running fleet to verify"
   ./scripts/run_fleet.sh >>"$LOG" 2>&1
   RC=$?
-  python3 scripts/record_heal.py "$STAMP" "$RC" >>"$LOG" 2>&1
+  # Pass what the dashboard renders. The loop already knows which source it repaired and
+  # why; without these the repair log shows an anonymous "Fleet repaired in place".
+  FIRST_FIRM=$(head -1 "$OUT/broken-$STAMP.tsv" 2>/dev/null | cut -f3)
+  FIRST_CID=$(head -1 "$OUT/broken-$STAMP.tsv" 2>/dev/null | cut -f1)
+  FIRST_WHY=$(head -1 "$OUT/broken-$STAMP.tsv" 2>/dev/null | cut -f4)
+  python3 scripts/record_heal.py "$STAMP" "$RC" "$FIRST_FIRM" "$FIRST_CID" "$FIRST_WHY" \
+    >>"$LOG" 2>&1
 
   if [ "$RC" -eq 0 ]; then
     log "HEALED after $attempt attempt(s). Collector IDs unchanged, nothing downstream touched."

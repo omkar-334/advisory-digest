@@ -50,7 +50,12 @@ while read -r cid url; do
   (
     ./node_modules/.bin/bdata scraper run "$cid" "$url" \
       --timeout 900 --json --pretty -o "$part" </dev/null >>"$OUT/run.log" 2>&1
-    [ -s "$part" ] || echo "  no output for $cid" >> "$OUT/run.log"
+    rc=$?
+    # Record the exit status beside the output. A collector that dies part-way still leaves
+    # a non-empty file, and without this the contract sees a thin but error-free result and
+    # calls it a broken selector -- so heal gets sent after a scraper that works.
+    echo "$rc" > "$part.rc"
+    [ -s "$part" ] || echo "  no output for $cid (exit $rc)" >> "$OUT/run.log"
   ) &
   running=$(( running + 1 ))
   if [ "$running" -ge "$CONCURRENCY" ]; then

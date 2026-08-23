@@ -200,3 +200,47 @@ def test_single_healthy_source_still_passes(tmp_path):
     payload = [envelope("https://rsmus.com/insights", [article(i) for i in range(5)])]
     rc, out, _ = run(payload, tmp_path)
     assert rc == 0, out
+
+
+def test_a_partially_rate_limited_run_is_never_healed(tmp_path):
+    """The most dangerous confusion in this system.
+
+    A source returning 5 rows alongside 3 rate-limit errors looks exactly like a scraper
+    that stopped iterating. It is not: it is a degraded run. Sending heal after it spends
+    credits repairing something that works, and can leave it worse.
+    """
+    payload = [{"insights": [article(i) for i in range(5)],
+                "input": {"url": "https://www.bdo.com/insights"}}]
+    payload += error_envelope("https://www.bdo.com/insights", 3)
+    rc, out, err = run(payload, tmp_path)
+    assert rc == 1, f"a degraded run must not be heal-worthy, got exit {rc}"
+    assert "bdo.com" not in out, "the heal prompt must not name a source whose run failed"
+
+
+def test_an_unreadable_expected_list_is_a_hard_error(tmp_path):
+    """Without the expected-URL list, a source that never reported is invisible, and a
+    mostly-dead fleet reports as healthy. Guessing is worse than refusing."""
+    src = tmp_path / "run.json"
+    src.write_text(json.dumps([envelope("https://rsmus.com/insights",
+                                        [article(i) for i in range(5)])]))
+    proc = subprocess.run(
+        [sys.executable, str(VALIDATE), str(src), str(tmp_path / "out"),
+         str(tmp_path / "does-not-exist.txt")],
+        capture_output=True, text=True,
+    )
+    assert proc.returncode == 1
+    assert "expected-URL list" in proc.stderr
+
+
+def test_an_empty_expected_list_is_a_hard_error(tmp_path):
+    src = tmp_path / "run.json"
+    src.write_text(json.dumps([envelope("https://rsmus.com/insights",
+                                        [article(i) for i in range(5)])]))
+    empty = tmp_path / "empty.txt"
+    empty.write_text("# only a comment\n\n")
+    proc = subprocess.run(
+        [sys.executable, str(VALIDATE), str(src), str(tmp_path / "out"), str(empty)],
+        capture_output=True, text=True,
+    )
+    assert proc.returncode == 1
+    assert "lists no URLs" in proc.stderr

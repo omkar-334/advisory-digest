@@ -16,12 +16,10 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
-from envfile import load_env
+from common import firm_of, is_real_firm, load_env, openai_json, parse_date
 
 load_env()
 
@@ -29,69 +27,6 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs" / "data"
 MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 MAX_SUBJECTS = int(os.environ.get("BRIEF_MAX_SUBJECTS", "10"))
-
-
-def call(system: str, user: str, schema: str) -> dict:
-    key = os.environ.get("OPENAI_API_KEY")
-    if not key:
-        raise RuntimeError("OPENAI_API_KEY is not set")
-    payload = {
-        "model": MODEL,
-        "messages": [
-            {"role": "system", "content": system + "\n\nReturn JSON only: " + schema},
-            {"role": "user", "content": user},
-        ],
-        "response_format": {"type": "json_object"},
-        "temperature": 0,
-    }
-    proc = subprocess.run(
-        ["curl", "-sS", "--max-time", "120",
-         "https://api.openai.com/v1/chat/completions",
-         "-H", f"Authorization: Bearer {key}",
-         "-H", "Content-Type: application/json", "-d", "@-"],
-        input=json.dumps(payload), capture_output=True, text=True,
-    )
-    if proc.returncode != 0:
-        raise RuntimeError(f"OpenAI request failed: {proc.stderr.strip()[:200]}")
-    try:
-        body = json.loads(proc.stdout)
-    except ValueError as exc:
-        raise RuntimeError(f"OpenAI returned unreadable output: {exc}") from exc
-    if "error" in body:
-        raise RuntimeError(f"OpenAI error: {body['error'].get('message', '')[:200]}")
-    try:
-        content = body["choices"][0]["message"]["content"]
-    except (KeyError, IndexError) as exc:
-        raise RuntimeError(f"Unexpected OpenAI response shape: {exc}") from exc
-    parsed = json.loads(content)
-    if not isinstance(parsed, dict):
-        raise RuntimeError("classifier did not return an object")
-    return parsed
-
-
-def parse_date(value):
-    if not isinstance(value, str) or not value.strip():
-        return None
-    text = value.strip().replace("Z", "+00:00")
-    for fn in (datetime.fromisoformat, lambda t: datetime.strptime(t[:10], "%Y-%m-%d")):
-        try:
-            dt = fn(text)
-            return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
-        except (ValueError, TypeError):
-            continue
-    return None
-
-
-SYNTHETIC_FIRMS = {"advisory-digest.vercel.app"}
-
-
-def firm_of(row) -> str:
-    return (row.get("_firm") or "unknown").strip() or "unknown"
-
-
-def is_real_firm(firm) -> bool:
-    """The control page is our own fixture, not a source of coverage."""
-    return bool(firm) and firm not in SYNTHETIC_FIRMS
 
 
 # A lead is only a lead if the others were reacting to the same thing. Firms write about
@@ -179,7 +114,7 @@ def brief_for(topic, articles):
     user = (f"Subject: {topic}\n"
             f"Firms covering it: {len({firm_of(a) for a in articles})}\n\n"
             f"Articles:\n{listing}")
-    return call(BRIEF_SYSTEM, user, BRIEF_SCHEMA)
+    return openai_json(BRIEF_SYSTEM, user, BRIEF_SCHEMA)
 
 
 def refresh_counts(rows, assignments) -> int:

@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
-from envfile import load_env
+from common import load_env
 
 load_env()
 

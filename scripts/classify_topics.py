@@ -20,11 +20,10 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess
 import sys
 from pathlib import Path
 
-from envfile import load_env
+from common import load_env, openai_json
 
 load_env()
 
@@ -33,44 +32,6 @@ DOCS = ROOT / "docs" / "data"
 MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 BATCH = 30
 MAX_TOPICS = 22
-
-
-def call(system: str, user: str, schema: str) -> dict:
-    key = os.environ.get("OPENAI_API_KEY")
-    if not key:
-        raise RuntimeError("OPENAI_API_KEY is not set")
-    payload = {
-        "model": MODEL,
-        "messages": [
-            {"role": "system", "content": system + "\n\nReturn JSON only: " + schema},
-            {"role": "user", "content": user},
-        ],
-        "response_format": {"type": "json_object"},
-        "temperature": 0,
-    }
-    proc = subprocess.run(
-        ["curl", "-sS", "--max-time", "120",
-         "https://api.openai.com/v1/chat/completions",
-         "-H", f"Authorization: Bearer {key}",
-         "-H", "Content-Type: application/json", "-d", "@-"],
-        input=json.dumps(payload), capture_output=True, text=True,
-    )
-    if proc.returncode != 0:
-        raise RuntimeError(f"OpenAI request failed: {proc.stderr.strip()[:200]}")
-    try:
-        body = json.loads(proc.stdout)
-    except ValueError:
-        raise RuntimeError(f"OpenAI returned no JSON: {proc.stdout.strip()[:200]}") from None
-    if isinstance(body, dict) and body.get("error"):
-        raise RuntimeError(f"OpenAI error: {body['error'].get('message', '')[:200]}")
-    try:
-        content = body["choices"][0]["message"]["content"]
-        parsed = json.loads(content)
-    except (KeyError, IndexError, TypeError, ValueError):
-        raise RuntimeError(f"unusable classifier reply: {str(body)[:200]}") from None
-    if not isinstance(parsed, dict):
-        raise RuntimeError(f"classifier returned {type(parsed).__name__}, expected an object")
-    return parsed
 
 
 def describe(row: dict) -> str:
@@ -94,7 +55,7 @@ def build_taxonomy(rows: list[dict]) -> list[str]:
         "- no overlapping or synonymous topics\n"
         "- topics must be reusable across firms, never named after one firm"
     )
-    out = call(system, "Articles:\n" + "\n".join(sample), '{"topics": [str]}')
+    out = openai_json(system, "Articles:\n" + "\n".join(sample), '{"topics": [str]}')
     proposed = out.get("topics")
     if not isinstance(proposed, list):
         proposed = []
@@ -120,7 +81,7 @@ def assign(rows: list[dict], topics: list[str]) -> dict[str, list[str]]:
     for start in range(0, len(rows), BATCH):
         chunk = rows[start:start + BATCH]
         listing = "\n".join(f"{i}. {describe(r)}" for i, r in enumerate(chunk))
-        out = call(system, f"{canonical}\n\nArticles:\n{listing}",
+        out = openai_json(system, f"{canonical}\n\nArticles:\n{listing}",
                    '{"assignments": [{"index": int, "topics": [str]}]}')
         assignments = out.get("assignments")
         for a in assignments if isinstance(assignments, list) else []:

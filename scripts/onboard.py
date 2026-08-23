@@ -33,7 +33,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
 
-from envfile import load_env
+from common import load_env, openai_json
 
 load_env()
 
@@ -108,43 +108,6 @@ def fetch(url: str) -> tuple[int, str, str]:
     elif status >= 400:
         note = f"HTTP {status} to a plain request."
     return status, body, note
-
-
-def openai_json(system: str, user: str, schema_hint: str) -> dict:
-    key = os.environ.get("OPENAI_API_KEY")
-    if not key:
-        raise RuntimeError("OPENAI_API_KEY is not set")
-
-    payload = {
-        "model": OPENAI_MODEL,
-        "messages": [
-            {"role": "system", "content": system + "\n\nReturn JSON only: " + schema_hint},
-            {"role": "user", "content": user},
-        ],
-        "response_format": {"type": "json_object"},
-        "temperature": 0,
-    }
-    proc = subprocess.run(
-        ["curl", "-sS", "--max-time", "90", "https://api.openai.com/v1/chat/completions",
-         "-H", f"Authorization: Bearer {key}", "-H", "Content-Type: application/json",
-         "-d", "@-"],
-        input=json.dumps(payload), capture_output=True, text=True,
-    )
-    if proc.returncode != 0:
-        raise RuntimeError(f"OpenAI request failed: {proc.stderr.strip()[:200]}")
-    try:
-        body = json.loads(proc.stdout)
-    except ValueError:
-        raise RuntimeError(f"OpenAI returned no JSON: {proc.stdout.strip()[:200]}") from None
-    if isinstance(body, dict) and body.get("error"):
-        raise RuntimeError(f"OpenAI error: {body['error'].get('message', '')[:200]}")
-    try:
-        verdict = json.loads(body["choices"][0]["message"]["content"])
-    except (KeyError, IndexError, TypeError, ValueError):
-        raise RuntimeError(f"unusable classifier reply: {str(body)[:200]}") from None
-    if not isinstance(verdict, dict):
-        raise RuntimeError(f"classifier returned {type(verdict).__name__}, expected an object")
-    return verdict
 
 
 CLASSIFY_SYSTEM = """You screen candidate web sources for a scraping pipeline that collects

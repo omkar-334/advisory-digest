@@ -22,6 +22,8 @@ from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from common import firm_of, is_real_firm, parse_date
+
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs" / "data"
 RECENT_DAYS = 30
@@ -52,32 +54,6 @@ FALLBACK_TOPICS = {
 }
 
 
-def parse_date(value) -> datetime | None:
-    """Best-effort ISO date parse. Scraped dates are free text, so failure is expected."""
-    if not isinstance(value, str) or not value.strip():
-        return None
-    text = value.strip().replace("Z", "+00:00")
-    for parse in (datetime.fromisoformat, lambda t: datetime.strptime(t[:10], "%Y-%m-%d")):
-        try:
-            dt = parse(text)
-        except (ValueError, TypeError):
-            continue
-        return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
-    return None
-
-
-SYNTHETIC_FIRMS = {"advisory-digest.vercel.app"}
-
-
-def is_real_firm(firm) -> bool:
-    """The control page is our own fixture, not a source. It must never count as coverage."""
-    return bool(firm) and firm not in SYNTHETIC_FIRMS
-
-
-def firm_of(row: dict) -> str:
-    """validate.py stamps every published row with _firm, but a null survives a bad run,
-    and a None here would poison every sorted() over firm names."""
-    return row.get("_firm") or "unknown"
 
 
 def haystack(row: dict) -> str:

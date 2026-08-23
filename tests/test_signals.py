@@ -18,8 +18,11 @@ def run_signals(tmp_path, rows, topics=None):
     (docs / "latest.json").write_text(json.dumps(rows))
     if topics is not None:
         (docs / "topics.json").write_text(json.dumps(topics))
-    (tmp_path / "scripts").mkdir(exist_ok=True)
-    shim = tmp_path / "scripts" / "signals.py"
+    scripts = tmp_path / "scripts"
+    scripts.mkdir(exist_ok=True)
+    # The script imports its siblings by bare name, exactly as it does when run for real.
+    (scripts / "common.py").write_text((ROOT / "scripts" / "common.py").read_text())
+    shim = scripts / "signals.py"
     shim.write_text(SIGNALS.read_text())
     proc = subprocess.run([sys.executable, str(shim)], capture_output=True, text=True,
                           cwd=str(tmp_path))

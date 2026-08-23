@@ -17,12 +17,11 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from envfile import load_env
+from common import load_env, openai_json, parse_date, read_json
 
 load_env()
 
@@ -31,50 +30,6 @@ DOCS = ROOT / "docs" / "data"
 MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 DIGEST_HISTORY = 8
 PERIOD_DAYS = {"daily": 1, "weekly": 7}
-
-
-def call(system: str, user: str, schema: str) -> dict:
-    key = os.environ.get("OPENAI_API_KEY")
-    if not key:
-        raise RuntimeError("OPENAI_API_KEY is not set")
-    payload = {
-        "model": MODEL,
-        "messages": [
-            {"role": "system", "content": system + "\n\nReturn JSON only: " + schema},
-            {"role": "user", "content": user},
-        ],
-        "response_format": {"type": "json_object"},
-        "temperature": 0,
-    }
-    proc = subprocess.run(
-        ["curl", "-sS", "--max-time", "120",
-         "https://api.openai.com/v1/chat/completions",
-         "-H", f"Authorization: Bearer {key}",
-         "-H", "Content-Type: application/json", "-d", "@-"],
-        input=json.dumps(payload), capture_output=True, text=True,
-    )
-    if proc.returncode != 0:
-        raise RuntimeError(f"OpenAI request failed: {proc.stderr.strip()[:200]}")
-    try:
-        body = json.loads(proc.stdout)
-    except ValueError as exc:
-        raise RuntimeError(f"OpenAI returned unreadable output: {exc}") from exc
-    if "error" in body:
-        raise RuntimeError(f"OpenAI error: {body['error'].get('message', '')[:200]}")
-    try:
-        parsed = json.loads(body["choices"][0]["message"]["content"])
-    except (KeyError, IndexError, ValueError) as exc:
-        raise RuntimeError(f"Unexpected OpenAI response: {exc}") from exc
-    if not isinstance(parsed, dict):
-        raise RuntimeError("model did not return an object")
-    return parsed
-
-
-def read_json(path: Path, default=None):
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return default
 
 
 DIGEST_SYSTEM = """You write a short briefing for finance and accounting professionals,
@@ -95,19 +50,6 @@ Rules:
 - watch: one sentence on what to keep an eye on, or an empty string if nothing warrants it."""
 
 DIGEST_SCHEMA = '{"headline": str, "summary": str, "watch": str}'
-
-
-def parse_date(value):
-    if not isinstance(value, str) or not value.strip():
-        return None
-    text = value.strip().replace("Z", "+00:00")
-    for fn in (datetime.fromisoformat, lambda t: datetime.strptime(t[:10], "%Y-%m-%d")):
-        try:
-            dt = fn(text)
-            return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
-        except (ValueError, TypeError):
-            continue
-    return None
 
 
 def main(argv) -> int:
@@ -160,7 +102,7 @@ def main(argv) -> int:
     )
 
     try:
-        written = call(DIGEST_SYSTEM, user, DIGEST_SCHEMA)
+        written = openai_json(DIGEST_SYSTEM, user, DIGEST_SCHEMA)
     except RuntimeError as exc:
         print(f"could not write the digest: {exc}", file=sys.stderr)
         return 1

@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 """Record the outcome of a heal attempt for the published repair log.
 
-    record_heal.py <stamp> <exit-code-of-the-verifying-run>
+    record_heal.py <stamp> <exit-code> [firm] [collector] [diagnosis]
 
-Records what measurably changed, not just that a heal ran. A repair that returns the same
-number of rows can still have restored two fields from 0% to 100%, and a row count alone
-makes that look like a no-op.
+The dashboard renders a repair as "<firm> repaired in place", with the collector id and the
+contract's diagnosis. An earlier version wrote only the stamp, exit code and source counts,
+so every automatically recorded repair rendered as "Fleet repaired in place · collector
+unchanged" with an empty diagnosis, and the control-page verification branch -- keyed off
+the firm -- could never fire. The fields the page needs are the fields written here.
+
+Records what measurably changed, not just that a heal ran: a repair can return the same row
+count while restoring two fields from 0% to 100%, and a row count alone makes that look like
+a no-op.
 """
 from __future__ import annotations
 
@@ -13,62 +19,63 @@ import json
 import sys
 from pathlib import Path
 
+from common import SYNTHETIC_FIRMS, read_json
+
 ROOT = Path(__file__).resolve().parent.parent
 VALIDATE = ROOT / "results" / "validate"
-HEAL_LOOP = ROOT / "results" / "heal_loop"
-USAGE = "usage: record_heal.py <stamp> <exit-code-of-the-verifying-run>"
+
+USAGE = "usage: record_heal.py <stamp> <exit-code> [firm] [collector] [diagnosis]"
 
 
-def read_summary(path: Path) -> dict:
-    try:
-        summary = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, ValueError) as exc:
-        print(f"cannot read {path}: {exc}", file=sys.stderr)
-        return {}
-    return summary if isinstance(summary, dict) else {}
-
-
-def coverage(summary: dict) -> dict[str, int]:
-    """Rows per firm, which is what the timeline compares before and after a repair."""
+def rows_by_firm(summary) -> dict:
     return {firm: v.get("rows", 0)
-            for firm, v in (summary.get("per_firm") or {}).items()
-            if isinstance(v, dict)}
+            for firm, v in ((summary or {}).get("per_firm") or {}).items()}
 
 
 def main(argv) -> int:
     if len(argv) < 3:
         print(USAGE, file=sys.stderr)
         return 2
+
     stamp, run_exit_code = argv[1], argv[2]
+    firm = argv[3] if len(argv) > 3 else ""
+    collector = argv[4] if len(argv) > 4 else ""
+    diagnosis = argv[5] if len(argv) > 5 else ""
 
-    after_path = VALIDATE / "summary-latest.json"
-    if not after_path.exists():
-        print(f"no contract summary at {after_path}", file=sys.stderr)
-        return 1
-    after = read_summary(after_path)
-    if not after:
+    after = read_json(VALIDATE / "summary-latest.json")
+    if after is None:
+        print(f"no contract summary at {VALIDATE / 'summary-latest.json'}", file=sys.stderr)
         return 1
 
-    # summary-latest.json is a copy of the newest stamped summary, so the run immediately
-    # before this one is the second-newest: index -2, not -1.
+    # The run immediately before this one is the "before" picture.
     snapshots = sorted(VALIDATE.glob("summary-2*.json"))
-    before = read_summary(snapshots[-2]) if len(snapshots) >= 2 else {}
+    before = read_json(snapshots[-2]) if len(snapshots) >= 2 else {}
 
-    b, a = coverage(before), coverage(after)
-    metrics = [{"label": f"{firm} articles",
-                "before": str(b.get(firm, "—")), "after": str(a[firm])}
-               for firm in sorted(a) if str(b.get(firm)) != str(a[firm])]
+    b, a = rows_by_firm(before), rows_by_firm(after)
+    metrics = [{"label": f"{name} articles", "before": str(b.get(name, "\u2014")),
+                "after": str(a[name])}
+               for name in sorted(a) if str(b.get(name)) != str(a[name])]
 
-    resolved = run_exit_code == "0"
-    HEAL_LOOP.mkdir(parents=True, exist_ok=True)
-    (HEAL_LOOP / "last-event.json").write_text(json.dumps({
+    event = {
         "stamp": stamp,
-        "resolved": resolved,
+        "firm": firm,
+        "collector": collector,
+        "diagnosis": diagnosis,
+        # The control page is a fixture we break on purpose; its repairs are logged
+        # separately from repairs to real sources.
+        "kind": "verification" if firm in SYNTHETIC_FIRMS else "production",
+        "outcome": "repaired" if run_exit_code == "0" else "no_change_needed",
+        "resolved": run_exit_code == "0",
         "healthy_sources": after.get("healthy_sources"),
         "sources": after.get("sources"),
         "metrics": metrics,
-    }, indent=1), encoding="utf-8")
-    print(f"recorded heal outcome: resolved={resolved}, {len(metrics)} measurement(s) moved")
+    }
+
+    out = ROOT / "results" / "heal_loop"
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "last-event.json").write_text(json.dumps(event, indent=1), encoding="utf-8")
+    print(f"recorded heal for {firm or 'fleet'}: resolved={event['resolved']}, "
+          f"{len(metrics)} measurement(s) moved")
     return 0
 
 

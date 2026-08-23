@@ -21,19 +21,38 @@ def main(argv) -> int:
         return 2
 
     out = Path(argv[1])
-    merged, skipped = [], []
+    merged, skipped, degraded = [], [], []
     for path in argv[2:]:
         try:
             data = json.loads(Path(path).read_text())
         except (OSError, json.JSONDecodeError) as exc:
             skipped.append(f"{Path(path).name}: {exc}")
             continue
-        merged.extend(data if isinstance(data, list) else [data])
+        envelopes = data if isinstance(data, list) else [data]
+
+        # A non-zero exit means the run was degraded even if it wrote usable rows. Mark it
+        # so the contract classifies it as a run failure rather than a broken selector.
+        rc_path = Path(f"{path}.rc")
+        try:
+            failed = int(rc_path.read_text(encoding="utf-8").strip() or 0) != 0
+        except (OSError, ValueError):
+            failed = False
+        if failed:
+            source = next((e.get("input", {}).get("url") for e in envelopes
+                           if isinstance(e, dict) and isinstance(e.get("input"), dict)), None)
+            degraded.append(Path(path).name)
+            envelopes.append({"input": {"url": source} if source else {},
+                              "error": "collector exited non-zero",
+                              "error_code": "run_failed"})
+
+        merged.extend(envelopes)
 
     out.write_text(json.dumps(merged, ensure_ascii=False, indent=1))
     print(f"merged {len(merged)} envelopes from {len(argv) - 2 - len(skipped)} collector(s)")
     for s in skipped:
         print(f"  skipped {s}", file=sys.stderr)
+    for d in degraded:
+        print(f"  degraded (non-zero exit): {d}", file=sys.stderr)
     return 0
 
 

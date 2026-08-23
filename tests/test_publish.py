@@ -31,8 +31,11 @@ def run_publish(tmp_path, rows, summary, existing=None, heals=None):
     if heals is not None:
         (docs / "heals.json").write_text(heals)
 
-    (tmp_path / "scripts").mkdir(exist_ok=True)
-    shim = tmp_path / "scripts" / "publish.py"
+    scripts = tmp_path / "scripts"
+    scripts.mkdir(exist_ok=True)
+    # The script imports its siblings by bare name, exactly as it does when run for real.
+    (scripts / "common.py").write_text((ROOT / "scripts" / "common.py").read_text())
+    shim = scripts / "publish.py"
     shim.write_text(PUBLISH.read_text())
 
     proc = subprocess.run([sys.executable, str(shim)], capture_output=True, text=True,

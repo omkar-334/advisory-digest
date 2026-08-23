@@ -188,11 +188,22 @@ def main() -> int:
     # contract. Silent disappearance is the most dangerous failure mode there is.
     expected: list[str] = []
     if len(sys.argv) > 3:
+        expected_path = Path(sys.argv[3])
         try:
-            lines = Path(sys.argv[3]).read_text(encoding="utf-8").splitlines()
-        except OSError:
-            lines = []
+            lines = expected_path.read_text(encoding="utf-8").splitlines()
+        except (OSError, ValueError) as exc:
+            # This list is the only thing that notices a source producing no envelope at
+            # all. Swallowing the error leaves absent firms out of the report AND out of
+            # the denominator, so a fleet where most collectors never ran can report
+            # "all healthy". Refuse rather than guess.
+            print(f"HARD ERROR: cannot read the expected-URL list {expected_path}: {exc}",
+                  file=sys.stderr)
+            return 1
         expected = [line.strip() for line in lines if line.strip().startswith("http")]
+        if not expected:
+            print(f"HARD ERROR: {expected_path} lists no URLs, so a source that never "
+                  f"reported could not be detected.", file=sys.stderr)
+            return 1
     outdir.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     started = time.time()
@@ -225,7 +236,13 @@ def main() -> int:
         #     yields a few rows and looks exactly like a scraper that stopped iterating,
         #     so the two have to be told apart by cause rather than by row count.
         never_reported = not rows and firm not in seen_firms
-        error_dominated = errs > 0 and errs >= max(len(rows), 1)
+        # ANY error envelope means this source's run was degraded, and a degraded run is
+        # never repairable. The previous rule (errors >= rows) let a source with 5 rows and
+        # 3 rate-limit errors reach the break check, where "returned only 5 articles" reads
+        # exactly like a scraper that stopped iterating -- and heal would then be dispatched
+        # against a scraper that works. Undercounting because requests failed is a run
+        # problem, not a selector problem.
+        error_dominated = errs > 0
         if never_reported or error_dominated:
             detail = ("returned no output at all" if never_reported
                       else f"failed with {errs} error(s) against {len(rows)} usable row(s)")
