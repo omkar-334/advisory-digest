@@ -24,16 +24,6 @@
   },
   {
    "a": "Business Tax Compliance and Consulting",
-   "b": "Supply Chain Management",
-   "shared": 3,
-   "firms": [
-    "claconnect.com",
-    "pwc.com",
-    "rsmus.com"
-   ]
-  },
-  {
-   "a": "Business Tax Compliance and Consulting",
    "b": "Tax Implications of Trusts",
    "shared": 3,
    "firms": [
@@ -44,20 +34,30 @@
   },
   {
    "a": "Business Tax Compliance and Consulting",
-   "b": "Financial Reporting and Governance",
+   "b": "Workforce Management in Finance",
    "shared": 3,
    "firms": [
-    "crowe.com",
+    "claconnect.com",
     "pwc.com",
     "withum.com"
    ]
   },
   {
    "a": "Business Tax Compliance and Consulting",
-   "b": "Workforce Management in Finance",
+   "b": "Supply Chain Management",
    "shared": 3,
    "firms": [
     "claconnect.com",
+    "pwc.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Financial Reporting and Governance",
+   "shared": 3,
+   "firms": [
+    "crowe.com",
     "pwc.com",
     "withum.com"
    ]
@@ -84,22 +84,22 @@
   },
   {
    "a": "AI in Auditing",
-   "b": "Supply Chain Management",
-   "shared": 3,
-   "firms": [
-    "claconnect.com",
-    "pwc.com",
-    "rsmus.com"
-   ]
-  },
-  {
-   "a": "AI in Auditing",
    "b": "Workforce Management in Finance",
    "shared": 3,
    "firms": [
     "claconnect.com",
     "pwc.com",
     "withum.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "Supply Chain Management",
+   "shared": 3,
+   "firms": [
+    "claconnect.com",
+    "pwc.com",
+    "rsmus.com"
    ]
   },
   {
@@ -123,15 +123,6 @@
   },
   {
    "a": "Business Tax Compliance and Consulting",
-   "b": "Financial Due Diligence",
-   "shared": 2,
-   "firms": [
-    "cohnreznick.com",
-    "rsmus.com"
-   ]
-  },
-  {
-   "a": "Business Tax Compliance and Consulting",
    "b": "Private Client Wealth Services",
    "shared": 2,
    "firms": [
@@ -141,19 +132,28 @@
   },
   {
    "a": "Business Tax Compliance and Consulting",
-   "b": "Modern Audit Processes",
+   "b": "Opportunity Zones Tax Strategies",
    "shared": 2,
    "firms": [
-    "crowe.com",
+    "claconnect.com",
     "rsmus.com"
    ]
   },
   {
    "a": "Business Tax Compliance and Consulting",
-   "b": "Opportunity Zones Tax Strategies",
+   "b": "Financial Due Diligence",
    "shared": 2,
    "firms": [
-    "claconnect.com",
+    "cohnreznick.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Modern Audit Processes",
+   "shared": 2,
+   "firms": [
+    "crowe.com",
     "rsmus.com"
    ]
   },
@@ -249,19 +249,19 @@
   },
   {
    "a": "Audit Strategy and Value",
-   "b": "Third-Party Risk Management",
+   "b": "Opportunity Zones Tax Strategies",
    "shared": 2,
    "firms": [
-    "advisory-digest.vercel.app",
+    "claconnect.com",
     "rsmus.com"
    ]
   },
   {
    "a": "Audit Strategy and Value",
-   "b": "Opportunity Zones Tax Strategies",
+   "b": "Third-Party Risk Management",
    "shared": 2,
    "firms": [
-    "claconnect.com",
+    "advisory-digest.vercel.app",
     "rsmus.com"
    ]
   },
@@ -293,8 +293,8 @@
    ]
   },
   {
-   "a": "Supply Chain Management",
-   "b": "Tax Implications of Trusts",
+   "a": "Tax Implications of Trusts",
+   "b": "Supply Chain Management",
    "shared": 2,
    "firms": [
     "claconnect.com",
@@ -302,16 +302,7 @@
    ]
   },
   {
-   "a": "Supply Chain Management",
-   "b": "Workforce Management in Finance",
-   "shared": 2,
-   "firms": [
-    "claconnect.com",
-    "pwc.com"
-   ]
-  },
-  {
-   "a": "Supply Chain Management",
+   "a": "Tax Implications of Trusts",
    "b": "Private Client Wealth Services",
    "shared": 2,
    "firms": [
@@ -320,21 +311,12 @@
    ]
   },
   {
-   "a": "Supply Chain Management",
+   "a": "Tax Implications of Trusts",
    "b": "Opportunity Zones Tax Strategies",
    "shared": 2,
    "firms": [
     "claconnect.com",
     "rsmus.com"
-   ]
-  },
-  {
-   "a": "Supply Chain Management",
-   "b": "Healthcare Compliance and Regulations",
-   "shared": 2,
-   "firms": [
-    "claconnect.com",
-    "pwc.com"
    ]
   },
   {
@@ -347,7 +329,34 @@
    ]
   },
   {
-   "a": "Tax Implications of Trusts",
+   "a": "Workforce Management in Finance",
+   "b": "Supply Chain Management",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "pwc.com"
+   ]
+  },
+  {
+   "a": "Workforce Management in Finance",
+   "b": "Financial Reporting and Governance",
+   "shared": 2,
+   "firms": [
+    "pwc.com",
+    "withum.com"
+   ]
+  },
+  {
+   "a": "Workforce Management in Finance",
+   "b": "Healthcare Compliance and Regulations",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "pwc.com"
+   ]
+  },
+  {
+   "a": "Supply Chain Management",
    "b": "Private Client Wealth Services",
    "shared": 2,
    "firms": [
@@ -356,27 +365,18 @@
    ]
   },
   {
-   "a": "Tax Implications of Trusts",
+   "a": "Supply Chain Management",
    "b": "Opportunity Zones Tax Strategies",
    "shared": 2,
    "firms": [
     "claconnect.com",
     "rsmus.com"
    ]
-  },
-  {
-   "a": "Financial Reporting and Governance",
-   "b": "Workforce Management in Finance",
-   "shared": 2,
-   "firms": [
-    "pwc.com",
-    "withum.com"
-   ]
   }
  ],
  "generated_from": 181,
  "window_days": 30,
- "as_of": "2026-12-08",
+ "as_of": "2026-08-21",
  "signals": [
   {
    "topic": "Business Tax Compliance and Consulting",
@@ -390,15 +390,9 @@
     "withum.com"
    ],
    "articles": 12,
-   "recent_articles": 0,
-   "recent_firms": 6,
+   "recent_articles": 7,
+   "recent_firms": 4,
    "examples": [
-    {
-     "title": "Business tax services Business tax services",
-     "firm": "rsmus.com",
-     "url": "https://rsmus.com/services/business-tax.html",
-     "date": null
-    },
     {
      "title": "Fifth Circuit Reconsiders Who Counts as a Limited Partner",
      "firm": "withum.com",
@@ -416,6 +410,12 @@
      "firm": "withum.com",
      "url": "https://www.withum.com/resources/prediction-markets-contracts-and-federal-income-tax-wagering-investing-or-something-else/",
      "date": "2026-08-20T00:00:00.000Z"
+    },
+    {
+     "title": "Samson joins CohnReznick as a Tax Partner in Financial Services",
+     "firm": "cohnreznick.com",
+     "url": "https://www.cohnreznick.com/insights/dane-samson-joins-cohnreznick-as-a-tax-partner-in-financial-services/",
+     "date": "2026-08-17"
     }
    ]
   },
@@ -430,32 +430,32 @@
     "withum.com"
    ],
    "articles": 24,
-   "recent_articles": 0,
-   "recent_firms": 5,
+   "recent_articles": 6,
+   "recent_firms": 3,
    "examples": [
     {
-     "title": "AI, analytics and cloud services AI, analytics and cloud services",
-     "firm": "rsmus.com",
-     "url": "https://rsmus.com/services/digital-transformation.html",
-     "date": null
+     "title": "From Dinosaurs to Digital: Modernizing Nonprofit Finance Through Automation, Technology and AI",
+     "firm": "withum.com",
+     "url": "https://www.withum.com/events/from-dinosaurs-to-digital-modernizing-nonprofit-finance-through-automation-technology-and-ai/",
+     "date": "2026-09-23T00:00:00.000Z"
     },
     {
-     "title": "From AI Activity to AI Value",
+     "title": "HLB Global Webinar - AI in Manufacturing: What Works, What Doesn't and What's Next",
+     "firm": "withum.com",
+     "url": "https://www.withum.com/events/ai-in-manufacturing-what-works-what-doesnt/",
+     "date": "2026-08-27T00:00:00.000Z"
+    },
+    {
+     "title": "How AI Is Resetting the SaaS Valuation Multiples in Private Equity and Private Credit",
+     "firm": "withum.com",
+     "url": "https://www.withum.com/resources/how-ai-is-resetting-the-saas-valuation-multiples-in-private-equity-and-private-credit/",
+     "date": "2026-08-20T00:00:00.000Z"
+    },
+    {
+     "title": "CLA Heartbeat Index: Strong Economic Confidence Meets New AI Reality Check",
      "firm": "claconnect.com",
-     "url": "https://godigital.claconnect.com/insights/white-paper/from-ai-activity-to-ai-value/",
-     "date": null
-    },
-    {
-     "title": "Moonshots and Mop Buckets: The AI Investment Framework for Private Equity",
-     "firm": "withum.com",
-     "url": "https://www.withum.com/events/moonshots-and-mop-buckets-the-ai-investment-framework-for-private-equity/",
-     "date": null
-    },
-    {
-     "title": "From Strategy to Adoption: Making AI Work for Not-for-Profits",
-     "firm": "withum.com",
-     "url": "https://www.withum.com/events/from-strategy-to-adoption-making-ai-work-for-not-for-profits/",
-     "date": null
+     "url": "https://www.claconnect.com/en/media/2026/cla-heartbeat-index-strong-economic-confidence-meets-new-ai-reality-check",
+     "date": "2026-08-18"
     }
    ]
   },
@@ -469,8 +469,8 @@
     "rsmus.com"
    ],
    "articles": 10,
-   "recent_articles": 0,
-   "recent_firms": 4,
+   "recent_articles": 6,
+   "recent_firms": 3,
    "examples": [
     {
      "title": "Lease accounting practical expedients: common errors in year-three audits",
@@ -508,8 +508,8 @@
     "withum.com"
    ],
    "articles": 7,
-   "recent_articles": 0,
-   "recent_firms": 4,
+   "recent_articles": 4,
+   "recent_firms": 3,
    "examples": [
     {
      "title": "Cybersecurity in the Age of AI: Managing Business and Legal Risk",
@@ -538,44 +538,6 @@
    ]
   },
   {
-   "topic": "Supply Chain Management",
-   "firms": 3,
-   "firm_list": [
-    "claconnect.com",
-    "pwc.com",
-    "rsmus.com"
-   ],
-   "articles": 5,
-   "recent_articles": 0,
-   "recent_firms": 3,
-   "examples": [
-    {
-     "title": "Global operations and supply chain strategy Global operations and supply chain strategy",
-     "firm": "rsmus.com",
-     "url": "https://rsmus.com/services/business-strategy-operations/global-operations-supply-chain-strategy.html",
-     "date": null
-    },
-    {
-     "title": "Supply chain inventory management services Supply chain inventory management services",
-     "firm": "rsmus.com",
-     "url": "https://rsmus.com/services/business-strategy-operations/supply-chain-services/supply-chain-inventory-management-services.html",
-     "date": null
-    },
-    {
-     "title": "Underwriting Mixed-Use Property: Where Stability Meets Execution Risk",
-     "firm": "claconnect.com",
-     "url": "https://www.claconnect.com/en/resources/blogs/real-estate/underwriting-mixed-use-property-where-stability-meets-execution-risk",
-     "date": "2026-08-14"
-    },
-    {
-     "title": "How third-party risk management strengthens manufacturing supply chains",
-     "firm": "rsmus.com",
-     "url": "https://rsmus.com/insights/industries/manufacturing/third-party-risk-management-manufacturing-supply-chains.html",
-     "date": "2026-06-29"
-    }
-   ]
-  },
-  {
    "topic": "Tax Implications of Trusts",
    "firms": 3,
    "firm_list": [
@@ -584,8 +546,8 @@
     "rsmus.com"
    ],
    "articles": 9,
-   "recent_articles": 0,
-   "recent_firms": 3,
+   "recent_articles": 6,
+   "recent_firms": 2,
    "examples": [
     {
      "title": "Treasury, IRS propose Section 987 simplification for controlled foreign corporations",
@@ -614,38 +576,6 @@
    ]
   },
   {
-   "topic": "Financial Reporting and Governance",
-   "firms": 3,
-   "firm_list": [
-    "crowe.com",
-    "pwc.com",
-    "withum.com"
-   ],
-   "articles": 3,
-   "recent_articles": 0,
-   "recent_firms": 3,
-   "examples": [
-    {
-     "title": "August 2026 Financial Reporting, Governance, and Risk Management",
-     "firm": "crowe.com",
-     "url": "https://www.crowe.com/insights/financial-institutions-executive-briefing",
-     "date": null
-    },
-    {
-     "title": "IPO Readiness for Tech Startups: Key SEC Compliance Steps to Start 24 Months Out",
-     "firm": "withum.com",
-     "url": "https://www.withum.com/resources/ipo-readiness-for-tech-startups-key-sec-compliance-steps-to-start-24-months-out/",
-     "date": "2026-08-21T00:00:00.000Z"
-    },
-    {
-     "title": "Q2 2026 Closing statements: Quarter end insights for controllers",
-     "firm": "pwc.com",
-     "url": "https://www.pwc.com/us/en/ghosts/q22026closingstatements.html",
-     "date": "2026-07-15T00:00:00.000Z"
-    }
-   ]
-  },
-  {
    "topic": "Workforce Management in Finance",
    "firms": 3,
    "firm_list": [
@@ -654,8 +584,8 @@
     "withum.com"
    ],
    "articles": 7,
-   "recent_articles": 0,
-   "recent_firms": 3,
+   "recent_articles": 3,
+   "recent_firms": 2,
    "examples": [
     {
      "title": "When Rapid Growth Triggers a Retirement Plan Audit",
@@ -674,37 +604,71 @@
      "firm": "claconnect.com",
      "url": "https://www.claconnect.com/en/resources/articles/24/strategies-to-find-top-talent-in-todays-professional-landscape",
      "date": "2026-07-22"
-    },
-    {
-     "title": "AI-enabled workforce transformation for financial services",
-     "firm": "pwc.com",
-     "url": "https://www.pwc.com/us/en/industries/financial-services/library/ai-enabled-workforce-transformation.html",
-     "date": "2026-04-28T00:00:00.000Z"
     }
    ]
   },
   {
-   "topic": "Financial Due Diligence",
+   "topic": "State Pass-Through Entity Tax Elections",
    "firms": 2,
    "firm_list": [
-    "cohnreznick.com",
-    "rsmus.com"
+    "advisory-digest.vercel.app",
+    "cohnreznick.com"
    ],
    "articles": 2,
-   "recent_articles": 0,
+   "recent_articles": 2,
    "recent_firms": 2,
    "examples": [
     {
-     "title": "Financial due diligence Financial due diligence",
-     "firm": "rsmus.com",
-     "url": "https://rsmus.com/services/merger-acquisition/financial-due-diligence.html",
-     "date": null
+     "title": "Arizona court excludes intangibles from renewable energy property tax valuation",
+     "firm": "cohnreznick.com",
+     "url": "https://www.cohnreznick.com/insights/arizona-court-excludes-intangibles-from-renewable-energy-property-tax-valuation/",
+     "date": "2026-08-21"
     },
     {
-     "title": "Samson joins CohnReznick as a Tax Partner in Financial Services",
-     "firm": "cohnreznick.com",
-     "url": "https://www.cohnreznick.com/insights/dane-samson-joins-cohnreznick-as-a-tax-partner-in-financial-services/",
-     "date": "2026-08-17"
+     "title": "State pass-through entity tax elections: a 2026 planning checklist",
+     "firm": "advisory-digest.vercel.app",
+     "url": "https://example-advisory.com/insights/ptet-2026-checklist",
+     "date": "2026-08-18"
+    }
+   ]
+  },
+  {
+   "topic": "Supply Chain Management",
+   "firms": 3,
+   "firm_list": [
+    "claconnect.com",
+    "pwc.com",
+    "rsmus.com"
+   ],
+   "articles": 5,
+   "recent_articles": 1,
+   "recent_firms": 1,
+   "examples": [
+    {
+     "title": "Underwriting Mixed-Use Property: Where Stability Meets Execution Risk",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/blogs/real-estate/underwriting-mixed-use-property-where-stability-meets-execution-risk",
+     "date": "2026-08-14"
+    }
+   ]
+  },
+  {
+   "topic": "Financial Reporting and Governance",
+   "firms": 3,
+   "firm_list": [
+    "crowe.com",
+    "pwc.com",
+    "withum.com"
+   ],
+   "articles": 3,
+   "recent_articles": 1,
+   "recent_firms": 1,
+   "examples": [
+    {
+     "title": "IPO Readiness for Tech Startups: Key SEC Compliance Steps to Start 24 Months Out",
+     "firm": "withum.com",
+     "url": "https://www.withum.com/resources/ipo-readiness-for-tech-startups-key-sec-compliance-steps-to-start-24-months-out/",
+     "date": "2026-08-21T00:00:00.000Z"
     }
    ]
   },
@@ -716,15 +680,9 @@
     "rsmus.com"
    ],
    "articles": 5,
-   "recent_articles": 0,
-   "recent_firms": 2,
+   "recent_articles": 3,
+   "recent_firms": 1,
    "examples": [
-    {
-     "title": "Private client services Private client services",
-     "firm": "rsmus.com",
-     "url": "https://rsmus.com/services/private-client-services.html",
-     "date": null
-    },
     {
      "title": "Income Tax Implications of Grantor and Non-Grantor Trusts",
      "firm": "claconnect.com",
@@ -746,56 +704,6 @@
    ]
   },
   {
-   "topic": "Modern Audit Processes",
-   "firms": 2,
-   "firm_list": [
-    "crowe.com",
-    "rsmus.com"
-   ],
-   "articles": 2,
-   "recent_articles": 0,
-   "recent_firms": 2,
-   "examples": [
-    {
-     "title": "Smarter Public Sector Auditing Through Automation",
-     "firm": "crowe.com",
-     "url": "https://www.crowe.com/insights",
-     "date": "2026-07-24T00:00:00.000Z"
-    },
-    {
-     "title": "Modernize your audit process",
-     "firm": "rsmus.com",
-     "url": "https://rsmus.com/insights/services/audit/modernize-your-audit-process.html",
-     "date": "2025-10-14"
-    }
-   ]
-  },
-  {
-   "topic": "Third-Party Risk Management",
-   "firms": 2,
-   "firm_list": [
-    "advisory-digest.vercel.app",
-    "rsmus.com"
-   ],
-   "articles": 2,
-   "recent_articles": 0,
-   "recent_firms": 2,
-   "examples": [
-    {
-     "title": "Cybersecurity disclosure controls for private companies preparing to list",
-     "firm": "advisory-digest.vercel.app",
-     "url": "https://example-advisory.com/insights/cyber-disclosure-pre-ipo",
-     "date": "2026-08-17"
-    },
-    {
-     "title": "How third-party risk management strengthens manufacturing supply chains",
-     "firm": "rsmus.com",
-     "url": "https://rsmus.com/insights/industries/manufacturing/third-party-risk-management-manufacturing-supply-chains.html",
-     "date": "2026-06-29"
-    }
-   ]
-  },
-  {
    "topic": "Opportunity Zones Tax Strategies",
    "firms": 2,
    "firm_list": [
@@ -803,8 +711,8 @@
     "rsmus.com"
    ],
    "articles": 6,
-   "recent_articles": 0,
-   "recent_firms": 2,
+   "recent_articles": 2,
+   "recent_firms": 1,
    "examples": [
     {
      "title": "Opportunity Zones: How Census Tract Changes Affect Eligibility and Planning",
@@ -817,18 +725,63 @@
      "firm": "claconnect.com",
      "url": "https://www.claconnect.com/en/resources/articles/26/opportunity-zones-for-operating-businesses",
      "date": "2026-07-30"
-    },
+    }
+   ]
+  },
+  {
+   "topic": "Financial Due Diligence",
+   "firms": 2,
+   "firm_list": [
+    "cohnreznick.com",
+    "rsmus.com"
+   ],
+   "articles": 2,
+   "recent_articles": 1,
+   "recent_firms": 1,
+   "examples": [
     {
-     "title": "Qualified Opportunity Zones: The New Guidance to Adopt Now",
-     "firm": "claconnect.com",
-     "url": "https://www.claconnect.com/en/resources/articles/26/qualified-opportunity-zones-guidance",
-     "date": "2026-07-21"
-    },
+     "title": "Samson joins CohnReznick as a Tax Partner in Financial Services",
+     "firm": "cohnreznick.com",
+     "url": "https://www.cohnreznick.com/insights/dane-samson-joins-cohnreznick-as-a-tax-partner-in-financial-services/",
+     "date": "2026-08-17"
+    }
+   ]
+  },
+  {
+   "topic": "Modern Audit Processes",
+   "firms": 2,
+   "firm_list": [
+    "crowe.com",
+    "rsmus.com"
+   ],
+   "articles": 2,
+   "recent_articles": 1,
+   "recent_firms": 1,
+   "examples": [
     {
-     "title": "The New Housing Act: How Real Estate Investors, Developers May Benefit",
-     "firm": "claconnect.com",
-     "url": "https://www.claconnect.com/en/resources/articles/26/road-to-housing-act",
-     "date": "2026-07-16"
+     "title": "Smarter Public Sector Auditing Through Automation",
+     "firm": "crowe.com",
+     "url": "https://www.crowe.com/insights",
+     "date": "2026-07-24T00:00:00.000Z"
+    }
+   ]
+  },
+  {
+   "topic": "Third-Party Risk Management",
+   "firms": 2,
+   "firm_list": [
+    "advisory-digest.vercel.app",
+    "rsmus.com"
+   ],
+   "articles": 2,
+   "recent_articles": 1,
+   "recent_firms": 1,
+   "examples": [
+    {
+     "title": "Cybersecurity disclosure controls for private companies preparing to list",
+     "firm": "advisory-digest.vercel.app",
+     "url": "https://example-advisory.com/insights/cyber-disclosure-pre-ipo",
+     "date": "2026-08-17"
     }
    ]
   },
@@ -840,45 +793,14 @@
     "pwc.com"
    ],
    "articles": 2,
-   "recent_articles": 0,
-   "recent_firms": 2,
+   "recent_articles": 1,
+   "recent_firms": 1,
    "examples": [
     {
      "title": "R&D capitalisation under Section 174: what changed for tax year 2026",
      "firm": "advisory-digest.vercel.app",
      "url": "https://example-advisory.com/insights/section-174-2026",
      "date": "2026-08-20"
-    },
-    {
-     "title": "New software capitalization standard: Assess accounting changes and business process impacts now",
-     "firm": "pwc.com",
-     "url": "https://www.pwc.com/us/en/services/consulting/deals/library/new-software-capitalization-standard.html",
-     "date": "2026-03-27T00:00:00.000Z"
-    }
-   ]
-  },
-  {
-   "topic": "State Pass-Through Entity Tax Elections",
-   "firms": 2,
-   "firm_list": [
-    "advisory-digest.vercel.app",
-    "cohnreznick.com"
-   ],
-   "articles": 2,
-   "recent_articles": 0,
-   "recent_firms": 2,
-   "examples": [
-    {
-     "title": "Arizona court excludes intangibles from renewable energy property tax valuation",
-     "firm": "cohnreznick.com",
-     "url": "https://www.cohnreznick.com/insights/arizona-court-excludes-intangibles-from-renewable-energy-property-tax-valuation/",
-     "date": "2026-08-21"
-    },
-    {
-     "title": "State pass-through entity tax elections: a 2026 planning checklist",
-     "firm": "advisory-digest.vercel.app",
-     "url": "https://example-advisory.com/insights/ptet-2026-checklist",
-     "date": "2026-08-18"
     }
    ]
   },
@@ -890,32 +812,14 @@
     "pwc.com"
    ],
    "articles": 6,
-   "recent_articles": 0,
-   "recent_firms": 2,
+   "recent_articles": 1,
+   "recent_firms": 1,
    "examples": [
     {
      "title": "CJR-X: New Mandatory Joint Replacement Model on Horizon",
      "firm": "claconnect.com",
      "url": "https://www.claconnect.com/en/resources/blogs/health-care/cjrx-new-mandatory-joint-replacement-model-on-horizon",
      "date": "2026-08-12"
-    },
-    {
-     "title": "340B Program Targeted: Proposal, Reimbursement Cut, Medicaid Impact",
-     "firm": "claconnect.com",
-     "url": "https://www.claconnect.com/en/resources/blogs/health-care/340b-program-targeted-proposal-reimbursement-cut-medicaid-impact",
-     "date": "2026-07-15"
-    },
-    {
-     "title": "Inside the LEAD ACO: Medicare\u2019s Next Value Model",
-     "firm": "claconnect.com",
-     "url": "https://www.claconnect.com/en/resources/articles/26/lead-aco",
-     "date": "2026-07-14"
-    },
-    {
-     "title": "Tax-Exempt Hospitals Might Face Additional Reporting Requirements",
-     "firm": "claconnect.com",
-     "url": "https://www.claconnect.com/en/resources/blogs/health-care/tax-exempt-hospitals-might-face-additional-reporting-requirements",
-     "date": "2026-07-06"
     }
    ]
   }

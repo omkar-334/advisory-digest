@@ -96,8 +96,12 @@ def main() -> int:
         print("published dataset is empty", file=sys.stderr)
         return 1
 
-    dates = [d for d in (parse_date(r.get("published_date")) for r in rows) if d]
-    now = max(dates) if dates else datetime.now(timezone.utc)
+    # Some firms publish future-dated items (registration pages for upcoming webinars), so
+    # taking the maximum date would report the corpus as being "as of" months from now.
+    today = datetime.now(timezone.utc)
+    dates = [d for d in (parse_date(r.get("published_date")) for r in rows)
+             if d and d <= today]
+    now = max(dates) if dates else today
     cutoff = now - timedelta(days=RECENT_DAYS)
 
     # Prefer LLM-assigned topics; fall back to patterns when they are not available.

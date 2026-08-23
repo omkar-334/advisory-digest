@@ -71,17 +71,20 @@ nav{display:flex;gap:0;margin-top:14px;flex-wrap:wrap}
 .finding .subject{font-family:'IBM Plex Sans Condensed',sans-serif;
   font-size:clamp(1.4rem,3.6vw,2.15rem);font-weight:600;letter-spacing:-.02em;
   line-height:1.16;margin:10px 0 0;max-width:22ch}
-.finding .subject mark{background:var(--bar);color:inherit;
-  box-shadow:0 0 0 4px var(--bar);border-radius:1px}
+.finding .subject mark{background:var(--bar);color:inherit;padding:1px 6px;
+  border-radius:2px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .finding .when{font-family:'IBM Plex Mono',monospace;font-size:.74rem;color:var(--ink-3);
   margin:18px 0 0;letter-spacing:.02em}
 .marks{display:flex;gap:6px;margin:20px 0 0;flex-wrap:wrap;align-items:center}
 .marks .m{width:15px;height:15px;border-radius:1px;border:1px solid var(--rule-2);
-  background:transparent;opacity:0;transform:translateY(3px);
-  animation:markIn .34s cubic-bezier(.2,.8,.3,1) forwards}
+  background:transparent}
 .marks .m.on{background:var(--mark);border-color:var(--mark)}
 .marks .lbl{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-3);
-  margin-left:9px;opacity:0;animation:markIn .4s ease forwards}
+  margin-left:9px}
+@media (prefers-reduced-motion: no-preference){
+  .marks .m,.marks .lbl{opacity:0;transform:translateY(3px);
+    animation:markIn .34s cubic-bezier(.2,.8,.3,1) forwards}
+}
 @keyframes markIn{to{opacity:1;transform:none}}
 .claim{padding:28px 0 4px;max-width:64ch}
 .claim p{font-size:1.05rem;line-height:1.5;margin:0}
