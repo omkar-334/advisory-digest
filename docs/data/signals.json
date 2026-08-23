@@ -37,21 +37,21 @@
   },
   {
    "a": "AI in Auditing",
-   "b": "State and Local Tax (SALT) Planning",
-   "shared": 3,
-   "firms": [
-    "claconnect.com",
-    "eisneramper.com",
-    "rsmus.com"
-   ]
-  },
-  {
-   "a": "AI in Auditing",
    "b": "Government Contracting Risks",
    "shared": 3,
    "firms": [
     "bakertilly.com",
     "bdo.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "State and Local Tax (SALT) Planning",
+   "shared": 3,
+   "firms": [
+    "claconnect.com",
+    "eisneramper.com",
     "rsmus.com"
    ]
   },
@@ -73,26 +73,6 @@
     "bakertilly.com",
     "claconnect.com",
     "pwc.com"
-   ]
-  },
-  {
-   "a": "State and Local Tax (SALT) Planning",
-   "b": "Audit Resilience",
-   "shared": 3,
-   "firms": [
-    "advisory-digest.vercel.app",
-    "claconnect.com",
-    "rsmus.com"
-   ]
-  },
-  {
-   "a": "State and Local Tax (SALT) Planning",
-   "b": "Cybersecurity in Private Companies",
-   "shared": 3,
-   "firms": [
-    "advisory-digest.vercel.app",
-    "eisneramper.com",
-    "rsmus.com"
    ]
   },
   {
@@ -116,11 +96,11 @@
    ]
   },
   {
-   "a": "Audit Resilience",
-   "b": "R&D Capitalisation under Section 174",
+   "a": "Healthcare Strategy Execution",
+   "b": "Digital Transformation in Finance",
    "shared": 3,
    "firms": [
-    "advisory-digest.vercel.app",
+    "bakertilly.com",
     "claconnect.com",
     "pwc.com"
    ]
@@ -136,32 +116,13 @@
    ]
   },
   {
-   "a": "Healthcare Strategy Execution",
-   "b": "Digital Transformation in Finance",
+   "a": "Digital Transformation in Finance",
+   "b": "R&D Capitalisation under Section 174",
    "shared": 3,
    "firms": [
     "bakertilly.com",
     "claconnect.com",
     "pwc.com"
-   ]
-  },
-  {
-   "a": "R&D Capitalisation under Section 174",
-   "b": "Digital Transformation in Finance",
-   "shared": 3,
-   "firms": [
-    "bakertilly.com",
-    "claconnect.com",
-    "pwc.com"
-   ]
-  },
-  {
-   "a": "AI in Auditing",
-   "b": "Cybersecurity in Private Companies",
-   "shared": 2,
-   "firms": [
-    "eisneramper.com",
-    "rsmus.com"
    ]
   },
   {
@@ -180,6 +141,15 @@
    "firms": [
     "claconnect.com",
     "grantthornton.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "Cybersecurity in Private Companies",
+   "shared": 2,
+   "firms": [
+    "eisneramper.com",
+    "rsmus.com"
    ]
   },
   {
@@ -210,56 +180,11 @@
    ]
   },
   {
-   "a": "State and Local Tax (SALT) Planning",
-   "b": "Government Contracting Risks",
+   "a": "Government Contracting Risks",
+   "b": "State and Local Tax (SALT) Planning",
    "shared": 2,
    "firms": [
     "cohnreznick.com",
-    "rsmus.com"
-   ]
-  },
-  {
-   "a": "State and Local Tax (SALT) Planning",
-   "b": "Mergers & Acquisitions in Healthcare",
-   "shared": 2,
-   "firms": [
-    "cohnreznick.com",
-    "rsmus.com"
-   ]
-  },
-  {
-   "a": "State and Local Tax (SALT) Planning",
-   "b": "R&D Capitalisation under Section 174",
-   "shared": 2,
-   "firms": [
-    "advisory-digest.vercel.app",
-    "claconnect.com"
-   ]
-  },
-  {
-   "a": "State and Local Tax (SALT) Planning",
-   "b": "Opportunity Zones Tax Incentives",
-   "shared": 2,
-   "firms": [
-    "claconnect.com",
-    "rsmus.com"
-   ]
-  },
-  {
-   "a": "State and Local Tax (SALT) Planning",
-   "b": "Financial Due Diligence",
-   "shared": 2,
-   "firms": [
-    "cohnreznick.com",
-    "rsmus.com"
-   ]
-  },
-  {
-   "a": "State and Local Tax (SALT) Planning",
-   "b": "Change Management in HR",
-   "shared": 2,
-   "firms": [
-    "claconnect.com",
     "rsmus.com"
    ]
   },
@@ -300,20 +225,65 @@
    ]
   },
   {
-   "a": "Audit Resilience",
+   "a": "State and Local Tax (SALT) Planning",
+   "b": "Audit Resilience",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "State and Local Tax (SALT) Planning",
    "b": "Mergers & Acquisitions in Healthcare",
    "shared": 2,
    "firms": [
-    "pwc.com",
+    "cohnreznick.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "State and Local Tax (SALT) Planning",
+   "b": "Cybersecurity in Private Companies",
+   "shared": 2,
+   "firms": [
+    "eisneramper.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "State and Local Tax (SALT) Planning",
+   "b": "Opportunity Zones Tax Incentives",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "State and Local Tax (SALT) Planning",
+   "b": "Financial Due Diligence",
+   "shared": 2,
+   "firms": [
+    "cohnreznick.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "State and Local Tax (SALT) Planning",
+   "b": "Change Management in HR",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
     "rsmus.com"
    ]
   },
   {
    "a": "Audit Resilience",
-   "b": "Cybersecurity in Private Companies",
+   "b": "Mergers & Acquisitions in Healthcare",
    "shared": 2,
    "firms": [
-    "advisory-digest.vercel.app",
+    "pwc.com",
     "rsmus.com"
    ]
   },
@@ -329,6 +299,15 @@
   {
    "a": "Audit Resilience",
    "b": "Digital Transformation in Finance",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "pwc.com"
+   ]
+  },
+  {
+   "a": "Audit Resilience",
+   "b": "R&D Capitalisation under Section 174",
    "shared": 2,
    "firms": [
     "claconnect.com",
@@ -379,9 +358,27 @@
     "claconnect.com",
     "grantthornton.com"
    ]
+  },
+  {
+   "a": "Mergers & Acquisitions in Healthcare",
+   "b": "Digital Transformation in Finance",
+   "shared": 2,
+   "firms": [
+    "bakertilly.com",
+    "pwc.com"
+   ]
+  },
+  {
+   "a": "Mergers & Acquisitions in Healthcare",
+   "b": "R&D Capitalisation under Section 174",
+   "shared": 2,
+   "firms": [
+    "bakertilly.com",
+    "pwc.com"
+   ]
   }
  ],
- "generated_from": 219,
+ "generated_from": 213,
  "window_days": 30,
  "as_of": "2026-08-21",
  "signals": [
@@ -429,46 +426,6 @@
    ]
   },
   {
-   "topic": "State and Local Tax (SALT) Planning",
-   "firms": 5,
-   "firm_list": [
-    "advisory-digest.vercel.app",
-    "claconnect.com",
-    "cohnreznick.com",
-    "eisneramper.com",
-    "rsmus.com"
-   ],
-   "articles": 7,
-   "recent_articles": 6,
-   "recent_firms": 4,
-   "examples": [
-    {
-     "title": "Arizona court excludes intangibles from renewable energy property tax valuation",
-     "firm": "cohnreznick.com",
-     "url": "https://www.cohnreznick.com/insights/arizona-court-excludes-intangibles-from-renewable-energy-property-tax-valuation/",
-     "date": "2026-08-21"
-    },
-    {
-     "title": "New Jersey Proposal May Significantly Reduce the Value of IEEPA Tariff Refunds",
-     "firm": "eisneramper.com",
-     "url": "https://www.eisneramper.com/insights/tax/new-jersey-tariff-refund-tax-proposal-ieepa-refunds-0826/",
-     "date": "2026-08-19T00:00:00.000Z"
-    },
-    {
-     "title": "State pass-through entity tax elections: a 2026 planning checklist",
-     "firm": "advisory-digest.vercel.app",
-     "url": "https://example-advisory.com/insights/ptet-2026-checklist",
-     "date": "2026-08-18"
-    },
-    {
-     "title": "Pied-a-Terre Enforcement Merry-Go-Round: NYC Surcharge on Non-Primary Residences Encounters Legal Challenges",
-     "firm": "eisneramper.com",
-     "url": "https://www.eisneramper.com/insights/tax/nyc-pied-a-terre-tax-enforcement-legal-challenges-0826/",
-     "date": "2026-08-18T00:00:00.000Z"
-    }
-   ]
-  },
-  {
    "topic": "Government Contracting Risks",
    "firms": 4,
    "firm_list": [
@@ -508,31 +465,63 @@
    ]
   },
   {
-   "topic": "Audit Resilience",
-   "firms": 6,
+   "topic": "State and Local Tax (SALT) Planning",
+   "firms": 4,
    "firm_list": [
-    "advisory-digest.vercel.app",
+    "claconnect.com",
+    "cohnreznick.com",
+    "eisneramper.com",
+    "rsmus.com"
+   ],
+   "articles": 6,
+   "recent_articles": 5,
+   "recent_firms": 3,
+   "examples": [
+    {
+     "title": "Arizona court excludes intangibles from renewable energy property tax valuation",
+     "firm": "cohnreznick.com",
+     "url": "https://www.cohnreznick.com/insights/arizona-court-excludes-intangibles-from-renewable-energy-property-tax-valuation/",
+     "date": "2026-08-21"
+    },
+    {
+     "title": "New Jersey Proposal May Significantly Reduce the Value of IEEPA Tariff Refunds",
+     "firm": "eisneramper.com",
+     "url": "https://www.eisneramper.com/insights/tax/new-jersey-tariff-refund-tax-proposal-ieepa-refunds-0826/",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "Pied-a-Terre Enforcement Merry-Go-Round: NYC Surcharge on Non-Primary Residences Encounters Legal Challenges",
+     "firm": "eisneramper.com",
+     "url": "https://www.eisneramper.com/insights/tax/nyc-pied-a-terre-tax-enforcement-legal-challenges-0826/",
+     "date": "2026-08-18T00:00:00.000Z"
+    },
+    {
+     "title": "Key Accounting Considerations for IEEPA Tariff Refunds",
+     "firm": "eisneramper.com",
+     "url": "https://www.eisneramper.com/insights/manufacturing-distribution/ieepa-tariff-refunds-accounting-considerations-0826/",
+     "date": "2026-08-16T00:00:00.000Z"
+    }
+   ]
+  },
+  {
+   "topic": "Audit Resilience",
+   "firms": 5,
+   "firm_list": [
     "bdo.com",
     "claconnect.com",
     "grantthornton.com",
     "pwc.com",
     "rsmus.com"
    ],
-   "articles": 10,
-   "recent_articles": 6,
-   "recent_firms": 3,
+   "articles": 9,
+   "recent_articles": 5,
+   "recent_firms": 2,
    "examples": [
     {
      "title": "Government Property Management: Why Audit Readiness Starts Long Before a PMSA",
      "firm": "bdo.com",
      "url": "https://www.bdo.com/insights/industry-specialty-consulting/government-property-management-why-audit-readiness-starts-long-before-a-pmsa",
      "date": "2026-08-19T00:00:00.000Z"
-    },
-    {
-     "title": "Lease accounting practical expedients: common errors in year-three audits",
-     "firm": "advisory-digest.vercel.app",
-     "url": "https://example-advisory.com/insights/asc-842-year-three",
-     "date": "2026-08-19"
     },
     {
      "title": "HUD and LIHTC Projects: Audit Risks Hidden in Everyday Compliance",
@@ -545,6 +534,12 @@
      "firm": "claconnect.com",
      "url": "https://www.claconnect.com/en/resources/articles/26/software-capitalization",
      "date": "2026-08-18"
+    },
+    {
+     "title": "GASB 105 Clarifies Subsequent Event Reporting",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/articles/26/gasb-105",
+     "date": "2026-07-28"
     }
    ]
   },
@@ -627,71 +622,6 @@
    ]
   },
   {
-   "topic": "R&D Capitalisation under Section 174",
-   "firms": 4,
-   "firm_list": [
-    "advisory-digest.vercel.app",
-    "bakertilly.com",
-    "claconnect.com",
-    "pwc.com"
-   ],
-   "articles": 4,
-   "recent_articles": 2,
-   "recent_firms": 2,
-   "examples": [
-    {
-     "title": "R&D capitalisation under Section 174: what changed for tax year 2026",
-     "firm": "advisory-digest.vercel.app",
-     "url": "https://example-advisory.com/insights/section-174-2026",
-     "date": "2026-08-20"
-    },
-    {
-     "title": "Texas increases R&D tax credit rate and makes them refundable",
-     "firm": "bakertilly.com",
-     "url": "https://www.bakertilly.com/insights/texas-refundable-rd-tax-credit",
-     "date": "2026-08-20T00:00:00.000Z"
-    }
-   ]
-  },
-  {
-   "topic": "Cybersecurity in Private Companies",
-   "firms": 3,
-   "firm_list": [
-    "advisory-digest.vercel.app",
-    "eisneramper.com",
-    "rsmus.com"
-   ],
-   "articles": 5,
-   "recent_articles": 4,
-   "recent_firms": 2,
-   "examples": [
-    {
-     "title": "Cybersecurity disclosure controls for private companies preparing to list",
-     "firm": "advisory-digest.vercel.app",
-     "url": "https://example-advisory.com/insights/cyber-disclosure-pre-ipo",
-     "date": "2026-08-17"
-    },
-    {
-     "title": "Avoiding Risky Rollouts: AI Governance for Security Leaders",
-     "firm": "eisneramper.com",
-     "url": "https://www.eisneramper.com/insights/artificial-intelligence-insights/ai-governance-risk-business-value-0826/",
-     "date": "2026-08-17T00:00:00.000Z"
-    },
-    {
-     "title": "The AI You Didn\u2019t Approve: The Auditor\u2019s Role in Managing Hidden Vendor Risk",
-     "firm": "eisneramper.com",
-     "url": "https://www.eisneramper.com/insights/risk-compliance/auditors-role-in-managing-hidden-vendor-risk-0826/",
-     "date": "2026-08-06T00:00:00.000Z"
-    },
-    {
-     "title": "How ChatGPT and Other AI Technologies Can Be Used to Compromise Cybersecurity",
-     "firm": "eisneramper.com",
-     "url": "https://www.eisneramper.com/insights/blogs/outsourced-it-blog/chatgpt-ai-cybersecurity-oit-blog-0423/",
-     "date": "2026-08-03T00:00:00.000Z"
-    }
-   ]
-  },
-  {
    "topic": "Business Tax Compliance",
    "firms": 3,
    "firm_list": [
@@ -745,6 +675,26 @@
    ]
   },
   {
+   "topic": "R&D Capitalisation under Section 174",
+   "firms": 3,
+   "firm_list": [
+    "bakertilly.com",
+    "claconnect.com",
+    "pwc.com"
+   ],
+   "articles": 3,
+   "recent_articles": 1,
+   "recent_firms": 1,
+   "examples": [
+    {
+     "title": "Texas increases R&D tax credit rate and makes them refundable",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/texas-refundable-rd-tax-credit",
+     "date": "2026-08-20T00:00:00.000Z"
+    }
+   ]
+  },
+  {
    "topic": "Tax Strategies for Nonprofits",
    "firms": 2,
    "firm_list": [
@@ -778,6 +728,37 @@
      "firm": "claconnect.com",
      "url": "https://www.claconnect.com/en/resources/articles/26/nonprofit-energy-tax-credits",
      "date": "2026-08-17"
+    }
+   ]
+  },
+  {
+   "topic": "Cybersecurity in Private Companies",
+   "firms": 2,
+   "firm_list": [
+    "eisneramper.com",
+    "rsmus.com"
+   ],
+   "articles": 4,
+   "recent_articles": 3,
+   "recent_firms": 1,
+   "examples": [
+    {
+     "title": "Avoiding Risky Rollouts: AI Governance for Security Leaders",
+     "firm": "eisneramper.com",
+     "url": "https://www.eisneramper.com/insights/artificial-intelligence-insights/ai-governance-risk-business-value-0826/",
+     "date": "2026-08-17T00:00:00.000Z"
+    },
+    {
+     "title": "The AI You Didn\u2019t Approve: The Auditor\u2019s Role in Managing Hidden Vendor Risk",
+     "firm": "eisneramper.com",
+     "url": "https://www.eisneramper.com/insights/risk-compliance/auditors-role-in-managing-hidden-vendor-risk-0826/",
+     "date": "2026-08-06T00:00:00.000Z"
+    },
+    {
+     "title": "How ChatGPT and Other AI Technologies Can Be Used to Compromise Cybersecurity",
+     "firm": "eisneramper.com",
+     "url": "https://www.eisneramper.com/insights/blogs/outsourced-it-blog/chatgpt-ai-cybersecurity-oit-blog-0423/",
+     "date": "2026-08-03T00:00:00.000Z"
     }
    ]
   },

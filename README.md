@@ -6,6 +6,14 @@ fleet of self-healing scrapers.**
 Live: **https://advisory-digest.vercel.app** · Built on Bright Data Scraper Studio for
 Into the Scrape-Verse, 17-23 August 2026.
 
+> **Scheduled scraping is paused.** The 12-hourly cron in
+> [`.github/workflows/scrape.yml`](.github/workflows/scrape.yml) is commented out to stop it
+> consuming Bright Data credits while the project is not under active development. Everything
+> still runs on demand — from the terminal, or from the repository's Actions tab — and the
+> dashboard says "runs on demand" rather than claiming a cadence it is not keeping.
+> Re-enable by uncommenting the `schedule:` block and setting `cadence_hours` in
+> `docs/data/schedule.json` back to 12.
+
 ---
 
 ## The pipeline
@@ -220,7 +228,7 @@ cp .env.example .env          # BRIGHTDATA_API_KEY, and OPENAI_API_KEY for class
 uv run --with pytest --with pyyaml pytest tests/
 ```
 
-CI runs it daily and on any change to the control page
+CI can run it on demand and on any change to the control page
 ([`.github/workflows/scrape.yml`](.github/workflows/scrape.yml)). Set `BRIGHTDATA_API_KEY`
 and `OPENAI_API_KEY` as repository secrets; without the latter, topic classification falls
 back to patterns rather than failing the run.
@@ -243,6 +251,8 @@ Endpoints, published data shapes, exit codes and environment variables:
 | `scripts/broken_sources.py` | which sources are genuinely heal-worthy |
 | `scripts/classify_topics.py` | LLM topic taxonomy and assignment |
 | `scripts/signals.py` | rank subjects by independent cross-firm coverage |
+| `scripts/brief.py` | write a plain-English brief per subject, plus lead-lag |
+| `scripts/verify_new_source.py` | run one newly built collector and record whether it works |
 | `scripts/publish.py` | publish rows, contract report and repair log |
 | `api/check-source.mjs` | in-browser eligibility check |
 | `docs/` | the deployed site, its data, and the control page |

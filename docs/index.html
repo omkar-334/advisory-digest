@@ -578,7 +578,18 @@ function renderCooc(){
 function renderCadence(){
   const el = $('#cadence');
   if(!el) return;
-  const hrs = SCHEDULE?.cadence_hours || 12;
+  const hrs = SCHEDULE?.cadence_hours;
+  // Say what is actually true. Claiming a cadence the workflow is not running on is the
+  // easiest thing on this page to disprove.
+  if(!hrs){
+    el.innerHTML =
+      `<b>Runs on demand.</b> ${esc(SCHEDULE?.description ||
+        'Every collector is checked against the contract on each run.')}
+       <span class="next">Scheduled runs are paused to conserve Bright Data credits.
+       Trigger with <code>./scripts/heal_loop.sh</code>, or from the repository's
+       Actions tab.</span>`;
+    return;
+  }
   const nextRun = () => {
     const now = new Date();
     const hours = (SCHEDULE?.cron?.match(/^\S+\s+([\d,]+)/)?.[1] || '3,15')

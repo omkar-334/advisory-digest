@@ -66,6 +66,14 @@ def parse_date(value) -> datetime | None:
     return None
 
 
+SYNTHETIC_FIRMS = {"advisory-digest.vercel.app"}
+
+
+def is_real_firm(firm) -> bool:
+    """The control page is our own fixture, not a source. It must never count as coverage."""
+    return bool(firm) and firm not in SYNTHETIC_FIRMS
+
+
 def firm_of(row: dict) -> str:
     """validate.py stamps every published row with _firm, but a null survives a bad run,
     and a None here would poison every sorted() over firm names."""
@@ -103,6 +111,11 @@ def main() -> int:
              if d and d <= today]
     now = max(dates) if dates else today
     cutoff = now - timedelta(days=RECENT_DAYS)
+
+    rows = [r for r in rows if is_real_firm((r.get("_firm") or "").strip())]
+    if not rows:
+        print("no rows from real sources", file=sys.stderr)
+        return 1
 
     # Prefer LLM-assigned topics; fall back to patterns when they are not available.
     topics_path = DOCS / "topics.json"

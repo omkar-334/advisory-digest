@@ -1,6 +1,7 @@
 {
- "cadence_hours": 12,
- "cron": "0 3,15 * * *",
+ "cadence_hours": null,
+ "cron": null,
  "timezone": "UTC",
- "description": "Every collector is run and checked against the contract every 12 hours. A break is repaired in place automatically; a failed run is re-run, never healed."
+ "mode": "on-demand",
+ "description": "Runs on demand rather than on a timer. Every collector is checked against the contract on each run; a break is repaired in place automatically, and a failed run is re-run rather than healed."
 }

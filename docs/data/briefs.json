@@ -1,0 +1,208 @@
+{
+ "model": "gpt-4o-mini",
+ "generated_from": 219,
+ "briefs": [
+  {
+   "topic": "AI in Auditing",
+   "firms": 8,
+   "firm_list": [
+    "bakertilly.com",
+    "bdo.com",
+    "claconnect.com",
+    "eisneramper.com",
+    "grantthornton.com",
+    "plantemoran.com",
+    "pwc.com",
+    "rsmus.com"
+   ],
+   "articles": 30,
+   "consensus": "AI enhances audit efficiency and effectiveness, but human judgment and relationships remain crucial for trust and quality, as emphasized by RSM and BDO.",
+   "divergence": "BDO focuses on communication and support during AI deployment, while CLA highlights practical AI adoption and measurable business impact.",
+   "applies_to": "Mid-market companies looking to integrate AI in their auditing processes.",
+   "confidence": "high",
+   "lead": {
+    "first_firm": "claconnect.com",
+    "first_date": "2026-08-18",
+    "first_title": "CLA Heartbeat Index: Strong Economic Confidence Meets New AI Reality Check",
+    "first_url": "https://www.claconnect.com/en/media/2026/cla-heartbeat-index-strong-economic-confidence-meets-new-ai-reality-check",
+    "lead_days": 0,
+    "burst_firms": 4,
+    "burst_days": 45,
+    "followers": [
+     "bakertilly.com",
+     "bdo.com",
+     "eisneramper.com"
+    ]
+   }
+  },
+  {
+   "topic": "State and Local Tax (SALT) Planning",
+   "firms": 5,
+   "firm_list": [
+    "advisory-digest.vercel.app",
+    "claconnect.com",
+    "cohnreznick.com",
+    "eisneramper.com",
+    "rsmus.com"
+   ],
+   "articles": 7,
+   "consensus": "State and local tax planning requires attention to evolving regulations, including unclaimed property, pass-through entity tax elections, and property tax valuations, which can significantly impact financial strategies.",
+   "divergence": "EisnerAmper highlights legal challenges in NYC's surcharge enforcement, while CohnReznick focuses on Arizona's court ruling affecting renewable energy property tax valuations.",
+   "applies_to": "Mid-market companies with exposure to state and local taxes, especially in real estate and manufacturing sectors.",
+   "confidence": "high",
+   "lead": {
+    "first_firm": "claconnect.com",
+    "first_date": "2026-07-28",
+    "first_title": "GASB 105 Clarifies Subsequent Event Reporting",
+    "first_url": "https://www.claconnect.com/en/resources/articles/26/gasb-105",
+    "lead_days": 19,
+    "burst_firms": 3,
+    "burst_days": 45,
+    "followers": [
+     "cohnreznick.com",
+     "eisneramper.com"
+    ]
+   }
+  },
+  {
+   "topic": "Government Contracting Risks",
+   "firms": 4,
+   "firm_list": [
+    "bakertilly.com",
+    "bdo.com",
+    "cohnreznick.com",
+    "rsmus.com"
+   ],
+   "articles": 6,
+   "consensus": "Government contractors face various risks, including cyber threats, compliance with new accountability standards, and the need for effective property management and executive compensation strategies.",
+   "divergence": "RSM emphasizes cyber risk management and accountability under new executive orders, while BDO focuses on property management's impact on audits, and Baker Tilly discusses funding for broadband projects.",
+   "applies_to": "Mid-market companies involved in government contracting.",
+   "confidence": "high",
+   "lead": {
+    "first_firm": "bdo.com",
+    "first_date": "2026-08-19",
+    "first_title": "Government Property Management: Why Audit Readiness Starts Long Before a PMSA",
+    "first_url": "https://www.bdo.com/insights/industry-specialty-consulting/government-property-management-why-audit-readiness-starts-long-before-a-pmsa",
+    "lead_days": 1,
+    "burst_firms": 3,
+    "burst_days": 45,
+    "followers": [
+     "bakertilly.com",
+     "rsmus.com"
+    ]
+   }
+  },
+  {
+   "topic": "Audit Resilience",
+   "firms": 6,
+   "firm_list": [
+    "advisory-digest.vercel.app",
+    "bdo.com",
+    "claconnect.com",
+    "grantthornton.com",
+    "pwc.com",
+    "rsmus.com"
+   ],
+   "articles": 10,
+   "consensus": "Building audit resilience is essential for effective financial statement audits, emphasizing the need for robust processes and documentation across various compliance requirements.",
+   "divergence": "RSM focuses on integrating resilience into company processes, while BDO highlights the specific needs of defense contractors. Claconnect discusses compliance complexities in layered funding, differing from broader audit resilience themes.",
+   "applies_to": "Mid-market companies with complex compliance requirements or those undergoing regular financial audits.",
+   "confidence": "high",
+   "lead": null
+  },
+  {
+   "topic": "Healthcare Strategy Execution",
+   "firms": 4,
+   "firm_list": [
+    "bakertilly.com",
+    "claconnect.com",
+    "grantthornton.com",
+    "pwc.com"
+   ],
+   "articles": 12,
+   "consensus": "Effective execution of healthcare strategies requires addressing the operational challenges and ensuring alignment with patient access and workforce wellness. Strong strategies alone do not guarantee results without proper implementation.",
+   "divergence": "While Baker Tilly emphasizes the importance of patient access as a strategic capability, PwC focuses on the broader transformation of healthcare spending and technology-driven models.",
+   "applies_to": "Mid-market healthcare organizations and providers.",
+   "confidence": "high",
+   "lead": null
+  },
+  {
+   "topic": "Mergers & Acquisitions in Healthcare",
+   "firms": 4,
+   "firm_list": [
+    "bakertilly.com",
+    "cohnreznick.com",
+    "pwc.com",
+    "rsmus.com"
+   ],
+   "articles": 10,
+   "consensus": "The healthcare M&A landscape is active, with a focus on strategic alignment and risk management. Firms emphasize the importance of due diligence and integration post-transaction to ensure success.",
+   "divergence": "Baker Tilly highlights market performance and activity specifics, while PwC focuses on governance and transformation risks in M&A. RSM emphasizes exit-focused audit strategies.",
+   "applies_to": "Mid-market healthcare companies considering mergers or acquisitions.",
+   "confidence": "high",
+   "lead": null
+  },
+  {
+   "topic": "R&D Capitalisation under Section 174",
+   "firms": 4,
+   "firm_list": [
+    "advisory-digest.vercel.app",
+    "bakertilly.com",
+    "claconnect.com",
+    "pwc.com"
+   ],
+   "articles": 4,
+   "consensus": "R&D capitalisation under Section 174 introduces amortisation requirements for research expenditures, impacting cash taxes for companies with significant engineering resources.",
+   "divergence": "Baker Tilly focuses on state-level R&D tax credits, while CLA emphasizes agricultural qualifications for R&D credits, and PwC discusses software capitalization standards.",
+   "applies_to": "Companies engaged in R&D activities, particularly in engineering and agriculture.",
+   "confidence": "high",
+   "lead": null
+  },
+  {
+   "topic": "Cybersecurity in Private Companies",
+   "firms": 3,
+   "firm_list": [
+    "advisory-digest.vercel.app",
+    "eisneramper.com",
+    "rsmus.com"
+   ],
+   "articles": 5,
+   "consensus": "Private companies must enhance cybersecurity measures, particularly in light of evolving AI technologies and the need for robust disclosure controls as they prepare for potential public offerings.",
+   "divergence": "RSM focuses on government contracting, while EisnerAmper emphasizes AI's dual role in both enhancing and compromising cybersecurity.",
+   "applies_to": "Mid-market private companies considering public offerings or using AI technologies.",
+   "confidence": "high",
+   "lead": null
+  },
+  {
+   "topic": "Business Tax Compliance",
+   "firms": 3,
+   "firm_list": [
+    "bdo.com",
+    "crowe.com",
+    "rsmus.com"
+   ],
+   "articles": 5,
+   "consensus": "Business tax compliance is increasingly influenced by technology and industry expertise, with ongoing legislative changes impacting taxpayer protections and state-specific tax laws.",
+   "divergence": "RSM emphasizes technology and consulting services, while BDO focuses on IRS reform and taxpayer protections, and Crowe highlights state-level tax changes in Illinois.",
+   "applies_to": "Mid-market companies with multi-state operations or those affected by recent tax law changes.",
+   "confidence": "high",
+   "lead": null
+  },
+  {
+   "topic": "Digital Transformation in Finance",
+   "firms": 4,
+   "firm_list": [
+    "bakertilly.com",
+    "claconnect.com",
+    "plantemoran.com",
+    "pwc.com"
+   ],
+   "articles": 6,
+   "consensus": "Digital transformation in finance emphasizes the importance of data integrity and architecture, with a focus on leveraging existing systems and AI to enhance decision-making and operational efficiency.",
+   "divergence": "Baker Tilly highlights challenges in extracting data from legacy systems, while Plante Moran stresses the need for trustworthy data architecture. CLA focuses on improving month-end close processes, differing in operational focus.",
+   "applies_to": "Mid-market companies looking to enhance financial processes and data management.",
+   "confidence": "high",
+   "lead": null
+  }
+ ]
+}

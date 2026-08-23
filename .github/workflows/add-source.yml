@@ -61,8 +61,15 @@ jobs:
           echo "::notice::Adding $SOURCE_URL"
           ./scripts/onboard.py "$SOURCE_URL"
 
-      - name: Verify the new collector against the contract
-        run: ./scripts/run_fleet.sh || [ $? -eq 2 ]
+      # Verify ONLY the collector just built. The previous version ran the whole fleet to
+      # check one new source, re-scraping twelve working collectors for nothing -- both
+      # wasteful and slow. A new collector is trusted in the registry only if it returns
+      # rows here; otherwise it is marked unverified so a later run can tell "never worked"
+      # apart from "broke recently".
+      - name: Verify the new collector
+        env:
+          SOURCE_URL: ${{ github.event.client_payload.url || inputs.url }}
+        run: python3 scripts/verify_new_source.py "$SOURCE_URL"
 
       - name: Commit the new source
         env:
