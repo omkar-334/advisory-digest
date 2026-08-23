@@ -1,0 +1,71 @@
+name: add a source
+
+# Triggered from the dashboard's "Add a source" tab, which dispatches this with a URL that
+# has already passed the eligibility gate. Building a collector takes minutes, which is why
+# it happens here rather than in the serverless function the browser called.
+on:
+  repository_dispatch:
+    types: [add-source]
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Listing page URL to add'
+        required: true
+      description:
+        description: 'What to extract (leave blank to let the classifier write it)'
+        required: false
+
+concurrency:
+  group: add-source
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: npm }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: npm ci
+
+      - name: Write credentials
+        env:
+          BRIGHTDATA_API_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          printf 'BRIGHTDATA_API_KEY=%s\n' "$BRIGHTDATA_API_KEY"  > .env
+          printf 'OPENAI_API_KEY=%s\n'     "$OPENAI_API_KEY"     >> .env
+
+      # onboard.py re-runs the gate itself. The dashboard already checked, but a dispatch
+      # can be sent by anyone with the token, so the refusal has to live here too.
+      - name: Classify, gate, build and register
+        env:
+          SOURCE_URL: ${{ github.event.client_payload.url || inputs.url }}
+        run: |
+          echo "::notice::Adding $SOURCE_URL"
+          ./scripts/onboard.py "$SOURCE_URL"
+
+      - name: Verify the new collector against the contract
+        run: ./scripts/run_fleet.sh || [ $? -eq 2 ]
+
+      - name: Commit the new source
+        env:
+          SOURCE_URL: ${{ github.event.client_payload.url || inputs.url }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          python3 scripts/publish.py || true
+          python3 scripts/signals.py || true
+          git add scripts/collectors.json docs/data results/validate/summary-latest.json
+          if git diff --staged --quiet; then
+            echo "::warning::Nothing changed. The source may already be registered."
+          else
+            git commit -m "source: add $SOURCE_URL"
+            git push
+          fi

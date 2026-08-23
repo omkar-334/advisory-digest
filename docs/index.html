@@ -222,7 +222,8 @@ footer b{color:var(--ink-2)}
       <div class="stamp" id="stamp"></div>
     </div>
     <nav role="tablist">
-      <button class="tab" role="tab" aria-selected="true"  data-view="consensus">Consensus</button>
+      <button class="tab" role="tab" aria-selected="true"  data-view="entry">Overview</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="consensus">Consensus</button>
       <button class="tab" role="tab" aria-selected="false" data-view="signals">Top signals</button>
       <button class="tab" role="tab" aria-selected="false" data-view="feed">Articles</button>
       <button class="tab" role="tab" aria-selected="false" data-view="health">Pipeline</button>
@@ -234,7 +235,31 @@ footer b{color:var(--ink-2)}
 <main class="wrap">
 
   <!-- ── the thesis: what several firms independently agree is worth writing about ── -->
-  <section id="consensus">
+  <!-- The landing demonstrates the argument instead of asserting it: the finding is
+       generated from whatever the data actually says right now, and the firm marks fill in
+       one at a time so you watch independent firms agree. -->
+  <section id="entry">
+    <div class="finding" id="finding"></div>
+
+    <div class="claim">
+      <p>One firm publishing five times is marketing.<br>
+         <strong>Several firms publishing once each is a development.</strong></p>
+      <p class="sub">
+        Advisory Digest reads twelve accounting and advisory newsrooms every twelve hours and
+        ranks subjects by how many of them covered it independently. That signal does not
+        exist on any single firm's website.
+      </p>
+      <div class="cta">
+        <button class="go" data-goto="consensus">Read the matrix</button>
+        <button class="ghost" data-goto="health">See the pipeline</button>
+      </div>
+    </div>
+
+    <div class="eyebrow">How it holds itself together</div>
+    <ol class="stages" id="stages"></ol>
+  </section>
+
+  <section id="consensus" hidden>
     <p class="lede">
       One firm publishing five times is marketing. <strong>Five firms publishing once each is
       a development.</strong> This reads twelve accounting and advisory newsrooms at once and
@@ -258,6 +283,13 @@ footer b{color:var(--ink-2)}
     </p>
     <div class="eyebrow">Ranked by independent coverage</div>
     <div id="sigList"></div>
+
+    <div class="eyebrow">Subjects covered by the same firms</div>
+    <p class="lede" style="margin-top:0">
+      Two subjects sharing most of their coverage are being pushed by the same houses. That
+      is a different fact from two subjects merely both being popular.
+    </p>
+    <div id="cooc"></div>
   </section>
 
   <section id="feed" hidden>
@@ -365,8 +397,76 @@ async function load(){
   render();
 }
 
-function render(){ renderStamp(); renderCadence(); renderMatrix(); renderSignals();
-  renderChips(); renderList(); renderLedger(); renderHeals(); }
+function render(){ renderStamp(); renderEntry(); renderStages(); renderCadence();
+  renderMatrix(); renderSignals(); renderCooc(); renderChips(); renderList();
+  renderLedger(); renderHeals(); }
+
+const STAGES = [
+  ['Discover',  'A proposed URL is classified and gated before a credit is spent.'],
+  ['Scrape',    'One Bright Data collector per newsroom layout.'],
+  ['Validate',  'Every run is checked against one output contract.'],
+  ['Detect',    'A broken scraper is told apart from a failed run. Only one is repairable.'],
+  ['Heal',      "The contract's own diagnosis becomes the repair prompt."],
+  ['Verify',    'The repair is re-run, because a reported success is not proof.'],
+  ['Understand','Subjects ranked by how many firms covered them independently.'],
+];
+
+function renderStages(){
+  const el = $('#stages'); if(!el) return;
+  el.innerHTML = STAGES.map(([name, what])=>
+    `<li><b>${esc(name)}</b><span>${esc(what)}</span></li>`).join('');
+}
+
+/* The headline is generated from the data, not written. It names whatever the strongest
+   signal actually is right now, so the landing cannot drift out of step with the pipeline. */
+function renderEntry(){
+  const el = $('#finding'); if(!el) return;
+  const top = (SIGNALS?.signals || [])[0];
+  const allFirms = [...new Set(ROWS.map(r=>r._firm).filter(Boolean))]
+    .filter(f=>f!=='advisory-digest.vercel.app').sort();
+
+  if(!top || !allFirms.length){
+    el.innerHTML = `<p class="subject">Nothing collected yet.</p>
+      <p class="when">Run <code>./scripts/run_fleet.sh</code> to populate the dashboard.</p>`;
+    return;
+  }
+
+  const covered = new Set(top.firm_list || []);
+  const n = covered.size, total = allFirms.length;
+  const words = ['zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine',
+                 'Ten','Eleven','Twelve','Thirteen'];
+  const word = words[n] || String(n);
+
+  el.innerHTML =
+    `<span class="count">${esc(word)} <em>of ${total} firms</em></span>
+     <p class="subject">published on <mark>${esc(top.topic)}</mark></p>
+     <div class="marks" id="marks"></div>
+     <p class="when">${esc(top.articles)} article${top.articles===1?'':'s'} ·
+       window ${esc(SIGNALS?.window_days ?? 30)} days ·
+       as of ${esc(SIGNALS?.as_of || '')}</p>`;
+
+  // Fill the marks one at a time so the agreement is watched rather than read. Skipped
+  // entirely when the viewer prefers reduced motion.
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  $('#marks').innerHTML = allFirms.map((f,i)=>
+    `<span class="m ${covered.has(f)?'on':''}" title="${esc(firmName(f))}"
+       style="animation-delay:${still?0:60+i*55}ms"></span>`).join('')
+    + `<span class="lbl" style="animation-delay:${still?0:60+allFirms.length*55}ms">independently</span>`;
+}
+
+function renderCooc(){
+  const el = $('#cooc'); if(!el) return;
+  const pairs = (SIGNALS?.cooccurrence || []).slice(0, 12);
+  if(!pairs.length){
+    el.innerHTML = '<div class="empty">No subject overlaps yet.</div>'; return;
+  }
+  el.innerHTML = `<table class="cooc"><tbody>` + pairs.map(c=>`
+    <tr>
+      <td class="pair">${esc(c.a)}<span class="plus">and</span>${esc(c.b)}</td>
+      <td class="who">${c.firms.map(f=>esc(firmName(f))).join(', ')}</td>
+      <td class="n"><span class="bars">${'<i></i>'.repeat(Math.min(c.shared,6))}</span>${c.shared}</td>
+    </tr>`).join('') + '</tbody></table>';
+}
 
 /* The loop runs whether or not anyone is watching. Saying when it next runs is the
    difference between "it healed once in a demo" and "it maintains itself". */
@@ -597,9 +697,15 @@ const facts = d => `<dl>
 
 const eligibleHTML = d => `<div class="head ok">Eligible</div>${facts(d)}
   ${d.description?`<p class="policy-note" style="margin-top:12px"><b>Extraction brief written for it:</b><br>${esc(d.description)}</p>`:''}
-  <pre class="cmd">${esc(d.command)}</pre>
-  <p class="policy-note">Building the collector takes a few minutes, so it runs from the
-  terminal rather than the browser. It is validated against the contract before it joins the fleet.</p>`;
+  <div class="cta" style="margin-top:16px">
+    <button class="go" id="addBtn" data-url="${esc(d.url)}"
+      data-desc="${esc(d.description||'')}">Add it to the fleet</button>
+  </div>
+  <p class="policy-note">Building takes a few minutes, so it runs on a CI runner rather than
+  in your browser. The new collector is validated against the contract before it joins.</p>
+  <details style="margin-top:10px"><summary class="policy-note" style="cursor:pointer">Or add it from a terminal</summary>
+  <pre class="cmd">${esc(d.command)}</pre></details>
+  <div id="queued"></div>`;
 
 const rejectedHTML = d => `<div class="head no">Not eligible</div>${facts(d)}
   ${d.blocked.map(b=>`<div class="reject"><b>${esc(b.rule)}</b><span>${esc(b.why)}</span></div>`).join('')}`;
@@ -608,13 +714,48 @@ document.addEventListener('click', e=>{
   const tab = e.target.closest('.tab');
   if(tab){
     document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected', t===tab));
-    ['consensus','signals','feed','health','add'].forEach(v=>
+    ['entry','consensus','signals','feed','health','add'].forEach(v=>
       $('#'+v).hidden = tab.dataset.view!==v);
+  }
+  const jump = e.target.closest('[data-goto]');
+  if(jump){
+    const target = document.querySelector(`.tab[data-view="${jump.dataset.goto}"]`);
+    if(target){ target.click(); window.scrollTo({top:0,behavior:'smooth'}); }
   }
   const chip = e.target.closest('.chip[data-firm]');
   if(chip){ activeFirm = activeFirm===chip.dataset.firm ? null : chip.dataset.firm;
     renderChips(); renderList(); }
 });
+/* Queuing runs the build on a CI runner: a collector takes minutes to generate, which no
+   serverless function can wait for. The button reports where to watch it. */
+document.addEventListener('click', async e=>{
+  const btn = e.target.closest('#addBtn');
+  if(!btn) return;
+  const box = $('#queued');
+  btn.disabled = true; btn.textContent = 'Queuing…';
+  try{
+    const r = await fetch('/api/add-source',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({url: btn.dataset.url, description: btn.dataset.desc})
+    });
+    const d = await r.json();
+    if(r.ok){
+      box.innerHTML = `<div class="reject" style="border-left-color:var(--verified)">
+        <b>Queued</b><span>${esc(d.message)}</span>
+        <p style="margin:8px 0 0"><a href="${esc(d.watch)}" target="_blank" rel="noopener">Watch it build →</a></p></div>`;
+      btn.textContent = 'Queued';
+    }else{
+      box.innerHTML = `<div class="reject"><b>${esc(d.error||'Could not queue it')}</b>
+        <span>${esc(d.rule || d.hint || d.detail || '')}</span>
+        ${d.fallback?`<pre class="cmd">${esc(d.fallback)}</pre>`:''}</div>`;
+      btn.disabled = false; btn.textContent = 'Add it to the fleet';
+    }
+  }catch(err){
+    box.innerHTML = `<div class="reject"><b>Could not queue it</b><span>${esc(String(err))}</span></div>`;
+    btn.disabled = false; btn.textContent = 'Add it to the fleet';
+  }
+});
+
 $('#q').addEventListener('input', renderList);
 load();
 </script>

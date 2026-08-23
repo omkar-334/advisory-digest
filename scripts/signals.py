@@ -161,8 +161,27 @@ def main() -> int:
     signals.sort(key=lambda s: (s["recent_firms"], s["firms"], s["recent_articles"]),
                  reverse=True)
 
+    # Which subjects are covered by the same firms. Two subjects sharing most of their
+    # coverage are being pushed by the same houses, which is a different fact from two
+    # subjects merely both being popular. Computed here rather than drawn as a node graph:
+    # the number of shared firms is the information, and a hairball hides it.
+    cooccurrence = []
+    for i, a in enumerate(signals):
+        firms_a = set(a["firm_list"])
+        for b in signals[i + 1:]:
+            shared = firms_a & set(b["firm_list"])
+            if len(shared) >= 2:
+                cooccurrence.append({
+                    "a": a["topic"],
+                    "b": b["topic"],
+                    "shared": len(shared),
+                    "firms": sorted(shared),
+                })
+    cooccurrence.sort(key=lambda c: c["shared"], reverse=True)
+
     out = {
         "topic_source": source,
+        "cooccurrence": cooccurrence[:40],
         "generated_from": len(rows),
         "window_days": RECENT_DAYS,
         "as_of": now.date().isoformat(),

@@ -1,5 +1,379 @@
 {
  "topic_source": "llm:gpt-4o-mini",
+ "cooccurrence": [
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "AI in Auditing",
+   "shared": 4,
+   "firms": [
+    "claconnect.com",
+    "pwc.com",
+    "rsmus.com",
+    "withum.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Audit Strategy and Value",
+   "shared": 3,
+   "firms": [
+    "claconnect.com",
+    "pwc.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Supply Chain Management",
+   "shared": 3,
+   "firms": [
+    "claconnect.com",
+    "pwc.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Tax Implications of Trusts",
+   "shared": 3,
+   "firms": [
+    "claconnect.com",
+    "cohnreznick.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Financial Reporting and Governance",
+   "shared": 3,
+   "firms": [
+    "crowe.com",
+    "pwc.com",
+    "withum.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Workforce Management in Finance",
+   "shared": 3,
+   "firms": [
+    "claconnect.com",
+    "pwc.com",
+    "withum.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "Audit Strategy and Value",
+   "shared": 3,
+   "firms": [
+    "claconnect.com",
+    "pwc.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "Cybersecurity in Financial Services",
+   "shared": 3,
+   "firms": [
+    "eisneramper.com",
+    "rsmus.com",
+    "withum.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "Supply Chain Management",
+   "shared": 3,
+   "firms": [
+    "claconnect.com",
+    "pwc.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "Workforce Management in Finance",
+   "shared": 3,
+   "firms": [
+    "claconnect.com",
+    "pwc.com",
+    "withum.com"
+   ]
+  },
+  {
+   "a": "Audit Strategy and Value",
+   "b": "Supply Chain Management",
+   "shared": 3,
+   "firms": [
+    "claconnect.com",
+    "pwc.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Cybersecurity in Financial Services",
+   "shared": 2,
+   "firms": [
+    "rsmus.com",
+    "withum.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Financial Due Diligence",
+   "shared": 2,
+   "firms": [
+    "cohnreznick.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Private Client Wealth Services",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Modern Audit Processes",
+   "shared": 2,
+   "firms": [
+    "crowe.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Opportunity Zones Tax Strategies",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Business Tax Compliance and Consulting",
+   "b": "Healthcare Compliance and Regulations",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "pwc.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "Tax Implications of Trusts",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "Financial Reporting and Governance",
+   "shared": 2,
+   "firms": [
+    "pwc.com",
+    "withum.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "Private Client Wealth Services",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "Opportunity Zones Tax Strategies",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "AI in Auditing",
+   "b": "Healthcare Compliance and Regulations",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "pwc.com"
+   ]
+  },
+  {
+   "a": "Audit Strategy and Value",
+   "b": "Cybersecurity in Financial Services",
+   "shared": 2,
+   "firms": [
+    "advisory-digest.vercel.app",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Audit Strategy and Value",
+   "b": "Tax Implications of Trusts",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Audit Strategy and Value",
+   "b": "Workforce Management in Finance",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "pwc.com"
+   ]
+  },
+  {
+   "a": "Audit Strategy and Value",
+   "b": "Private Client Wealth Services",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Audit Strategy and Value",
+   "b": "Third-Party Risk Management",
+   "shared": 2,
+   "firms": [
+    "advisory-digest.vercel.app",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Audit Strategy and Value",
+   "b": "Opportunity Zones Tax Strategies",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Audit Strategy and Value",
+   "b": "R&D Capitalisation under Section 174",
+   "shared": 2,
+   "firms": [
+    "advisory-digest.vercel.app",
+    "pwc.com"
+   ]
+  },
+  {
+   "a": "Audit Strategy and Value",
+   "b": "Healthcare Compliance and Regulations",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "pwc.com"
+   ]
+  },
+  {
+   "a": "Cybersecurity in Financial Services",
+   "b": "Third-Party Risk Management",
+   "shared": 2,
+   "firms": [
+    "advisory-digest.vercel.app",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Supply Chain Management",
+   "b": "Tax Implications of Trusts",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Supply Chain Management",
+   "b": "Workforce Management in Finance",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "pwc.com"
+   ]
+  },
+  {
+   "a": "Supply Chain Management",
+   "b": "Private Client Wealth Services",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Supply Chain Management",
+   "b": "Opportunity Zones Tax Strategies",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Supply Chain Management",
+   "b": "Healthcare Compliance and Regulations",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "pwc.com"
+   ]
+  },
+  {
+   "a": "Tax Implications of Trusts",
+   "b": "Financial Due Diligence",
+   "shared": 2,
+   "firms": [
+    "cohnreznick.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Tax Implications of Trusts",
+   "b": "Private Client Wealth Services",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Tax Implications of Trusts",
+   "b": "Opportunity Zones Tax Strategies",
+   "shared": 2,
+   "firms": [
+    "claconnect.com",
+    "rsmus.com"
+   ]
+  },
+  {
+   "a": "Financial Reporting and Governance",
+   "b": "Workforce Management in Finance",
+   "shared": 2,
+   "firms": [
+    "pwc.com",
+    "withum.com"
+   ]
+  }
+ ],
  "generated_from": 181,
  "window_days": 30,
  "as_of": "2026-12-08",

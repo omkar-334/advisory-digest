@@ -12,3 +12,7 @@ results/*
 !results/validate/
 results/validate/*
 !results/validate/summary-latest.json
+
+__pycache__/
+*.pyc
+.DS_Store
