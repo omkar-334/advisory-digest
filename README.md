@@ -1,131 +1,241 @@
 # Advisory Digest
 
-One feed of tax, audit and compliance guidance from accounting and advisory firm newsrooms,
-collected by a fleet of Bright Data Scraper Studio collectors that repair themselves when a
-firm rebuilds its site.
+**What the accounting profession is reacting to, read across twelve firm newsrooms by a
+fleet of self-healing scrapers.**
 
-**Live demo:** https://advisory-digest.vercel.app
-**Collectors:** [`scripts/collectors.json`](scripts/collectors.json) (RSM: `c_mt5sgta91r4gozaifs`)
+Live: **https://advisory-digest.vercel.app** · Built on Bright Data Scraper Studio for
+Into the Scrape-Verse, 17-23 August 2026.
 
-Built for Into the Scrape-Verse (WeMakeDevs x Bright Data), 17-23 August 2026.
+---
 
-## What the data is actually for
+## The pipeline
+
+The interesting part of this project is not the scrape. It is everything that happens
+after a site changes.
+
+```
+DISCOVER      a URL is proposed, classified, and gated before a credit is spent
+   ↓
+SCRAPE        one Scraper Studio collector per newsroom layout
+   ↓
+VALIDATE      every run is checked against one output contract
+   ↓
+DETECT        a break is separated from a failed run: only one of them is repairable
+   ↓
+HEAL          the contract's own diagnosis becomes the heal prompt. No human writes it
+   ↓
+RE-SCRAPE     the repair is verified by re-running, because "done" is not proof
+   ↓
+UNDERSTAND    topics classified, then ranked by independent cross-firm coverage
+   ↓
+PRODUCT       a dashboard that answers a question no single newsroom can
+```
+
+Every stage below is a real file you can run.
+
+---
+
+## 1. Discover
+
+Anyone can propose a source. It is assessed before a credit is spent building anything.
+
+```bash
+./scripts/onboard.py https://www.example-advisory.com/insights --dry-run   # classify only
+./scripts/onboard.py https://www.example-advisory.com/insights             # build + register
+```
+
+The same check runs in the browser from the **Add a source** tab, via
+`api/check-source.mjs` on Vercel. Building a collector takes minutes, so that stays a
+terminal command; deciding whether a source *qualifies* takes two seconds.
+
+**Three refusals are absolute**, enforced in code and pinned by
+`tests/test_onboard_gate.py`:
+
+| Refused | Why |
+|---|---|
+| Government sites | Barred by rule 7. Rejected on host suffix as well as on the classifier's judgement, because a model can be wrong and the rule does not depend on its opinion |
+| Login-walled content | Barred by rule 6. Nothing here authenticates, bypasses a login, or reuses a session cookie |
+| Paywalled content | Barred by rule 6 |
+
+**HTTP 403 is not a refusal.** `crowe.com` and `marcumllp.com` both reject a plain request
+and both work through Bright Data's unblocking layer. `gate()` never sees the HTTP status,
+and a test asserts it never will.
+
+> Being blocked as a bot is a transport problem, and Bright Data solves it.
+> Being behind a login is a permission boundary, and we stop there.
+
+## 2. Scrape
+
+One collector per newsroom layout, registered in
+[`scripts/collectors.json`](scripts/collectors.json).
+
+```bash
+./scripts/run_fleet.sh          # run every collector, merge, validate
+```
+
+**Why not one collector for all twelve?** Scraper Studio generates extraction code against
+a specific site. We tried the other way: twelve URLs through a single RSM-built collector,
+of which eleven returned nothing, then a heal asked to "cover all of them" that ran for
+forty minutes and returned `status: error`. The collector was left untouched, which is
+worth knowing on its own — heal is non-destructive.
+
+Concurrency is 2. At 5, seven of thirteen sources came back with
+`Crawler error: Navigation failed ... too many`. Running a collector does not consume an
+AI-Flow generation slot, but it is rate limited at the crawler.
+
+## 3. Validate
+
+[`scripts/validate.py`](scripts/validate.py) is the single definition of healthy output,
+evaluated **per source** so one firm's redesign does not implicate the fleet.
+
+Three findings that shaped it, each from a real failure:
+
+**A source that disappears must not disappear from the report.** A site returning no
+envelope produces no rows and no source, so it was invisible. The validator now takes the
+list of URLs the run was asked to cover.
+
+**Partial data is not always a defect.** BDO's listing mixes dated articles with evergreen
+podcast hubs and eBooks that carry no date. The contract flagged 47% date coverage as a
+break, sent `heal` after it, and `heal` correctly changed nothing — the scraper was fine
+and the contract was wrong. Coverage below 25% is a break; partial coverage is content.
+
+**A row with no title and no URL is not an article.** That rule catches extraction noise
+the original contract accepted.
+
+## 4. Detect
+
+The distinction the whole loop depends on:
+
+| Signal | Diagnosis | Exit | Action |
+|---|---|---|---|
+| Errors outnumber usable rows | run failure | 1 | re-run, never heal |
+| Source produced no envelope at all | never ran | 1 | re-run, never heal |
+| Clean run, zero rows | broken selector | 2 | heal |
+| Clean run, field coverage collapsed | broken selector | 2 | heal |
+
+A partially rate-limited run returns a handful of rows and looks *identical* to a scraper
+that stopped iterating. BDO once returned 1 row from 17 envelopes — 16 were errors. Row
+count cannot tell you which it is; only the cause can.
+
+Healing a scraper that works is the most expensive mistake this system can make: it spends
+credits and can leave a working collector worse than it started.
+
+## 5. Heal
+
+```bash
+./scripts/heal_loop.sh
+```
+
+`run → validate → (break) → heal --auto-approve → re-run → validate → publish`
+
+The prompt is never hand-written. [`scripts/broken_sources.py`](scripts/broken_sources.py)
+turns the contract's findings into one instruction per broken collector, and only for
+sources that actually ran. Collector IDs never change, so a repair touches nothing
+downstream. `MAX_HEAL_ATTEMPTS` is 2, which stopped an unsatisfiable contract from looping
+forever.
+
+## 6. Re-scrape
+
+**A heal reporting `status: done` is not proof of repair.** BDO's heal completed, was
+approved, saved, and changed nothing. The loop re-runs and re-validates instead of trusting
+the status, which is the only reason that surfaced.
+
+### Two verified repairs
+
+| | Control page | Baker Tilly |
+|---|---|---|
+| Break | staged: classes renamed, headline nested deeper | **organic**, found on a routine run |
+| Contract said | 0 articles extracted | `article_url` 0%, `published_date` 0% |
+| After heal | **0 → 6 articles** | **0% → 100%** on both fields |
+| Collector ID | `c_mt5tj2ej2p93igloht`, unchanged | `c_mt5vy4lr2psac64sae`, unchanged |
+
+The control page (`docs/control/insights.html`) is hosted by this repository and broken on
+purpose, so self-healing can be shown against a real markup change rather than a staged
+schema extension. It is logged separately from repairs to real sources.
+
+## 7. Understand
 
 A feed of advisory articles is a newsreader, and nobody needs another one. The reason to
-collect a dozen firms rather than one is that **agreement between independent firms carries
-information no single site does**.
+read twelve firms is that **agreement between independent firms carries information no
+single site does**.
 
-One firm publishing five times about a topic is marketing. Five firms publishing once each,
-in the same fortnight, means something changed. The Signals view ranks topics by how many
-*distinct* firms covered them, so the dashboard answers a question you cannot ask any single
-newsroom:
+One firm publishing five times is marketing. Five firms publishing once each, in the same
+fortnight, means something changed.
 
-> Seven firms published on tariff accounting this month. What happened, and does it affect me?
+```bash
+./scripts/classify_topics.py   # build a taxonomy, assign 1-3 labels per article
+./scripts/signals.py           # rank subjects by independent cross-firm coverage
+```
 
-That is the justification for the fleet. Without it, twelve collectors are just twelve
-scrapers feeding a list.
+The first version matched topics with a hand-written dictionary of regexes — the same
+maintenance burden this project argues against, so it was replaced by a classifier. The
+patterns survive as an offline fallback, so a fork with no API key still builds a working
+site.
 
-`scripts/classify_topics.py` builds a canonical taxonomy from the corpus and assigns each
-article one to three labels from it; `scripts/signals.py` then ranks topics by how many
-independent firms cover them. A topic qualifies only when at least two distinct firms do.
+## 8. Product
 
-The first version of this matched topics with a hand-written dictionary of regexes. That is
-the same maintenance burden this project argues against, so it was replaced by a classifier.
-The patterns survive as an offline fallback, so a fork with no API key still produces a
-working site.
+The dashboard leads with a **coverage matrix**: subjects down the side, firms across the
+top, a mark where a firm covered a subject. Reading a row shows how broad the agreement is;
+reading a column shows what one firm is pushing. Neither is visible on any single site.
 
-## Who it is for
+| View | Answers |
+|---|---|
+| Consensus | What is the profession converging on, and who is silent? |
+| Top signals | What did each firm actually say about it? |
+| Articles | Everything collected, filterable by firm |
+| Pipeline | Which sources are passing, broken, or could not run — and every repair |
+| Add a source | Would this site qualify? |
 
-A finance lead, controller or founder who needs to know when guidance changes has to check a
-dozen firm newsrooms by hand. Nobody does that, so the change gets found late, usually by an
-auditor. This puts all of it on one page, refreshed on a schedule, filterable by firm and topic.
+---
 
-## The problem underneath
+## Where this came from
 
-This project started from [Financial-News-Scrapers](https://github.com/omkar-334/Financial-News-Scrapers):
-fourteen hand-written Python scrapers, one per firm, each with its own selectors, a Playwright
-launcher carrying thirty Chrome flags, and a BeautifulSoup heuristic for stripping navigation.
-`rsm.py` alone hardcodes an AEM endpoint at
+This project began as [Financial-News-Scrapers](https://github.com/omkar-334/Financial-News-Scrapers):
+fourteen hand-written Python scrapers, one per firm, each with its own selectors, a
+Playwright launcher carrying thirty Chrome flags, and a BeautifulSoup heuristic for
+stripping navigation. `rsm.py` alone hardcodes an AEM endpoint six containers deep at
 `/insights/_jcr_content/root/container/container/container_copy/cardlist.list.json`.
 
-Every one of those files is a selector waiting to rot, and each rots independently. Here that
-is replaced by one collector and one contract.
+Every one of those files is a selector waiting to rot, and each rots independently. Here
+that is one collector per site plus one shared contract, and adding a firm is one command
+rather than one more file to maintain.
 
-## How Bright Data Scraper Studio is used
+## Running it
 
-| Step | Command |
-|---|---|
-| Build a collector from a description | `bdata scraper create <url> "<fields>"` |
-| Run the fleet and validate it | `./scripts/run_fleet.sh` |
-| Repair a collector when its site changes | `bdata scraper heal <collector> "<what broke>" --auto-approve` |
-| Review or reject a proposed fix | `bdata scraper approve <collector> [--reject]` |
-
-The Collector ID is the stable interface. A repair changes the scraper in place and leaves the
-ID untouched, so nothing downstream is aware that anything happened.
-
-### One collector per layout, not one collector for everything
-
-Scraper Studio generates extraction code against a specific site. A collector built on RSM
-returns nothing for BDO or Crowe, and `heal` will not bridge that gap: it repairs a collector
-against **its own** target when that target changes.
-
-We established this the expensive way. An early attempt fed twelve firm URLs to a single
-collector built against RSM; eleven returned nothing. Healing it to "cover all of them" ran
-for forty minutes and returned `status: error`. The collector was left untouched, which is
-worth knowing on its own: heal is non-destructive.
-
-So the fleet is one collector per newsroom layout, registered in `scripts/collectors.json`.
-What is shared across the fleet is the contract and the repair loop, which is where the
-leverage actually is: adding a firm means adding one collector, not another bespoke parser
-with its own selectors to maintain.
-
-## Proven self-healing run
-
-A real markup change on a page we control, repaired without a human writing the fix:
-
-| Stage | Result |
-|---|---|
-| Collector `c_mt5tj2ej2p93igloht` against v1 markup | 6 articles |
-| Redesign pushed: classes renamed, headline nested one level deeper | site serving v2 |
-| Same collector against v2 | **0 articles** |
-| `scripts/validate.py` | exit 2, `0/1 sources healthy` |
-| Heal prompt | generated from the contract's own diagnosis |
-| `bdata scraper heal --auto-approve` | `status: done` |
-| Same collector, same URL, after the repair | **6 articles** |
-
-The Collector ID never changed, so nothing downstream was touched.
-
-Two of the twelve targets (`crowe.com`, `marcumllp.com`) return HTTP 403 to a plain request,
-so the unblocking layer is doing real work rather than decorating the pitch. And Bright Data
-ships 800+ pre-built scrapers, none of which covers mid-market accounting firm newsrooms, so
-there is nothing off the shelf to fall back on.
-
-## The self-healing loop
-
-`scripts/validate.py` is the single definition of healthy output, evaluated per firm. When a
-firm's selectors stop matching, the validator's own diagnosis becomes the prompt handed to
-`bdata scraper heal`. No human writes the fix.
-
-```
-run -> validate -> (violation) -> heal --auto-approve -> re-run -> validate -> publish
+```bash
+npm install
+cp .env.example .env          # BRIGHTDATA_API_KEY, and OPENAI_API_KEY for classification
+./scripts/run_fleet.sh        # run + validate
+./scripts/heal_loop.sh        # run, repair what broke, verify
+uv run --with pytest pytest tests/
 ```
 
-Two design decisions matter more than they look:
+CI runs it daily and on any change to the control page
+([`.github/workflows/scrape.yml`](.github/workflows/scrape.yml)). Set `BRIGHTDATA_API_KEY`
+and `OPENAI_API_KEY` as repository secrets; without the latter, topic classification falls
+back to patterns rather than failing the run.
 
-**The contract is evaluated per source, not per run.** One firm redesigning its site fails only
-its own source, and the heal prompt names that firm instead of blaming the whole fleet.
+## Repository layout
 
-**The contract knows which URLs it asked for.** A site that returns no envelope at all produces
-no rows and no source, so it would otherwise be invisible. Silent disappearance is the most
-dangerous failure mode a scraper has, so `validate.py` takes the expected URL list and reports
-anything missing from the output.
+| Path | What it is |
+|---|---|
+| `scripts/collectors.json` | the fleet registry: one collector per newsroom |
+| `scripts/create_collector.sh` | build a collector and register it |
+| `scripts/onboard.py` | classify a proposed URL, gate it, build, register |
+| `scripts/run_fleet.sh` | run every collector, merge, validate |
+| `scripts/validate.py` | the output contract, and the diagnosis heal is given |
+| `scripts/heal_loop.sh` | run, repair what broke, re-run, verify |
+| `scripts/broken_sources.py` | which sources are genuinely heal-worthy |
+| `scripts/classify_topics.py` | LLM topic taxonomy and assignment |
+| `scripts/signals.py` | rank subjects by independent cross-firm coverage |
+| `scripts/publish.py` | publish rows, contract report and repair log |
+| `api/check-source.mjs` | in-browser eligibility check |
+| `docs/` | the deployed site, its data, and the control page |
+| `tests/` | 28 contract and gate tests, no network required |
+| `hackathon/` | rules, tips, resources, coding-agent prompts |
 
-## Proving it is not staged
-
-Target sites rarely redesign themselves during a one-week hackathon, which is why most
-self-healing demos are really a staged schema extension. `docs/control/insights.html` is a
-newsroom page served from this repository's own site. We scrape it, rename its CSS classes in a
-commit, and the push triggers CI to detect the break and repair it with no human involved.
+Run artifacts under `results/` are gitignored: large and reproducible. What is committed is
+the published dataset in `docs/data/` and the latest contract report.
 
 ## Example structured output
 
@@ -136,128 +246,26 @@ commit, and the push triggers CI to detect the break and repair it with no human
   "published_date": "2026-08-17",
   "article_url": "https://rsmus.com/insights/services/business-strategy/...",
   "tags": ["Audit", "Private equity"],
-  "_firm": "rsmus.com",
-  "_source": "https://rsmus.com/insights.html"
+  "_firm": "rsmus.com"
 }
 ```
 
-Full published dataset: [`docs/data/latest.json`](docs/data/latest.json).
-Contract report: [`docs/data/health.json`](docs/data/health.json).
-
-## Adding a source
-
-The dashboard has an **Add a source** tab: paste a listing-page URL and get a verdict in a
-couple of seconds, backed by `api/check-source.mjs` running on Vercel. Building a collector
-takes several minutes, so that stays a terminal command; deciding whether a source *qualifies*
-is instant, and no credits are spent on a target that was never going to pass.
-
-To enable it on a deployment, set `OPENAI_API_KEY` in the Vercel project environment. Without
-it the endpoint returns a clear "not configured" message rather than failing.
-
-
-Anyone can propose a site. The pipeline decides whether it is eligible before spending a
-credit on generating a scraper:
-
-```bash
-./scripts/onboard.py https://www.example-firm.com/insights --dry-run   # classify only
-./scripts/onboard.py https://www.example-firm.com/insights             # build and register
-```
-
-```
-fetch -> classify (LLM) -> gate -> create collector -> run -> validate -> register
-```
-
-Three rejections are absolute, and are enforced in code rather than left to judgement:
-
-| Rejected | Why |
-|---|---|
-| government sites | barred by rule 7, and Scraper Studio returns `Domain not allowed` |
-| login walls | barred by rule 6. Nothing here attempts to authenticate |
-| paywalls | barred by rule 6 |
-
-A **403 is not a rejection**. `crowe.com` and `marcumllp.com` both refuse a plain request and
-both work through Bright Data's unblocking layer, which is the reason to route through it.
-Pre-judging a target with `curl` would have thrown away two working sources.
-
-Adding a firm is one command plus one line in `scripts/collectors.json`. No new parser, no
-new selectors, which is the whole difference from maintaining a file per firm.
-
-## Running it
-
-```bash
-npm install
-cp .env.example .env          # add your Bright Data API key
-./scripts/run_fleet.sh        # run every collector, validate against the contract
-./scripts/heal_loop.sh        # run, and repair in place if the contract breaks
-uv run --with pytest pytest tests/
-```
+Full dataset: [`docs/data/latest.json`](docs/data/latest.json) ·
+contract report: [`docs/data/health.json`](docs/data/health.json) ·
+repairs: [`docs/data/heals.json`](docs/data/heals.json)
 
 ## Scraping policy
 
-What this project will and will not collect. These are commitments enforced in code and
-pinned by tests in `tests/test_onboard_gate.py`, not preferences.
-
-**Refused outright, by `scripts/onboard.py`:**
-
-| Refused | Why |
-|---|---|
-| Government websites | Barred by hackathon rule 7. Scraper Studio also returns `Domain not allowed` for them. Rejected on the host suffix (`.gov`, `.gov.in`, `.gov.uk`, `.mil`, ...) as well as on the classifier's judgement, because a language model can be wrong and the rule does not depend on its opinion |
-| Login-walled content | Barred by rule 6. **Nothing in this project attempts to authenticate, bypass a login, or reuse a session cookie.** A source behind a login is refused, not worked around |
-| Paywalled content | Barred by rule 6 |
-| Pages about private individuals | Out of scope regardless of the rules |
-| Anything that is not an article listing | A single article or a homepage is not a source |
-
-**An HTTP 403 is explicitly NOT a rejection.**
-
-`crowe.com` and `marcumllp.com` both refuse a plain request and both work correctly through
-Bright Data's unblocking layer, which is the reason to route through an unblocker in the
-first place. Rejecting a candidate on status code would have silently discarded two working
-sources. `gate()` therefore never sees the HTTP status, and a test asserts it never will.
-
-The distinction matters and is easy to blur: **being blocked as a bot is a transport
-problem that Bright Data solves. Being behind a login is a permission boundary, and we
-stop there.**
-
-**On the data itself:** public listing pages only. Author bylines are excluded at extraction
-time, the contract fails the run if one ever appears, and `scripts/publish.py` strips them
-again before anything reaches the published site.
-
-## Layout
-
-| Path | Purpose |
-|---|---|
-| `scripts/` | create, run, validate, heal, publish |
-| `tests/` | contract tests, no network required |
-| `results/` | per-run logs, JSONL rows, summary JSON |
-| `docs/` | the deployed site: dashboard, control page, published data |
-| `hackathon/` | rules, tips, resources, coding-agent prompts |
+Public article listing pages only. Government sites, login walls and paywalls are refused
+in code, not worked around. Pages about private individuals are out of scope. Author
+bylines are excluded at extraction time, the contract fails the run if one appears, and
+`publish.py` strips them again before anything reaches the site.
 
 ## AI assistance disclosure
 
-Required by rule 11. This project was built with Claude Code (Claude Opus 5) acting as a pair
-programmer: it wrote the pipeline scripts, contract validator, dashboard and CI workflow, and
-drove the Bright Data CLI. Target selection, architecture and every scope decision were made by
-the author, who reviewed all code before it was committed. Several of the agent's initial
-proposals were rejected on the author's direction, including an Indian government procurement
-target that turned out to be barred by rule 7.
-
-## Repository layout
-
-| Path | What it is |
-|---|---|
-| `scripts/collectors.json` | the fleet registry: one collector per newsroom |
-| `scripts/create_collector.sh` | build a collector and register it |
-| `scripts/onboard.py` | self-serve: classify a proposed URL, gate it, build, register |
-| `scripts/run_fleet.sh` | run every collector, merge, validate |
-| `scripts/validate.py` | the output contract, and the diagnosis heal is given |
-| `scripts/heal_loop.sh` | run, repair what broke, re-run, verify |
-| `scripts/broken_sources.py` | which sources are genuinely heal-worthy |
-| `scripts/classify_topics.py` | LLM topic taxonomy and assignment |
-| `scripts/signals.py` | rank subjects by independent cross-firm coverage |
-| `scripts/publish.py` | publish rows, contract report and repair log to the site |
-| `api/check-source.mjs` | the in-browser eligibility check |
-| `docs/` | the deployed site and its committed data |
-| `tests/` | contract and gate tests, no network required |
-
-Run artifacts under `results/` are gitignored: they are large and reproducible. What is
-committed is the published dataset in `docs/data/` and the latest contract report.
+Required by rule 11. Built with Claude Code (Claude Opus 5) as a pair programmer: it wrote
+the pipeline scripts, contract validator, dashboard and CI, and drove the Bright Data CLI.
+Target selection, architecture and every scope decision were made by the author, who
+reviewed all code before it was committed. Several agent proposals were rejected on the
+author's direction, including an Indian government procurement target that turned out to be
+barred by rule 7.
