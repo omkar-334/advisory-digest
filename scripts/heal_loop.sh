@@ -25,7 +25,7 @@ run_once() {
     log "run produced no output (see $LOG)"
     return 1
   fi
-  python3 scripts/validate.py "$raw" results/validate
+  python3 scripts/validate.py "$raw" results/validate "$INPUT_FILE"
 }
 
 log "collector=$COLLECTOR input=$INPUT_FILE max_attempts=$MAX_ATTEMPTS"
