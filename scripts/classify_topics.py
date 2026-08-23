@@ -24,6 +24,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+from envfile import load_env
+
+load_env()
+
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs" / "data"
 MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")

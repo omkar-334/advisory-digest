@@ -33,6 +33,10 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
 
+from envfile import load_env
+
+load_env()
+
 ROOT = Path(__file__).resolve().parent.parent
 REGISTRY = ROOT / "scripts" / "collectors.json"
 RESULTS = ROOT / "results" / "onboard"
