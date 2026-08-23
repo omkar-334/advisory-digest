@@ -16,3 +16,8 @@ results/validate/*
 __pycache__/
 *.pyc
 .DS_Store
+
+# Submission drafts: the form answers and the demo script are personal working
+# documents, not part of the project.
+hackathon/submission-answers.md
+hackathon/youtube-script.md
