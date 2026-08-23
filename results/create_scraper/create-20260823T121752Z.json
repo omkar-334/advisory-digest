@@ -1,0 +1,1 @@
+{"collector_id":"c_mt5rw1hg1n1xdlmc7a","name":"zed-releases-scraper","status":"done","completed_steps":["prepare_intent_analyzer","planner","collector_mainatiner","output_schema_generator","code_generator","input_schema_generator","preview_runner","preview_picker"],"view_url":"https://brightdata.com/cp/scrapers/c_mt5rw1hg1n1xdlmc7a","created_at":"2026-08-23T12:17:53.284Z"}
