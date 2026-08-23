@@ -56,6 +56,15 @@ def main() -> int:
     dropped = len(rows) - len(deduped)
     rows = deduped
 
+    # Never overwrite a good dataset with an empty one. This exact failure happened in CI:
+    # the row JSONL is gitignored, so a fresh checkout whose scrape had failed still found
+    # the committed summary, published zero rows, and blanked the live site.
+    if not rows:
+        existing = DOCS / "latest.json"
+        had = len(json.loads(existing.read_text())) if existing.exists() else 0
+        print(f"refusing to publish 0 rows over {had} existing rows", file=sys.stderr)
+        return 1
+
     (DOCS / "latest.json").write_text(json.dumps(rows, ensure_ascii=False, indent=1))
     (DOCS / "health.json").write_text(json.dumps(summary, indent=1))
 

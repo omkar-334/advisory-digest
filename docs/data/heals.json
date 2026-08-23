@@ -1,1 +1,11 @@
-[]
+[
+ {
+  "stamp": "20260823T133000Z",
+  "firm": "advisory-digest.vercel.app",
+  "diagnosis": "The page layout of advisory-digest.vercel.app has changed and the scraper now returns no articles at all. The class names and element nesting it matched on no longer exist.",
+  "collector": "c_mt5tj2ej2p93igloht",
+  "resolved": true,
+  "before_rows": 0,
+  "after_rows": 6
+ }
+]

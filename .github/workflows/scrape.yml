@@ -42,8 +42,11 @@ jobs:
           COLLECTOR_ID: ${{ vars.COLLECTOR_ID }}
         run: |
           printf 'BRIGHTDATA_API_KEY=%s\n' "$BRIGHTDATA_API_KEY" > .env
-          ./scripts/heal_loop.sh
-        continue-on-error: true
+          ./scripts/heal_loop.sh || [ $? -eq 2 ]
+        # Exit 2 means the contract is still broken after healing. That is a real result
+        # worth publishing, so it is tolerated here and the job is failed at the end.
+        # Any other non-zero exit means the run itself failed and must not reach publish.
+        continue-on-error: false
 
       - name: Publish to the site
         run: python3 scripts/publish.py
