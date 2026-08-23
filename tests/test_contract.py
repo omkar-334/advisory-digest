@@ -120,3 +120,64 @@ def test_rows_jsonl_records_source_firm(tmp_path):
     rows = [json.loads(l) for l in
             next((tmp_path / "out").glob("rows-*.jsonl")).read_text().splitlines() if l.strip()]
     assert {r["_firm"] for r in rows} == {"bdo.com"}
+
+
+# --- run failures must never be mistaken for broken selectors ------------------------
+
+def error_envelope(url, n=1):
+    """What a collector returns when the run itself fails: rate limit, navigation timeout."""
+    return [{"input": {"url": url}, "error": "Crawler error: Navigation failed",
+             "error_code": "rate_limit"} for _ in range(n)]
+
+
+def test_error_envelopes_are_a_run_failure_not_a_break(tmp_path):
+    """A rate-limited run must not be reported as a broken selector.
+
+    Sending heal after a scraper that works is the most expensive mistake this loop can
+    make: it spends credits and can leave a working collector worse than it started.
+    """
+    payload = [envelope("https://rsmus.com/insights", [article(i) for i in range(5)])]
+    payload += error_envelope("https://www.bakertilly.com/insights", 20)
+    rc, out, err = run(payload, tmp_path)
+    assert rc == 1, f"expected run-failure exit, got {rc}"
+    assert "not heal-worthy" in err
+    # The heal prompt must not name the source whose run failed.
+    assert "bakertilly" not in out
+
+
+def test_error_dominated_partial_run_is_a_run_failure(tmp_path):
+    """A few rows salvaged from a mostly-failed run looks like a scraper that stopped
+    iterating. The cause, not the row count, decides."""
+    payload = [{"insights": [article(0)], "input": {"url": "https://www.bdo.com/insights"}}]
+    payload += error_envelope("https://www.bdo.com/insights", 16)
+    rc, out, err = run(payload, tmp_path)
+    assert rc == 1
+    assert "16 error" in err
+    assert "bdo.com" not in out
+
+
+def test_genuine_empty_extraction_is_still_heal_worthy(tmp_path):
+    """The scraper ran clean and found nothing: that IS a broken selector."""
+    payload = [
+        envelope("https://rsmus.com/insights", [article(i) for i in range(5)]),
+        envelope("https://www.withum.com/resources/", []),
+    ]
+    rc, out, _ = run(payload, tmp_path)
+    assert rc == 2
+    assert "withum.com" in out
+
+
+def test_source_that_never_reported_is_a_run_failure(tmp_path, ):
+    """A collector that produced no envelope at all never ran; that is not a break."""
+    payload = [envelope("https://rsmus.com/insights", [article(i) for i in range(5)])]
+    expected = tmp_path / "expected.txt"
+    expected.write_text("https://rsmus.com/insights\nhttps://www.marcumllp.com/insights\n")
+    src = tmp_path / "run.json"
+    src.write_text(json.dumps(payload))
+    proc = subprocess.run(
+        [sys.executable, str(VALIDATE), str(src), str(tmp_path / "out"), str(expected)],
+        capture_output=True, text=True,
+    )
+    assert proc.returncode == 1
+    assert "no output at all" in proc.stderr
+    assert "marcumllp" not in proc.stdout

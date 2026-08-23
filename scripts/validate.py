@@ -56,6 +56,11 @@ def normalise(payload):
     """
     envelopes = payload if isinstance(payload, list) else [payload]
     out, sources = [], []
+    # A run can fail for reasons that have nothing to do with the scraper: rate limits,
+    # navigation timeouts, a site being briefly down. Those arrive as envelopes carrying
+    # an "error" key and no data. They must never be reported as a broken selector,
+    # because heal would then be sent to repair a scraper that works.
+    errors: dict[str, int] = {}
     for env in envelopes:
         if not isinstance(env, dict):
             continue
@@ -69,6 +74,10 @@ def normalise(payload):
         if source:
             sources.append(source)
 
+        if env.get("error") or env.get("error_code"):
+            errors[source] = errors.get(source, 0) + 1
+            continue
+
         nested = [v for k, v in env.items()
                   if isinstance(v, list) and v and isinstance(v[0], dict)]
         if nested:
@@ -77,7 +86,7 @@ def normalise(payload):
                     out.append((row, source))
         elif any(f in env for f in REQUIRED):
             out.append((env, source))
-    return out, sources
+    return out, sources, errors
 
 
 def check_source(firm, rows):
@@ -144,7 +153,11 @@ def heal_prompt(per_firm, limit=1000):
     on that page. It must not ask one collector to cover unrelated domains: that request
     fails, which we established the expensive way.
     """
-    empty = sorted(f for f, v in per_firm.items() if v["rows"] == 0)
+    # Only sources that actually ran can be healed. Naming a source whose run failed would
+    # send heal to repair a scraper that is fine, which is the most expensive mistake this
+    # loop can make: it burns credits and can make a working collector worse.
+    empty = sorted(f for f, v in per_firm.items()
+                   if v["rows"] == 0 and not v.get("run_failed"))
     other = [p for f, v in per_firm.items() if v["rows"] for p in v["problems"]]
 
     parts = []
@@ -187,7 +200,10 @@ def main() -> int:
         print(f"HARD ERROR: cannot read {src}: {exc}", file=sys.stderr)
         return 1
 
-    pairs, sources = normalise(payload)
+    pairs, sources, envelope_errors = normalise(payload)
+    errors_by_firm: dict[str, int] = {}
+    for url, count in envelope_errors.items():
+        errors_by_firm[firm_of(url)] = errors_by_firm.get(firm_of(url), 0) + count
     # Seed every source that was attempted, so one returning nothing still gets judged.
     by_firm: dict[str, list] = {firm_of(u): [] for u in expected}
     for u in sources:
@@ -195,13 +211,39 @@ def main() -> int:
     for row, source in pairs:
         by_firm.setdefault(firm_of(source), []).append(row)
 
-    per_firm, violations = {}, []
+    per_firm, violations, run_failures = {}, [], []
+    seen_firms = {firm_of(u) for u in sources}
     for firm, rows in sorted(by_firm.items()):
+        errs = errors_by_firm.get(firm, 0)
+        # Two kinds of run failure, neither of which heal can fix:
+        #   - the run returned error envelopes (rate limit, navigation timeout)
+        #   - the run produced no envelopes at all, so it never reported
+        # Two shapes of run failure, neither fixable by heal:
+        #   never_reported: the collector produced no envelopes at all, so it never ran
+        #   error_dominated: errors outnumber usable rows. A partially rate-limited run
+        #     yields a few rows and looks exactly like a scraper that stopped iterating,
+        #     so the two have to be told apart by cause rather than by row count.
+        never_reported = not rows and firm not in seen_firms
+        error_dominated = errs > 0 and errs >= max(len(rows), 1)
+        if never_reported or error_dominated:
+            detail = ("returned no output at all" if never_reported
+                      else f"failed with {errs} error(s) against {len(rows)} usable row(s)")
+            run_failures.append(
+                f"{firm}: the run {detail}. This is a run failure, not a broken selector, "
+                f"so it is not heal-worthy. Re-run before concluding anything about the "
+                f"scraper."
+            )
+            per_firm[firm] = {"rows": len(rows), "healthy": False, "run_failed": True,
+                              "errors": max(errs, 0), "problems": []}
+            continue
+
         problems = check_source(firm, rows)
-        per_firm[firm] = {"rows": len(rows), "healthy": not problems, "problems": problems}
+        per_firm[firm] = {"rows": len(rows), "healthy": not problems,
+                          "run_failed": False, "errors": errs, "problems": problems}
         violations.extend(problems)
 
     healthy = sum(1 for v in per_firm.values() if v["healthy"])
+    failed_runs = sum(1 for v in per_firm.values() if v.get("run_failed"))
     total = len(per_firm) or 1
     fleet_ok = (healthy / total) >= MIN_HEALTHY_SOURCES and bool(pairs)
 
@@ -216,6 +258,8 @@ def main() -> int:
         "total_rows": len(pairs),
         "sources": total,
         "healthy_sources": healthy,
+        "failed_runs": failed_runs,
+        "run_failures": run_failures,
         "healthy": fleet_ok and not violations,
         "per_firm": per_firm,
         "params": {
@@ -228,6 +272,11 @@ def main() -> int:
     (outdir / f"summary-{stamp}.json").write_text(json.dumps(summary, indent=2))
     (outdir / "summary-latest.json").write_text(json.dumps(summary, indent=2))
 
+    if run_failures:
+        print(f"RUN FAILURES on {failed_runs} source(s) (not heal-worthy):", file=sys.stderr)
+        for f in run_failures:
+            print(f"  ! {f}", file=sys.stderr)
+
     if violations:
         print(f"CONTRACT VIOLATED: {healthy}/{total} sources healthy, "
               f"{len(pairs)} rows total", file=sys.stderr)
@@ -238,6 +287,12 @@ def main() -> int:
         # instead of repeating the same sentence per firm.
         print(heal_prompt(per_firm))
         return 2
+
+    if run_failures:
+        # Nothing to heal, but the run is not clean either.
+        print(f"{len(pairs)} rows across {total - failed_runs} healthy source(s); "
+              f"{failed_runs} source(s) failed to run", file=sys.stderr)
+        return 1
 
     print(f"contract OK: {len(pairs)} rows across {total} sources, all healthy")
     return 0

@@ -30,10 +30,13 @@ if [ ! -s "$OUT/fleet-$STAMP.list" ]; then
   exit 1
 fi
 
-# Run collectors concurrently. Running a collector does not consume an AI-Flow generation
-# slot, so this is not bound by the 3-job cap that applies to `scraper create` and `heal`.
-# Sequential runs of a 13-collector fleet took roughly 40 minutes, which is too slow for CI.
-CONCURRENCY="${FLEET_CONCURRENCY:-4}"
+# Run collectors concurrently, but modestly. Running a collector does not consume an
+# AI-Flow generation slot, so it is not bound by the 3-job cap that applies to `create`
+# and `heal` -- but it IS rate limited at the crawler. At concurrency 5, seven of thirteen
+# sources came back with "Crawler error: Navigation failed ... too many" and no data,
+# which the contract then had to be taught to distinguish from a broken selector.
+# Two is comfortably under the limit and still roughly halves wall-clock.
+CONCURRENCY="${FLEET_CONCURRENCY:-2}"
 running=0
 while read -r cid url; do
   [ -z "$cid" ] && continue

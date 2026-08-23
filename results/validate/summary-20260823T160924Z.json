@@ -1,17 +1,15 @@
 {
-  "stamp": "20260823T161009Z",
+  "stamp": "20260823T160924Z",
   "source": "results/run_fleet/fleet-20260823T150110Z.json",
   "total_rows": 204,
   "sources": 13,
   "healthy_sources": 6,
-  "failed_runs": 7,
+  "failed_runs": 5,
   "run_failures": [
-    "bakertilly.com: the run failed with 20 error(s) against 0 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
-    "bdo.com: the run failed with 16 error(s) against 1 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
-    "eisneramper.com: the run failed with 9 error(s) against 1 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
-    "grantthornton.com: the run failed with 20 error(s) against 0 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
+    "bakertilly.com: the run failed with 20 error(s) and returned no data. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
+    "grantthornton.com: the run failed with 20 error(s) and returned no data. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
     "marcumllp.com: the run returned no output at all. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
-    "plantemoran.com: the run failed with 4 error(s) against 0 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
+    "plantemoran.com: the run failed with 4 error(s) and returned no data. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
     "withum.com: the run returned no output at all. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper."
   ],
   "healthy": false,
@@ -33,9 +31,11 @@
     "bdo.com": {
       "rows": 1,
       "healthy": false,
-      "run_failed": true,
+      "run_failed": false,
       "errors": 16,
-      "problems": []
+      "problems": [
+        "bdo.com returned only 1 article(s); its listing page always shows at least 3. The scraper is matching a single card instead of iterating over every article on the page."
+      ]
     },
     "claconnect.com": {
       "rows": 60,
@@ -61,9 +61,11 @@
     "eisneramper.com": {
       "rows": 1,
       "healthy": false,
-      "run_failed": true,
+      "run_failed": false,
       "errors": 9,
-      "problems": []
+      "problems": [
+        "eisneramper.com returned only 1 article(s); its listing page always shows at least 3. The scraper is matching a single card instead of iterating over every article on the page."
+      ]
     },
     "grantthornton.com": {
       "rows": 0,

@@ -1,18 +1,16 @@
 {
-  "stamp": "20260823T161009Z",
+  "stamp": "20260823T160945Z",
   "source": "results/run_fleet/fleet-20260823T150110Z.json",
   "total_rows": 204,
   "sources": 13,
   "healthy_sources": 6,
-  "failed_runs": 7,
+  "failed_runs": 5,
   "run_failures": [
     "bakertilly.com: the run failed with 20 error(s) against 0 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
     "bdo.com: the run failed with 16 error(s) against 1 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
     "eisneramper.com: the run failed with 9 error(s) against 1 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
     "grantthornton.com: the run failed with 20 error(s) against 0 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
-    "marcumllp.com: the run returned no output at all. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
-    "plantemoran.com: the run failed with 4 error(s) against 0 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
-    "withum.com: the run returned no output at all. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper."
+    "plantemoran.com: the run failed with 4 error(s) against 0 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper."
   ],
   "healthy": false,
   "per_firm": {
@@ -75,9 +73,11 @@
     "marcumllp.com": {
       "rows": 0,
       "healthy": false,
-      "run_failed": true,
-      "errors": 0,
-      "problems": []
+      "run_failed": false,
+      "errors": -1,
+      "problems": [
+        "marcumllp.com returned no articles at all. The scraper produced nothing for that site, so its article-list selector does not match that firm's layout. Make the extraction generic enough to cover it."
+      ]
     },
     "plantemoran.com": {
       "rows": 0,
@@ -103,9 +103,11 @@
     "withum.com": {
       "rows": 0,
       "healthy": false,
-      "run_failed": true,
-      "errors": 0,
-      "problems": []
+      "run_failed": false,
+      "errors": -1,
+      "problems": [
+        "withum.com returned no articles at all. The scraper produced nothing for that site, so its article-list selector does not match that firm's layout. Make the extraction generic enough to cover it."
+      ]
     }
   },
   "params": {
@@ -113,5 +115,5 @@
     "min_field_coverage": 0.7,
     "min_healthy_sources": 0.6
   },
-  "elapsed_sec": 0.004
+  "elapsed_sec": 0.005
 }
