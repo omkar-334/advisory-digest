@@ -39,6 +39,16 @@ jobs:
           BRIGHTDATA_API_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
+          missing=0
+          if [ -z "$BRIGHTDATA_API_KEY" ]; then
+            echo "::error::BRIGHTDATA_API_KEY is not set. Run: gh secret set BRIGHTDATA_API_KEY --repo ${{ github.repository }}"
+            missing=1
+          fi
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "::error::OPENAI_API_KEY is not set. Run: gh secret set OPENAI_API_KEY --repo ${{ github.repository }}"
+            missing=1
+          fi
+          [ "$missing" -eq 0 ] || exit 1
           printf 'BRIGHTDATA_API_KEY=%s\n' "$BRIGHTDATA_API_KEY"  > .env
           printf 'OPENAI_API_KEY=%s\n'     "$OPENAI_API_KEY"     >> .env
 

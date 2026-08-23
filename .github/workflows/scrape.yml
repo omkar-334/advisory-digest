@@ -42,8 +42,11 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           if [ -z "$BRIGHTDATA_API_KEY" ]; then
-            echo "::error::BRIGHTDATA_API_KEY is not set. Add it in Settings → Secrets."
+            echo "::error::BRIGHTDATA_API_KEY is not set. Run: gh secret set BRIGHTDATA_API_KEY --repo ${{ github.repository }}"
             exit 1
+          fi
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "::warning::OPENAI_API_KEY is not set. Topic classification will be skipped and signals will use the pattern fallback."
           fi
           printf 'BRIGHTDATA_API_KEY=%s\n' "$BRIGHTDATA_API_KEY"  > .env
           printf 'OPENAI_API_KEY=%s\n'     "$OPENAI_API_KEY"     >> .env
