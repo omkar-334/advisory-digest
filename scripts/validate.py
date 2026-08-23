@@ -29,7 +29,14 @@ MIN_ROWS_PER_SOURCE = int(os.environ.get("CONTRACT_MIN_ROWS", "3"))
 MIN_FIELD_COVERAGE = float(os.environ.get("CONTRACT_MIN_COVERAGE", "0.7"))
 MIN_HEALTHY_SOURCES = float(os.environ.get("CONTRACT_MIN_HEALTHY_SOURCES", "0.6"))
 
-REQUIRED = ("title", "article_url", "published_date")
+# Always present on a real article card. If either goes missing, the selector broke.
+REQUIRED = ("title", "article_url")
+# Not every item on a firm's insights listing is a dated article: podcast series hubs,
+# eBooks and assessment tools are evergreen and carry no publication date. Partial date
+# coverage is therefore normal and is NOT a break. Near-zero coverage is a break, because
+# that means the date selector stopped matching everywhere.
+DATED_FIELD = "published_date"
+MIN_DATED_COVERAGE = float(os.environ.get("CONTRACT_MIN_DATED_COVERAGE", "0.25"))
 URL_RE = re.compile(r"^https?://", re.I)
 # Author bylines must never be collected; rule 4 of the hackathon brief.
 FORBIDDEN_FIELDS = ("author", "author_name", "byline", "email", "phone")
@@ -95,12 +102,30 @@ def check_source(firm, rows):
                 f"matches the page."
             )
 
+    dated = sum(1 for r in rows if r.get(DATED_FIELD) not in (None, "", []))
+    if dated / len(rows) < MIN_DATED_COVERAGE:
+        problems.append(
+            f"On {firm}, '{DATED_FIELD}' is populated on only {dated} of {len(rows)} "
+            f"articles ({dated / len(rows):.0%}). Below {MIN_DATED_COVERAGE:.0%} the date "
+            f"selector has stopped matching rather than the page simply carrying evergreen "
+            f"items. Re-detect the publication date on the article cards."
+        )
+
     relative = [r["article_url"] for r in rows
                 if r.get("article_url") and not URL_RE.match(str(r["article_url"]).strip())]
     if relative:
         problems.append(
             f"On {firm}, {len(relative)} article_url value(s) are relative, e.g. "
             f"{relative[0]!r}. Resolve hrefs to absolute URLs."
+        )
+
+    # A row with neither a title nor a URL is not an article; it is extraction noise.
+    empty_rows = [r for r in rows
+                  if not (r.get("title") or "").strip() and not (r.get("article_url") or "").strip()]
+    if empty_rows:
+        problems.append(
+            f"On {firm}, {len(empty_rows)} extracted row(s) have neither a title nor a URL. "
+            f"The extraction is matching non-article blocks."
         )
 
     leaked = sorted({f for r in rows for f in FORBIDDEN_FIELDS if r.get(f)})

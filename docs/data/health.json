@@ -1,10 +1,10 @@
 {
- "stamp": "20260823T140604Z",
- "source": "results/run_fleet/fleet-20260823T135912Z.json",
+ "stamp": "20260823T141849Z",
+ "source": "results/run_fleet/fleet-20260823T141559Z.json",
  "total_rows": 96,
  "sources": 3,
- "healthy_sources": 2,
- "healthy": false,
+ "healthy_sources": 3,
+ "healthy": true,
  "per_firm": {
   "advisory-digest.vercel.app": {
    "rows": 6,
@@ -13,10 +13,8 @@
   },
   "bdo.com": {
    "rows": 17,
-   "healthy": false,
-   "problems": [
-    "On bdo.com, 'published_date' is empty on 9 of 17 articles (47% populated). That selector no longer matches the page."
-   ]
+   "healthy": true,
+   "problems": []
   },
   "rsmus.com": {
    "rows": 73,

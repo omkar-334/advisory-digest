@@ -60,11 +60,34 @@ def test_empty_source_is_flagged_by_name(tmp_path):
     assert "rsmus.com returned no articles" not in out
 
 
-def test_missing_field_reports_coverage(tmp_path):
-    rows = [article(i, published_date=None) for i in range(5)]
+def test_missing_title_reports_coverage(tmp_path):
+    rows = [article(i, title=None) for i in range(5)]
     rc, out, _ = run([envelope("https://rsmus.com/insights", rows)], tmp_path)
     assert rc == 2
-    assert "published_date" in out and "rsmus.com" in out
+    assert "title" in out and "rsmus.com" in out
+
+
+def test_partial_dates_are_not_a_break(tmp_path):
+    """A firm's listing mixes dated articles with evergreen podcast hubs and eBooks.
+    Partial date coverage is normal and must not trigger a heal."""
+    rows = [article(i) for i in range(5)] + [article(i, published_date=None) for i in range(5, 9)]
+    rc, out, _ = run([envelope("https://www.bdo.com/insights", rows)], tmp_path)
+    assert rc == 0, out
+
+
+def test_dates_missing_everywhere_is_a_break(tmp_path):
+    """Near-zero coverage means the date selector stopped matching, which heal can fix."""
+    rows = [article(i, published_date=None) for i in range(8)]
+    rc, out, _ = run([envelope("https://www.bdo.com/insights", rows)], tmp_path)
+    assert rc == 2
+    assert "published_date" in out
+
+
+def test_rows_with_no_title_or_url_are_flagged(tmp_path):
+    rows = [article(i) for i in range(5)] + [{"summary": "orphan", "tags": []}]
+    rc, out, _ = run([envelope("https://www.bdo.com/insights", rows)], tmp_path)
+    assert rc == 2
+    assert "neither a title nor a URL" in out
 
 
 def test_relative_urls_are_flagged(tmp_path):
