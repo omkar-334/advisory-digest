@@ -270,6 +270,13 @@ pre.cmd{background:var(--ink);color:#E8EDE4;font-family:'IBM Plex Mono',monospac
 .policy-note b{color:var(--ink)}
 
 .empty{color:var(--ink-3);padding:44px 0;font-size:.9rem;border-top:1px solid var(--rule)}
+.loaderr{border:1px solid var(--exception);border-left-width:3px;background:var(--card);
+  padding:15px 18px;margin:22px 0 0;font-size:.87rem}
+.loaderr b{color:var(--exception);display:block;margin-bottom:6px}
+.loaderr ul{margin:0;padding-left:19px;font-family:'IBM Plex Mono',monospace;font-size:.78rem;
+  color:var(--ink-2)}
+.loaderr p{margin:9px 0 0;color:var(--ink-2);line-height:1.55}
+.loaderr code{background:var(--bar);padding:1px 5px;border-radius:2px;font-size:.8rem}
 footer{border-top:2px solid var(--ink);margin-top:52px;padding:20px 0 46px;
   font-size:.8rem;color:var(--ink-3)}
 footer details{margin-top:10px;max-width:80ch}
@@ -455,9 +462,19 @@ const firmName = h => NAMES[h] || (h||'').replace(/^www\./,'').split('.')[0]
 
 let ROWS=[], HEALTH=null, HEALS=[], SIGNALS=null, SCHEDULE=null, activeFirm=null;
 
+let LOAD_ERRORS = [];
+
 async function load(){
-  const get = async p => { try { const r = await fetch(p,{cache:'no-store'});
-    return r.ok ? await r.json() : null; } catch { return null; } };
+  const get = async p => {
+    try {
+      const r = await fetch(p,{cache:'no-store'});
+      if(!r.ok){ LOAD_ERRORS.push(`${p} returned ${r.status}`); return null; }
+      return await r.json();
+    } catch(err) {
+      LOAD_ERRORS.push(`${p} could not be read (${String(err).slice(0,60)})`);
+      return null;
+    }
+  };
   [ROWS, HEALTH, HEALS, SIGNALS, SCHEDULE] = await Promise.all([
     get('data/latest.json').then(v=>v||[]),
     get('data/health.json'),
@@ -465,7 +482,24 @@ async function load(){
     get('data/signals.json'),
     get('data/schedule.json'),
   ]);
+  renderLoadErrors();
   render();
+}
+
+function renderLoadErrors(){
+  const host = document.querySelector('main.wrap');
+  if(!LOAD_ERRORS.length || !host) return;
+  const box = document.createElement('div');
+  box.className = 'loaderr';
+  box.innerHTML =
+    `<b>Some data could not be loaded.</b>
+     <ul>${LOAD_ERRORS.map(e=>`<li>${esc(e)}</li>`).join('')}</ul>
+     <p>The dashboard reads static JSON published by the scheduled run. If this persists,
+        the last run did not publish. Check the
+        <a href="https://github.com/omkar-334/advisory-digest/actions" target="_blank"
+           rel="noopener">Actions log</a>, or run
+        <code>./scripts/run_fleet.sh &amp;&amp; python3 scripts/publish.py</code> locally.</p>`;
+  host.prepend(box);
 }
 
 function render(){ renderStamp(); renderEntry(); renderStages(); renderCadence();

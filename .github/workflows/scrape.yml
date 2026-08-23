@@ -130,6 +130,48 @@ jobs:
               sys.exit(1)
           PY
 
+      # A red run nobody looks at is not an alert. When a source is genuinely broken after
+      # healing, open an issue naming it, so degradation surfaces where work is tracked.
+      - name: Open an issue if a source is still broken
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          broken=$(python3 - <<'PY'
+          import json, pathlib
+          p = pathlib.Path('results/validate/summary-latest.json')
+          if not p.exists():
+              print(''); raise SystemExit
+          s = json.loads(p.read_text())
+          out = []
+          for firm, v in sorted(s.get('per_firm', {}).items()):
+              if not v['healthy'] and not v.get('run_failed'):
+                  problems = '; '.join(v.get('problems') or []) or 'no detail'
+                  out.append(f"- **{firm}** ({v['rows']} rows): {problems}")
+          print('\n'.join(out))
+          PY
+          )
+          [ -z "$broken" ] && { echo "::notice::Nothing genuinely broken; no issue opened."; exit 0; }
+
+          title="Contract broken after healing"
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number')
+          body=$(printf '%s
+
+%s
+
+%s
+' \
+            "The scheduled run repaired what it could and these sources are still failing the contract." \
+            "$broken" \
+            "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body" --label "" || \
+              gh issue create --title "$title" --body "$body"
+          fi
+
       - name: Always leave the logs behind
         if: always()
         uses: actions/upload-artifact@v4
