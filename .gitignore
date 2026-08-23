@@ -1,8 +1,14 @@
+# secrets
 .env
 .env.*
 !.env.example
+
 node_modules/
-results/**/*.jsonl
-results/**/*.csv
-results/**/raw/
-api.txt
+
+# Run artifacts. Raw collector output, merged payloads and logs are reproducible and
+# large; the published dataset in docs/data is the committed record of what a run
+# produced, and results/validate/summary-latest.json is the committed contract report.
+results/*
+!results/validate/
+results/validate/*
+!results/validate/summary-latest.json

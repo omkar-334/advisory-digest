@@ -187,7 +187,7 @@ new selectors, which is the whole difference from maintaining a file per firm.
 ```bash
 npm install
 cp .env.example .env          # add your Bright Data API key
-./scripts/run_scraper.sh      # run + validate
+./scripts/run_fleet.sh        # run every collector, validate against the contract
 ./scripts/heal_loop.sh        # run, and repair in place if the contract breaks
 uv run --with pytest pytest tests/
 ```
@@ -240,3 +240,24 @@ drove the Bright Data CLI. Target selection, architecture and every scope decisi
 the author, who reviewed all code before it was committed. Several of the agent's initial
 proposals were rejected on the author's direction, including an Indian government procurement
 target that turned out to be barred by rule 7.
+
+## Repository layout
+
+| Path | What it is |
+|---|---|
+| `scripts/collectors.json` | the fleet registry: one collector per newsroom |
+| `scripts/create_collector.sh` | build a collector and register it |
+| `scripts/onboard.py` | self-serve: classify a proposed URL, gate it, build, register |
+| `scripts/run_fleet.sh` | run every collector, merge, validate |
+| `scripts/validate.py` | the output contract, and the diagnosis heal is given |
+| `scripts/heal_loop.sh` | run, repair what broke, re-run, verify |
+| `scripts/broken_sources.py` | which sources are genuinely heal-worthy |
+| `scripts/classify_topics.py` | LLM topic taxonomy and assignment |
+| `scripts/signals.py` | rank subjects by independent cross-firm coverage |
+| `scripts/publish.py` | publish rows, contract report and repair log to the site |
+| `api/check-source.mjs` | the in-browser eligibility check |
+| `docs/` | the deployed site and its committed data |
+| `tests/` | contract and gate tests, no network required |
+
+Run artifacts under `results/` are gitignored: they are large and reproducible. What is
+committed is the published dataset in `docs/data/` and the latest contract report.

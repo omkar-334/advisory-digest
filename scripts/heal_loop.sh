@@ -1,81 +1,69 @@
 #!/usr/bin/env bash
-# Run the fleet, and repair it in place if the output contract breaks.
+# Run the fleet, and repair in place any collector whose contract broke.
 #
-# The heal prompt is never hand-written: it is scripts/validate.py's own diagnosis of
-# what broke. That is what makes this loop unattended rather than a staged demo.
+# One collector per newsroom, so repair is per collector: heal fixes a scraper against its
+# own target. The heal prompt is never hand-written -- it is scripts/validate.py's own
+# diagnosis of what broke, which is what makes this loop unattended.
+#
+# A failed RUN is never healed. Rate limits and navigation timeouts produce empty output
+# that looks exactly like a broken selector, and healing a working scraper spends credits
+# and can leave it worse. validate.py exits 1 for that case and 2 only for a real break.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 set -a; . ./.env; set +a
 
-COLLECTOR="${COLLECTOR_ID:-c_mt5sgta91r4gozaifs}"
-INPUT_FILE="${INPUT_FILE:-scripts/firms.txt}"
 MAX_ATTEMPTS="${MAX_HEAL_ATTEMPTS:-2}"
 OUT=results/heal_loop
-mkdir -p "$OUT" results/run_scraper results/validate
+mkdir -p "$OUT"
 STAMP=$(date -u +%Y%m%dT%H%M%SZ)
 LOG="$OUT/heal-$STAMP.log"
+log(){ echo "[$(date -u +%H:%M:%SZ)] $*" | tee -a "$LOG"; }
 
-log() { echo "[$(date -u +%H:%M:%SZ)] $*" | tee -a "$LOG"; }
-
-run_once() {
-  local raw="results/run_scraper/run-$STAMP-$1.json"
-  ./node_modules/.bin/bdata scraper run "$COLLECTOR" \
-    --input-file "$INPUT_FILE" --timeout 1800 --json --pretty -o "$raw" >>"$LOG" 2>&1
-  if [ ! -s "$raw" ]; then
-    log "run produced no output (see $LOG)"
-    return 1
-  fi
-  python3 scripts/validate.py "$raw" results/validate "$INPUT_FILE"
-}
-
-log "collector=$COLLECTOR input=$INPUT_FILE max_attempts=$MAX_ATTEMPTS"
-
-DIAGNOSIS=$(run_once initial 2>>"$LOG")
+log "running fleet"
+./scripts/run_fleet.sh >>"$LOG" 2>&1
 RC=$?
-if [ "$RC" -eq 0 ]; then
-  log "contract satisfied on the first run; nothing to heal"
-  exit 0
-fi
-if [ "$RC" -ne 2 ]; then
-  log "hard failure (rc=$RC); not something heal can repair"
-  exit 1
-fi
+
+case "$RC" in
+  0) log "contract satisfied across the fleet; nothing to heal"; exit 0 ;;
+  1) log "one or more runs failed. Not heal-worthy: re-run instead."; exit 1 ;;
+  2) : ;;
+  *) log "unexpected exit $RC"; exit 1 ;;
+esac
 
 attempt=1
 while [ "$attempt" -le "$MAX_ATTEMPTS" ]; do
-  log "attempt $attempt/$MAX_ATTEMPTS - contract violated, healing in place"
-  log "heal prompt: $DIAGNOSIS"
+  # Only firms the contract named are repaired, each through its own collector.
+  # A firm whose run failed never appears in this list.
+  python3 scripts/broken_sources.py > "$OUT/broken-$STAMP.tsv" 2>>"$LOG"
+  if [ ! -s "$OUT/broken-$STAMP.tsv" ]; then
+    log "nothing heal-worthy remains"; exit 0
+  fi
 
-  ./node_modules/.bin/bdata scraper heal "$COLLECTOR" "$DIAGNOSIS" \
-    --auto-approve --auto-save --timeout 900 \
-    --json --pretty -o "$OUT/heal-$STAMP-attempt$attempt.json" >>"$LOG" 2>&1
-  HEAL_RC=$?
-  log "heal exit=$HEAL_RC"
-  [ "$HEAL_RC" -ne 0 ] && { log "heal call failed; aborting"; exit 1; }
+  log "attempt $attempt/$MAX_ATTEMPTS on $(wc -l < "$OUT/broken-$STAMP.tsv" | tr -d ' ') source(s)"
+  while IFS=$'\t' read -r cid url firm problems; do
+    [ -z "$cid" ] && continue
+    log "healing $firm ($cid)"
+    log "  prompt: $problems"
+    ./node_modules/.bin/bdata scraper heal "$cid" "$problems" \
+      --url "$url" --auto-approve --auto-save --timeout 900 \
+      --json --pretty -o "$OUT/heal-$STAMP-$firm.json" >>"$LOG" 2>&1
+    log "  heal exit=$?. A 'done' status is not proof of repair; the re-run below decides."
+  done < "$OUT/broken-$STAMP.tsv"
 
-  NEXT=$(run_once "attempt$attempt" 2>>"$LOG")
+  log "re-running fleet to verify"
+  ./scripts/run_fleet.sh >>"$LOG" 2>&1
   RC=$?
-
-  python3 - "$STAMP" "$DIAGNOSIS" "$COLLECTOR" "$RC" <<'PY'
-import json, sys, pathlib
-stamp, diagnosis, collector, rc = sys.argv[1:5]
-pathlib.Path("results/heal_loop").mkdir(parents=True, exist_ok=True)
-pathlib.Path("results/heal_loop/last-event.json").write_text(json.dumps({
-    "stamp": stamp,
-    "diagnosis": diagnosis,
-    "collector": collector,
-    "resolved": rc == "0",
-}, indent=1))
-PY
+  python3 scripts/record_heal.py "$STAMP" "$RC" >>"$LOG" 2>&1
 
   if [ "$RC" -eq 0 ]; then
-    log "HEALED after $attempt attempt(s). Collector ID unchanged, nothing downstream touched."
+    log "HEALED after $attempt attempt(s). Collector IDs unchanged, nothing downstream touched."
     exit 0
   fi
-  log "still violating after heal: $NEXT"
-  DIAGNOSIS="$NEXT"
+  if [ "$RC" -eq 1 ]; then
+    log "runs failing; stopping rather than healing blind"; exit 1
+  fi
   attempt=$(( attempt + 1 ))
 done
 
-log "exhausted $MAX_ATTEMPTS heal attempts; escalating"
+log "exhausted $MAX_ATTEMPTS attempts; escalating"
 exit 2

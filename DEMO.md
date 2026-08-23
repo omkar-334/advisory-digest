@@ -36,7 +36,7 @@ The push triggers `.github/workflows/scrape.yml` (it watches `docs/control/**`).
 ## 3. Watch the contract catch it (15s)
 
 ```bash
-./scripts/run_scraper.sh; echo "exit=$?"     # exit 2 = heal-worthy
+./scripts/run_fleet.sh; echo "exit=$?"       # 2 = heal-worthy, 1 = run failed
 ```
 
 Show the diagnosis. Point out that it names the source, and that this text is not
@@ -56,7 +56,7 @@ Narrate while it runs:
 ## 5. Green again (15s)
 
 ```bash
-./scripts/run_scraper.sh; echo "exit=$?"     # exit 0
+./scripts/run_fleet.sh; echo "exit=$?"       # 0 = contract satisfied
 python3 scripts/publish.py
 ```
 
