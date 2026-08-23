@@ -1,12 +1,13 @@
 {
-  "stamp": "20260823T195452Z",
-  "source": "results/run_fleet/fleet-final01.json",
-  "total_rows": 278,
+  "stamp": "20260823T213609Z",
+  "source": "results/run_fleet/fleet-green01.json",
+  "total_rows": 255,
   "sources": 13,
-  "healthy_sources": 12,
-  "failed_runs": 1,
+  "healthy_sources": 11,
+  "failed_runs": 2,
   "run_failures": [
-    "marcumllp.com: the run returned no output at all. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper."
+    "marcumllp.com: the run returned no output at all. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
+    "withum.com: the run returned no output at all. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper."
   ],
   "healthy": true,
   "per_firm": {
@@ -53,7 +54,7 @@
       "problems": []
     },
     "eisneramper.com": {
-      "rows": 11,
+      "rows": 10,
       "healthy": true,
       "run_failed": false,
       "errors": 0,
@@ -88,16 +89,16 @@
       "problems": []
     },
     "rsmus.com": {
-      "rows": 61,
+      "rows": 55,
       "healthy": true,
       "run_failed": false,
       "errors": 3,
       "problems": []
     },
     "withum.com": {
-      "rows": 16,
-      "healthy": true,
-      "run_failed": false,
+      "rows": 0,
+      "healthy": false,
+      "run_failed": true,
       "errors": 0,
       "problems": []
     }
@@ -107,5 +108,5 @@
     "min_field_coverage": 0.7,
     "min_healthy_sources": 0.6
   },
-  "elapsed_sec": 0.006
+  "elapsed_sec": 0.01
 }

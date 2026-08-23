@@ -1,16 +1,13 @@
 {
- "stamp": "20260823T175358Z",
- "source": "results/run_fleet/fleet-20260823T161051Z.json",
- "total_rows": 226,
+ "stamp": "20260823T213609Z",
+ "source": "results/run_fleet/fleet-green01.json",
+ "total_rows": 255,
  "sources": 13,
- "healthy_sources": 8,
- "failed_runs": 5,
+ "healthy_sources": 11,
+ "failed_runs": 2,
  "run_failures": [
-  "bakertilly.com: the run failed with 19 error(s) against 1 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
-  "bdo.com: the run failed with 1 error(s) against 0 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
-  "eisneramper.com: the run failed with 7 error(s) against 3 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
-  "grantthornton.com: the run failed with 20 error(s) against 0 usable row(s). This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
-  "marcumllp.com: the run returned no output at all. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper."
+  "marcumllp.com: the run returned no output at all. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper.",
+  "withum.com: the run returned no output at all. This is a run failure, not a broken selector, so it is not heal-worthy. Re-run before concluding anything about the scraper."
  ],
  "healthy": true,
  "per_firm": {
@@ -22,17 +19,17 @@
    "problems": []
   },
   "bakertilly.com": {
-   "rows": 1,
-   "healthy": false,
-   "run_failed": true,
-   "errors": 19,
+   "rows": 20,
+   "healthy": true,
+   "run_failed": false,
+   "errors": 0,
    "problems": []
   },
   "bdo.com": {
-   "rows": 0,
-   "healthy": false,
-   "run_failed": true,
-   "errors": 1,
+   "rows": 17,
+   "healthy": true,
+   "run_failed": false,
+   "errors": 0,
    "problems": []
   },
   "claconnect.com": {
@@ -57,17 +54,17 @@
    "problems": []
   },
   "eisneramper.com": {
-   "rows": 3,
-   "healthy": false,
-   "run_failed": true,
-   "errors": 7,
+   "rows": 10,
+   "healthy": true,
+   "run_failed": false,
+   "errors": 0,
    "problems": []
   },
   "grantthornton.com": {
-   "rows": 0,
-   "healthy": false,
-   "run_failed": true,
-   "errors": 20,
+   "rows": 20,
+   "healthy": true,
+   "run_failed": false,
+   "errors": 0,
    "problems": []
   },
   "marcumllp.com": {
@@ -92,16 +89,16 @@
    "problems": []
   },
   "rsmus.com": {
-   "rows": 73,
+   "rows": 55,
    "healthy": true,
    "run_failed": false,
    "errors": 3,
    "problems": []
   },
   "withum.com": {
-   "rows": 16,
-   "healthy": true,
-   "run_failed": false,
+   "rows": 0,
+   "healthy": false,
+   "run_failed": true,
    "errors": 0,
    "problems": []
   }
@@ -111,5 +108,5 @@
   "min_field_coverage": 0.7,
   "min_healthy_sources": 0.6
  },
- "elapsed_sec": 0.005
+ "elapsed_sec": 0.01
 }

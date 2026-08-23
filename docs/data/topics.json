@@ -1,322 +1,346 @@
 {
  "model": "gpt-4o-mini",
  "topics": [
-  "Audit Strategy and Value",
-  "Private Company Audit",
-  "Financial Due Diligence",
-  "Business Tax Compliance and Consulting",
-  "Private Client Wealth Services",
-  "AI in Auditing",
   "Audit Resilience",
-  "Modern Audit Processes",
-  "Unclaimed Property Risks",
-  "Cybersecurity in Financial Services",
-  "Third-Party Risk Management",
-  "Supply Chain Management",
-  "Revenue Recognition under ASC 606",
+  "AI in Auditing",
+  "Private Company Audit",
+  "Business Tax Compliance",
+  "Financial Due Diligence",
+  "Private Client Services",
+  "Change Management in HR",
+  "HCM Software Implementation",
+  "Government Contracting Risks",
+  "Unclaimed Property Compliance",
+  "Opportunity Zones Tax Incentives",
   "R&D Capitalisation under Section 174",
-  "State Pass-Through Entity Tax Elections",
+  "Cybersecurity in Private Companies",
   "Transfer Pricing Documentation",
-  "Opportunity Zones Tax Strategies",
-  "Nonprofit Revenue Recognition",
-  "Tax Implications of Trusts",
-  "Healthcare Compliance and Regulations",
-  "Financial Reporting and Governance",
-  "Workforce Management in Finance"
+  "Healthcare Strategy Execution",
+  "Mergers & Acquisitions in Healthcare",
+  "Digital Transformation in Finance",
+  "Tax Strategies for Nonprofits",
+  "Operational Resilience and Data Management",
+  "Extended Producer Responsibility (EPR)",
+  "State and Local Tax (SALT) Planning",
+  "Insurance Regulatory Compliance"
  ],
  "assignments": {
+  "https://rsmus.com/insights/services/audit/human-touch-in-ai-powered-auditing-relationships-matter-more-than-ever.html": [
+   "AI in Auditing"
+  ],
+  "https://rsmus.com/insights/services/audit/build-audit-resilience-into-your-companys-dna.html": [
+   "Audit Resilience"
+  ],
   "https://rsmus.com/insights/services/audit/five-ways-companies-can-use-an-audit-to-unlock-strategic-value.html": [
-   "Private Company Audit",
-   "Audit Strategy and Value"
+   "Private Company Audit"
   ],
   "https://rsmus.com/insights/services/merger-acquisition/audit-with-exit-in-mind.html": [
-   "Private Company Audit",
-   "Audit Strategy and Value"
-  ],
-  "https://rsmus.com/insights/services/audit/is-your-auditor-built-to-scale-with-growth.html": [
-   "Audit Resilience"
+   "Mergers & Acquisitions in Healthcare"
   ],
   "https://rsmus.com/services/audit-services/private-company-audit.html": [
    "Private Company Audit"
   ],
   "https://rsmus.com/services/business-tax.html": [
-   "Business Tax Compliance and Consulting"
+   "Business Tax Compliance"
   ],
   "https://rsmus.com/services/merger-acquisition/financial-due-diligence.html": [
    "Financial Due Diligence"
   ],
   "https://rsmus.com/services/private-client-services.html": [
-   "Private Client Wealth Services"
+   "Private Client Services"
   ],
-  "https://rsmus.com/insights/services/audit/human-touch-in-ai-powered-auditing-relationships-matter-more-than-ever.html": [
-   "AI in Auditing",
-   "Audit Resilience"
+  "https://rsmus.com/insights/services/business-strategy-operations/the-role-of-change-management-in-hcm-implementation.html": [
+   "Change Management in HR"
   ],
-  "https://rsmus.com/insights/services/audit/build-audit-resilience-into-your-companys-dna.html": [
-   "Audit Resilience"
+  "https://rsmus.com/insights/services/business-strategy-operations/implementing-hcm-software.html": [
+   "HCM Software Implementation"
   ],
-  "https://rsmus.com/insights/services/audit/modernize-your-audit-process.html": [
-   "Modern Audit Processes"
-  ],
-  "https://rsmus.com/insights/industries/manufacturing/third-party-risk-management-manufacturing-supply-chains.html": [
-   "Third-Party Risk Management",
-   "Supply Chain Management"
-  ],
-  "https://rsmus.com/services/business-strategy-operations/global-operations-supply-chain-strategy.html": [
-   "Supply Chain Management"
-  ],
-  "https://rsmus.com/services/business-strategy-operations/supply-chain-services/supply-chain-inventory-management-services.html": [
-   "Supply Chain Management"
-  ],
-  "https://rsmus.com/insights/tax-alerts/2026/fifth-circuit-rejects-passive-investor-self-employment-tax-exception.html": [
-   "Tax Implications of Trusts"
-  ],
-  "https://rsmus.com/insights/tax-alerts/2023/tax-court-rules-state-law-limited-partner-subject-self-employment-tax.html": [
-   "Business Tax Compliance and Consulting"
-  ],
-  "https://rsmus.com/insights/industries/financial-services/2026-cybersecurity-mmbi-financial-services-snapshot.html": [
-   "Cybersecurity in Financial Services"
-  ],
-  "https://rsmus.com/insights/services/risk-fraud-cybersecurity/resiliency-planning-key-for-financial-institutions.html": [
-   "Cybersecurity in Financial Services"
-  ],
-  "https://rsmus.com/services/digital-transformation.html": [
-   "AI in Auditing"
+  "https://rsmus.com/events/2026-events/workday-adaptive-planning-for-government-contractors.html": [
+   "Government Contracting Risks"
   ],
   "https://rsmus.com/insights/industries/government-contracting/2026-cybersecurity-mmbi-government-contracting-snapshot.html": [
-   "Cybersecurity in Financial Services"
+   "Government Contracting Risks",
+   "Cybersecurity in Private Companies"
+  ],
+  "https://rsmus.com/insights/industries/government-contracting/defense-contractor-accountability.html": [
+   "Government Contracting Risks"
+  ],
+  "https://rsmus.com/insights/tax-alerts/2025/private-clubs-unclaimed-property-exposure.html": [
+   "Unclaimed Property Compliance",
+   "State and Local Tax (SALT) Planning"
+  ],
+  "https://rsmus.com/insights/industries/private-clubs/2024-financial-and-operating-trends-in-private-clubs.html": [
+   "Private Client Services"
+  ],
+  "https://rsmus.com/insights/industries/private-clubs/2024-private-clubs-compensation-survey-report.html": [
+   "Private Client Services"
+  ],
+  "https://rsmus.com/insights/tax-alerts/2026/fifth-circuit-rejects-passive-investor-self-employment-tax-exception.html": [
+   "Private Client Services"
+  ],
+  "https://rsmus.com/insights/tax-alerts/2023/tax-court-rules-state-law-limited-partner-subject-self-employment-tax.html": [
+   "Business Tax Compliance"
   ],
   "https://rsmus.com/insights/services/business-tax/mark-calendar-opportunity-zone-tax-deferrals-end.html": [
-   "Opportunity Zones Tax Strategies"
+   "Opportunity Zones Tax Incentives"
   ],
   "https://rsmus.com/insights/services/business-tax/obbba-tax-opportunity-zones.html": [
-   "Opportunity Zones Tax Strategies",
-   "Business Tax Compliance and Consulting"
+   "Opportunity Zones Tax Incentives",
+   "Business Tax Compliance"
   ],
-  "https://example-advisory.com/insights/asc-606-saas": [
-   "Revenue Recognition under ASC 606"
+  "https://www.bdo.com/insights/advisory/ai-deployment-communication-plan-checklist": [
+   "AI in Auditing"
+  ],
+  "https://www.bdo.com/insights/industry-specialty-consulting/government-property-management-why-audit-readiness-starts-long-before-a-pmsa": [
+   "Audit Resilience",
+   "Government Contracting Risks"
+  ],
+  "https://www.bdo.com/insights/advisory/operational-resilience-starts-with-data": [
+   "Operational Resilience and Data Management"
+  ],
+  "https://www.bdo.com/insights/assurance/reviewing-ai-in-finance-processes-practical-audit-considerations-for-controllers": [
+   "AI in Auditing"
+  ],
+  "https://www.bdo.com/insights/tax/senate-taxwriters-approve-bill-to-expand-taxpayer-protections": [
+   "Business Tax Compliance"
   ],
   "https://example-advisory.com/insights/section-174-2026": [
    "R&D Capitalisation under Section 174"
   ],
   "https://example-advisory.com/insights/asc-842-year-three": [
-   "Audit Strategy and Value"
+   "Audit Resilience"
   ],
   "https://example-advisory.com/insights/ptet-2026-checklist": [
-   "State Pass-Through Entity Tax Elections"
+   "State and Local Tax (SALT) Planning"
   ],
   "https://example-advisory.com/insights/cyber-disclosure-pre-ipo": [
-   "Cybersecurity in Financial Services",
-   "Third-Party Risk Management"
+   "Cybersecurity in Private Companies"
   ],
   "https://example-advisory.com/insights/transfer-pricing-midmarket": [
    "Transfer Pricing Documentation"
   ],
-  "https://www.crowe.com/insights": [
-   "Modern Audit Processes"
-  ],
   "https://www.crowe.com/insights/tax-news-highlights": [
-   "Business Tax Compliance and Consulting"
+   "Business Tax Compliance"
   ],
-  "https://www.crowe.com/insights/financial-institutions-executive-briefing": [
-   "Financial Reporting and Governance"
+  "https://www.bakertilly.com/insights/healthcare-strategy-deployment": [
+   "Healthcare Strategy Execution"
   ],
-  "https://www.claconnect.com/en/resources/blogs/agribusiness/farm-entities-face-important-fsa-filing-deadline-in-2026": [
-   "Tax Implications of Trusts"
+  "https://www.bakertilly.com/insights/patient-access-strategy-for-healthcare-leaders": [
+   "Healthcare Strategy Execution"
   ],
-  "https://www.claconnect.com/en/resources/blogs/health-care/cjrx-new-mandatory-joint-replacement-model-on-horizon": [
-   "Healthcare Compliance and Regulations"
+  "https://www.bakertilly.com/insights/food-and-beverage-ma-update-h1-2026": [
+   "Mergers & Acquisitions in Healthcare"
   ],
-  "https://www.claconnect.com/en/resources/blogs/real-estate/underwriting-mixed-use-property-where-stability-meets-execution-risk": [
-   "Supply Chain Management"
-  ],
-  "https://www.claconnect.com/en/media/2026/cla-wealth-advisors-ranks-no-45-on-2026-ria-ranking": [
-   "Private Client Wealth Services"
-  ],
-  "https://godigital.claconnect.com/insights/white-paper/from-ai-activity-to-ai-value/": [
+  "https://www.bakertilly.com/insights/ai-for-digital-transformation-erp-systems": [
+   "Digital Transformation in Finance",
    "AI in Auditing"
   ],
-  "https://www.claconnect.com/en/resources/articles/26/nonprofit-revenue-recognition": [
-   "Nonprofit Revenue Recognition",
-   "Audit Strategy and Value"
+  "https://www.bakertilly.com/insights/healthcare-strategy-execution": [
+   "Healthcare Strategy Execution"
   ],
-  "https://www.claconnect.com/en/resources/articles/26/opportunity-zone-census-tract-changes": [
-   "Opportunity Zones Tax Strategies"
+  "https://www.bakertilly.com/insights/technology-ma-update-h1-2026": [
+   "Mergers & Acquisitions in Healthcare"
   ],
-  "https://www.claconnect.com/en/resources/blogs/health-care/340b-program-targeted-proposal-reimbursement-cut-medicaid-impact": [
-   "Healthcare Compliance and Regulations"
+  "https://www.bakertilly.com/insights/tribal-health-leadership-strategy": [
+   "Healthcare Strategy Execution"
   ],
-  "https://www.claconnect.com/en/resources/articles/income-tax-implications-of-grantor-and-nongrantor-trusts": [
-   "Tax Implications of Trusts",
-   "Private Client Wealth Services"
+  "https://www.bakertilly.com/insights/texas-refundable-rd-tax-credit": [
+   "R&D Capitalisation under Section 174"
+  ],
+  "https://www.bakertilly.com/insights/programmatic-ma-public-company": [
+   "Mergers & Acquisitions in Healthcare"
+  ],
+  "https://www.bakertilly.com/insights/modernizing-and-consolidating-an-enterprise-ehr": [
+   "Digital Transformation in Finance",
+   "HCM Software Implementation"
+  ],
+  "https://www.bakertilly.com/insights/tribal-broadband-programs-grant-management": [
+   "Government Contracting Risks"
+  ],
+  "https://www.bakertilly.com/insights/patient-access-and-physician-burnout": [
+   "Healthcare Strategy Execution"
+  ],
+  "https://www.bakertilly.com/insights/healthcare-access-existing-capacity": [
+   "Healthcare Strategy Execution"
+  ],
+  "https://www.bakertilly.com/insights/packaging-epr-laws-businesses": [
+   "Extended Producer Responsibility (EPR)"
+  ],
+  "https://www.bakertilly.com/insights/healthcare-ma-update-h1-2026": [
+   "Mergers & Acquisitions in Healthcare"
+  ],
+  "https://www.grantthornton.com/insights/articles/manufacturing/2026/ai-isnt-the-differentiator-resilient-operations-are": [
+   "Audit Resilience"
+  ],
+  "https://www.grantthornton.com/insights/articles/health-care/2026/transforming-healthcare-workforce-models-for-the-ai-era": [
+   "Healthcare Strategy Execution",
+   "AI in Auditing"
+  ],
+  "https://www.grantthornton.com/insights/articles/tax/2026/managing-tax-other-risks-for-a-globally-mobile-workforce": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.grantthornton.com/insights/articles/advisory/2026/how-ai-powered-outsourcing-helps-you-operate-to-transform": [
+   "AI in Auditing"
+  ],
+  "https://www.claconnect.com/en/resources/blogs/agribusiness/farm-entities-face-important-fsa-filing-deadline-in-2026": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/irs-notices": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/blogs/real-estate/the-cost-of-accepting-foreign-capital-without-a-withholding-plan": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/hud-and-lihtc-projects": [
+   "Audit Resilience"
   ],
   "https://www.claconnect.com/en/media/2026/cla-heartbeat-index-strong-economic-confidence-meets-new-ai-reality-check": [
    "AI in Auditing"
   ],
-  "https://www.claconnect.com/en/resources/articles/26/nonprofit-energy-tax-credits": [
-   "Nonprofit Revenue Recognition"
-  ],
-  "https://www.claconnect.com/en/resources/articles/26/comprehensive-estate-planning-benefits": [
-   "Private Client Wealth Services"
-  ],
-  "https://www.claconnect.com/en/resources/articles/26/cla-midyear-outlook": [
-   "Private Client Wealth Services"
-  ],
-  "https://www.claconnect.com/en/resources/articles/26/software-capitalization": [
-   "Audit Strategy and Value"
-  ],
-  "https://www.claconnect.com/en/resources/articles/26/lead-aco": [
-   "Healthcare Compliance and Regulations"
-  ],
-  "https://www.claconnect.com/en/resources/articles/26/qualified-opportunity-zones-guidance": [
-   "Opportunity Zones Tax Strategies"
-  ],
-  "https://www.claconnect.com/en/resources/articles/26/hud-and-lihtc-projects": [
-   "Audit Strategy and Value",
-   "Nonprofit Revenue Recognition"
-  ],
-  "https://www.claconnect.com/en/resources/articles/26/gasb-105": [
-   "Audit Strategy and Value"
-  ],
-  "https://www.claconnect.com/en/resources/articles/26/finance-function-continuity": [
-   "Workforce Management in Finance"
-  ],
-  "https://www.claconnect.com/en/resources/articles/24/strategies-to-find-top-talent-in-todays-professional-landscape": [
-   "Workforce Management in Finance"
-  ],
-  "https://www.claconnect.com/en/resources/articles/26/federal-scholarship-tax-credit-and-sgos": [
-   "Nonprofit Revenue Recognition"
-  ],
-  "https://www.claconnect.com/en/resources/articles/26/opportunity-zones-for-operating-businesses": [
-   "Opportunity Zones Tax Strategies"
+  "https://godigital.claconnect.com/insights/white-paper/from-ai-activity-to-ai-value/": [
+   "AI in Auditing"
   ],
   "https://www.claconnect.com/en/resources/blogs/manufacturing/ieepa-tariff-refunds-4-common-tax-reporting-issues": [
-   "Tax Implications of Trusts"
+   "Tax Strategies for Nonprofits"
   ],
-  "https://www.claconnect.com/en/resources/blogs/health-care/tax-exempt-hospitals-might-face-additional-reporting-requirements": [
-   "Healthcare Compliance and Regulations",
-   "Tax Implications of Trusts"
+  "https://www.claconnect.com/en/resources/articles/26/nonprofit-energy-tax-credits": [
+   "Tax Strategies for Nonprofits"
   ],
-  "https://www.claconnect.com/en/resources/blogs/real-estate/short-term-rental-profitability-starts-with-tax-and-financial-planning": [
-   "Tax Implications of Trusts",
-   "Business Tax Compliance and Consulting"
+  "https://www.claconnect.com/en/resources/blogs/health-care/cjrx-new-mandatory-joint-replacement-model-on-horizon": [
+   "Healthcare Strategy Execution"
   ],
-  "https://www.claconnect.com/en/resources/articles/26/forming-a-nonprofit": [
-   "Nonprofit Revenue Recognition",
-   "Business Tax Compliance and Consulting"
-  ],
-  "https://www.claconnect.com/en/resources/articles/26/road-to-housing-act": [
-   "Opportunity Zones Tax Strategies",
-   "Tax Implications of Trusts"
+  "https://www.claconnect.com/en/resources/articles/26/software-capitalization": [
+   "Audit Resilience"
   ],
   "https://www.claconnect.com/en/resources/articles/26/saas-sales-tax-california-colorado": [
-   "Tax Implications of Trusts"
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/federal-scholarship-tax-credit-and-sgos": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/articles/25/asc-740-income-tax-accounting-changes": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://godigital.claconnect.com/insights/blog/acumatica/ai-automation-in-acumatica-practical-control-security-and-consistency/": [
+   "AI in Auditing"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/gasb-105": [
+   "Audit Resilience",
+   "State and Local Tax (SALT) Planning"
+  ],
+  "https://www.claconnect.com/en/resources/articles/income-tax-implications-of-grantor-and-nongrantor-trusts": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/articles/24/strategies-to-find-top-talent-in-todays-professional-landscape": [
+   "Change Management in HR"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/wisconsin-offers-sales-tax-exemption-for-nuclear-fusion-projects": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/pwa-compliance": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/opportunity-zones-for-operating-businesses": [
+   "Opportunity Zones Tax Incentives",
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/opportunity-zone-census-tract-changes": [
+   "Opportunity Zones Tax Incentives",
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/media/2026/cla-announcing-initiative-to-cobuild-ainative-accounting-platform": [
+   "AI in Auditing"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/forming-a-nonprofit": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/blogs/health-care/340b-program-targeted-proposal-reimbursement-cut-medicaid-impact": [
+   "Healthcare Strategy Execution"
+  ],
+  "https://www.claconnect.com/en/resources/blogs/health-care/tax-exempt-hospitals-might-face-additional-reporting-requirements": [
+   "Healthcare Strategy Execution"
+  ],
+  "https://www.claconnect.com/en/resources/blogs/real-estate/short-term-rental-profitability-starts-with-tax-and-financial-planning": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/articles/25/the-impact-of-trumps-tariffs-a-comprehensive-analysis": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/blogs/sage/a-smarter-way-to-manage-the-month-end-close-with-close-workspace": [
+   "Digital Transformation in Finance"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/lead-aco": [
+   "Healthcare Strategy Execution"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/california-nonresident-withholding": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/nonprofit-revenue-recognition": [
+   "Audit Resilience"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/qualified-opportunity-zones-guidance": [
+   "Opportunity Zones Tax Incentives",
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/road-to-housing-act": [
+   "Tax Strategies for Nonprofits"
+  ],
+  "https://www.claconnect.com/en/resources/blogs/sage/ditch-the-spreadsheet-dynamic-allocations-for-schools-in-sage-intacct": [
+   "Digital Transformation in Finance"
+  ],
+  "https://www.claconnect.com/en/resources/articles/26/agricultural-r-and-d-credits": [
+   "R&D Capitalisation under Section 174"
+  ],
+  "https://www.plantemoran.com/explore-our-thinking/insight/2025/01/2025-tech-industry-trends": [
+   "AI in Auditing"
+  ],
+  "https://www.plantemoran.com/explore-our-thinking/insight/2025/02/ai-use-cases-that-actually-add-business-value": [
+   "AI in Auditing"
+  ],
+  "https://www.plantemoran.com/explore-our-thinking/insight/2023/02/data-architecture-the-bedrock-of-better-business-outcomes": [
+   "Digital Transformation in Finance"
+  ],
+  "https://www.eisneramper.com/insights/tax/nyc-pied-a-terre-tax-enforcement-legal-challenges-0826/": [
+   "State and Local Tax (SALT) Planning"
+  ],
+  "https://www.eisneramper.com/insights/tax/new-jersey-tariff-refund-tax-proposal-ieepa-refunds-0826/": [
+   "State and Local Tax (SALT) Planning"
+  ],
+  "https://www.eisneramper.com/insights/blogs/outsourced-it-blog/chatgpt-ai-cybersecurity-oit-blog-0423/": [
+   "Cybersecurity in Private Companies",
+   "AI in Auditing"
   ],
   "https://www.eisneramper.com/insights/risk-compliance/auditors-role-in-managing-hidden-vendor-risk-0826/": [
-   "Cybersecurity in Financial Services",
+   "Cybersecurity in Private Companies",
+   "AI in Auditing"
+  ],
+  "https://www.eisneramper.com/insights/technical-accounting-advisory/us-gaap-considerations-ai-infrastructure-costs-0826/": [
+   "AI in Auditing"
+  ],
+  "https://www.eisneramper.com/insights/risk-compliance/ai-economics-measuring-value-cost-roi-0826/": [
    "AI in Auditing"
   ],
   "https://www.eisneramper.com/insights/artificial-intelligence-insights/ai-governance-risk-business-value-0826/": [
-   "Cybersecurity in Financial Services",
-   "AI in Auditing"
+   "AI in Auditing",
+   "Cybersecurity in Private Companies"
   ],
-  "https://www.cohnreznick.com/insights/dane-samson-joins-cohnreznick-as-a-tax-partner-in-financial-services/": [
-   "Business Tax Compliance and Consulting",
-   "Financial Due Diligence"
-  ],
-  "https://www.cohnreznick.com/insights/olga-morduke-joins-cohnreznick-as-tax-partner-in-commercial-real-estate/": [
-   "Business Tax Compliance and Consulting"
+  "https://www.eisneramper.com/insights/manufacturing-distribution/ieepa-tariff-refunds-accounting-considerations-0826/": [
+   "State and Local Tax (SALT) Planning"
   ],
   "https://www.cohnreznick.com/insights/arizona-court-excludes-intangibles-from-renewable-energy-property-tax-valuation/": [
-   "State Pass-Through Entity Tax Elections"
+   "State and Local Tax (SALT) Planning"
   ],
-  "https://www.cohnreznick.com/insights/treasury-irs-propose-section-987-simplification-for-controlled-foreign-corporations/": [
-   "Tax Implications of Trusts"
+  "https://www.cohnreznick.com/insights/manufacturing-distribution-m-a-report-1h-2026/": [
+   "Mergers & Acquisitions in Healthcare"
   ],
-  "https://www.withum.com/events/moonshots-and-mop-buckets-the-ai-investment-framework-for-private-equity/": [
-   "AI in Auditing"
+  "https://www.cohnreznick.com/insights/executive-compensation-strategy-for-govcons/": [
+   "Government Contracting Risks"
   ],
-  "https://www.withum.com/resources/when-rapid-growth-triggers-a-retirement-plan-audit/": [
-   "Workforce Management in Finance"
+  "https://www.cohnreznick.com/insights/dane-samson-joins-cohnreznick-as-a-tax-partner-in-financial-services/": [
+   "Financial Due Diligence"
   ],
-  "https://www.withum.com/resources/fifth-circuit-reconsiders-who-counts-as-a-limited-partner/": [
-   "Business Tax Compliance and Consulting"
-  ],
-  "https://www.withum.com/resources/ipo-readiness-for-tech-startups-key-sec-compliance-steps-to-start-24-months-out/": [
-   "Financial Reporting and Governance"
-  ],
-  "https://www.withum.com/events/ai-in-manufacturing-what-works-what-doesnt/": [
-   "AI in Auditing"
-  ],
-  "https://www.withum.com/resources/how-ai-is-resetting-the-saas-valuation-multiples-in-private-equity-and-private-credit/": [
-   "AI in Auditing"
-  ],
-  "https://www.withum.com/events/cybersecurity-in-the-age-of-ai-managing-business-and-legal-risk/": [
-   "Cybersecurity in Financial Services"
-  ],
-  "https://www.withum.com/events/from-dinosaurs-to-digital-modernizing-nonprofit-finance-through-automation-technology-and-ai/": [
-   "AI in Auditing"
-  ],
-  "https://www.withum.com/resources/prediction-markets-contracts-and-federal-income-tax-wagering-investing-or-something-else/": [
-   "Business Tax Compliance and Consulting"
-  ],
-  "https://www.withum.com/events/from-strategy-to-adoption-making-ai-work-for-not-for-profits/": [
-   "AI in Auditing"
-  ],
-  "https://www.pwc.com/us/en/services/consulting/deals/library/new-software-capitalization-standard.html": [
-   "R&D Capitalisation under Section 174"
-  ],
-  "https://www.pwc.com/us/en/industries/health-services/optimize-deals.html": [
-   "Healthcare Compliance and Regulations"
-  ],
-  "https://www.pwc.com/us/en/industries/health-industries/library/future-of-health.html": [
-   "Healthcare Compliance and Regulations"
-  ],
-  "https://www.pwc.com/us/en/industries/financial-services/library/ai-enabled-workforce-transformation.html": [
-   "AI in Auditing",
-   "Workforce Management in Finance"
-  ],
-  "https://www.pwc.com/us/en/services/ai/ai-dividend-growth-redeployment.html": [
-   "AI in Auditing"
-  ],
-  "https://www.pwc.com/us/en/industries/financial-services/private-equity/data-ai-pe-portcos.html": [
-   "AI in Auditing"
-  ],
-  "https://www.pwc.com/us/en/services/ai/ai-benchmarking-enterprise-decision-advantage.html": [
-   "AI in Auditing"
-  ],
-  "https://www.pwc.com/us/en/tax-services/publications/insights/assets/pwc-cbp-audit-insights-from-pwc-customs-forum.pdf": [
-   "Audit Strategy and Value"
-  ],
-  "https://www.pwc.com/us/en/industries/energy-utilities-resources/energy-industry-capital-efficiency-competitive-advantage.html": [
-   "Supply Chain Management"
-  ],
-  "https://www.pwc.com/us/en/industries/energy-utilities-resources/the-future-of-energy-operations.html": [
-   "Workforce Management in Finance"
-  ],
-  "https://www.pwc.com/us/en/services/tax/multinationals/podcasts/cross-border-tax-talks-pillar-two-forms-deadlines-certainty.html": [
-   "Business Tax Compliance and Consulting"
-  ],
-  "https://www.pwc.com/us/en/industries/tmt/library/dealmakers-guide-to-ai.html": [
-   "AI in Auditing"
-  ],
-  "https://www.pwc.com/us/en/industries/tmt/library/ai-enabled-content-creation.html": [
-   "AI in Auditing"
-  ],
-  "https://www.pwc.com/us/en/industries/tmt/library/data-center-tax-strategy-ai-growth.html": [
-   "Business Tax Compliance and Consulting"
-  ],
-  "https://www.pwc.com/us/en/industries/tmt/library/dual-track-telecom-transformation.html": [
-   "AI in Auditing"
-  ],
-  "https://www.pwc.com/us/en/services/audit-assurance/library/m-and-a-transformation-risks.html": [
-   "Audit Strategy and Value"
-  ],
-  "https://www.pwc.com/us/en/services/audit-assurance.html": [
-   "Audit Strategy and Value"
-  ],
-  "https://www.pwc.com/us/en/services/audit-assurance/digital-assurance-transparency/assurance-ai.html": [
-   "AI in Auditing"
+  "https://www.cohnreznick.com/insights/qa-managing-transactional-risk-in-ma-deals/": [
+   "Mergers & Acquisitions in Healthcare"
   ],
   "https://www.pwc.com/us/en/services/ai/ai-reality-check.html": [
    "AI in Auditing"
@@ -328,17 +352,58 @@
    "AI in Auditing"
   ],
   "https://www.pwc.com/us/en/tech-effect/ai-analytics/agentic-ai-workforce-redesign.html": [
-   "Workforce Management in Finance"
+   "AI in Auditing"
   ],
-  "https://www.pwc.com/us/en/ghosts/q22026closingstatements.html": [
-   "Financial Reporting and Governance"
+  "https://www.pwc.com/us/en/tech-effect/ai-analytics/chro-architectural-blueprint-ai-workforce.html": [
+   "AI in Auditing"
+  ],
+  "https://www.pwc.com/us/en/services/ai/ai-benchmarking-enterprise-decision-advantage.html": [
+   "AI in Auditing"
+  ],
+  "https://www.pwc.com/us/en/industries/financial-services/library/ai-enabled-workforce-transformation.html": [
+   "AI in Auditing"
+  ],
+  "https://www.pwc.com/us/en/services/ai/ai-dividend-growth-redeployment.html": [
+   "AI in Auditing"
+  ],
+  "https://www.pwc.com/us/en/industries/financial-services/private-equity/data-ai-pe-portcos.html": [
+   "AI in Auditing"
   ],
   "https://www.pwc.com/us/en/technology/alliances/library/agentic-commerce-is-your-business-ready.html": [
    "AI in Auditing"
   ],
-  "https://www.pwc.com/us/en/tech-effect/ai-analytics/chro-architectural-blueprint-ai-workforce.html": [
-   "Workforce Management in Finance",
+  "https://www.pwc.com/us/en/services/audit-assurance/library/m-and-a-transformation-risks.html": [
+   "Mergers & Acquisitions in Healthcare"
+  ],
+  "https://www.pwc.com/us/en/services/audit-assurance.html": [
+   "Audit Resilience"
+  ],
+  "https://www.pwc.com/us/en/services/audit-assurance/digital-assurance-transparency/assurance-ai.html": [
+   "Audit Resilience"
+  ],
+  "https://www.pwc.com/us/en/industries/health-services/optimize-deals.html": [
+   "Mergers & Acquisitions in Healthcare"
+  ],
+  "https://www.pwc.com/us/en/industries/health-industries/library/future-of-health.html": [
+   "Healthcare Strategy Execution"
+  ],
+  "https://www.pwc.com/us/en/industries/tmt/library/dealmakers-guide-to-ai.html": [
    "AI in Auditing"
+  ],
+  "https://www.pwc.com/us/en/industries/tmt/library/ai-enabled-content-creation.html": [
+   "AI in Auditing"
+  ],
+  "https://www.pwc.com/us/en/industries/tmt/library/data-center-tax-strategy-ai-growth.html": [
+   "Digital Transformation in Finance"
+  ],
+  "https://www.pwc.com/us/en/industries/tmt/library/dual-track-telecom-transformation.html": [
+   "AI in Auditing"
+  ],
+  "https://www.pwc.com/us/en/services/consulting/deals/outlook.html": [
+   "Mergers & Acquisitions in Healthcare"
+  ],
+  "https://www.pwc.com/us/en/services/consulting/deals/library/new-software-capitalization-standard.html": [
+   "R&D Capitalisation under Section 174"
   ]
  }
 }
