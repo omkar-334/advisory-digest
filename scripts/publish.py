@@ -42,6 +42,20 @@ def main() -> int:
     banned = {"author", "author_name", "byline", "email", "phone"}
     rows = [{k: v for k, v in r.items() if k.lower() not in banned} for r in rows]
 
+    # A discovery-style collector can reach the same article by more than one path, so
+    # the same story arrives several times. Deduplicate on the canonical article URL,
+    # falling back to the title where a URL is missing.
+    seen, deduped = set(), []
+    for r in rows:
+        key = (r.get("article_url") or "").strip().rstrip("/").lower() or \
+              (r.get("title") or "").strip().lower()
+        if key and key in seen:
+            continue
+        seen.add(key)
+        deduped.append(r)
+    dropped = len(rows) - len(deduped)
+    rows = deduped
+
     (DOCS / "latest.json").write_text(json.dumps(rows, ensure_ascii=False, indent=1))
     (DOCS / "health.json").write_text(json.dumps(summary, indent=1))
 
@@ -56,7 +70,7 @@ def main() -> int:
             heals_path.write_text(json.dumps(heals, indent=1))
         event_path.unlink()
 
-    print(f"published {len(rows)} rows, "
+    print(f"published {len(rows)} rows ({dropped} duplicates dropped), "
           f"{summary.get('healthy_sources')}/{summary.get('sources')} sources healthy")
     return 0
 
