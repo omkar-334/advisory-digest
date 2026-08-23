@@ -1,0 +1,26 @@
+[
+  {
+    "firm": "plantemoran.com",
+    "name": "Plante Moran",
+    "collector_id": "c_mt5wcsvr26i9gs5gra",
+    "url": "https://www.plantemoran.com/explore-our-thinking",
+    "status": "live",
+    "error": ""
+  },
+  {
+    "firm": "cohnreznick.com",
+    "name": "CohnReznick",
+    "collector_id": "c_mt5wpwgj1xf6to97lv",
+    "url": "https://www.cohnreznick.com/insights",
+    "status": "live",
+    "error": ""
+  },
+  {
+    "firm": "marcumllp.com",
+    "name": "Marcum",
+    "collector_id": "c_mt5wv5lm2p2skgl1sa",
+    "url": "https://www.marcumllp.com/insights",
+    "status": "live",
+    "error": ""
+  }
+]

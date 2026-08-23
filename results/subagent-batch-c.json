@@ -1,0 +1,34 @@
+[
+  {
+    "firm": "bakertilly.com",
+    "name": "Baker Tilly",
+    "collector_id": "c_mt5vy4lr2psac64sae",
+    "url": "https://www.bakertilly.com/insights",
+    "status": "live",
+    "error": ""
+  },
+  {
+    "firm": "claconnect.com",
+    "name": "CLA (CliftonLarsonAllen)",
+    "collector_id": "c_mt5wb3m12m48uhzx5",
+    "url": "https://www.claconnect.com/en/resources",
+    "status": "live",
+    "error": ""
+  },
+  {
+    "firm": "eisneramper.com",
+    "name": "EisnerAmper",
+    "collector_id": "c_mt5wlfz0naymfio",
+    "url": "https://www.eisneramper.com/insights",
+    "status": "live",
+    "error": ""
+  },
+  {
+    "firm": "pwc.com",
+    "name": "PwC",
+    "collector_id": "c_mt5x5gj2zbpetqvmj",
+    "url": "https://www.pwc.com/us/en/library.html",
+    "status": "live",
+    "error": ""
+  }
+]

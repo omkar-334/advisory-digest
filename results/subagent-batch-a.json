@@ -1,0 +1,26 @@
+[
+  {
+    "firm": "crowe.com",
+    "name": "Crowe",
+    "collector_id": "c_mt5vx74mzar3afcrv",
+    "url": "https://www.crowe.com/insights",
+    "status": "live",
+    "error": ""
+  },
+  {
+    "firm": "grantthornton.com",
+    "name": "Grant Thornton",
+    "collector_id": "c_mt5w1v571ibeftw93o",
+    "url": "https://www.grantthornton.com/insights",
+    "status": "failed",
+    "error": "Timeout after 600 seconds waiting for AI generation (collector c_mt5w1v571ibeftw93o)."
+  },
+  {
+    "firm": "withum.com",
+    "name": "Withum",
+    "collector_id": "c_mt5wv3ts2pwjwagd70",
+    "url": "https://www.withum.com/resources/",
+    "status": "live",
+    "error": ""
+  }
+]

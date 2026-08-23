@@ -1,0 +1,466 @@
+{
+ "generated_from": 158,
+ "window_days": 30,
+ "as_of": "2026-09-01",
+ "signals": [
+  {
+   "topic": "AI adoption and governance",
+   "firms": 6,
+   "firm_list": [
+    "bakertilly.com",
+    "bdo.com",
+    "claconnect.com",
+    "crowe.com",
+    "grantthornton.com",
+    "rsmus.com"
+   ],
+   "articles": 24,
+   "recent_articles": 7,
+   "recent_firms": 4,
+   "examples": [
+    {
+     "title": "AI Deployment Communication Plan Checklist",
+     "firm": "bdo.com",
+     "url": "https://www.bdo.com/insights/advisory/ai-deployment-communication-plan-checklist",
+     "date": "2026-08-21T00:00:00.000Z"
+    },
+    {
+     "title": "AI Applied: Get more value from ERP and legacy systems",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/ai-for-digital-transformation-erp-systems",
+     "date": "2026-08-20T00:00:00.000Z"
+    },
+    {
+     "title": "Building Defensible Speed With AI Agents",
+     "firm": "crowe.com",
+     "url": "https://www.crowe.com/insights",
+     "date": "2026-08-20T00:00:00.000Z"
+    },
+    {
+     "title": "Technology M&A update: H1 2026",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/technology-ma-update-h1-2026",
+     "date": "2026-08-19T00:00:00.000Z"
+    }
+   ]
+  },
+  {
+   "topic": "Audit quality and readiness",
+   "firms": 4,
+   "firm_list": [
+    "bakertilly.com",
+    "bdo.com",
+    "claconnect.com",
+    "grantthornton.com"
+   ],
+   "articles": 5,
+   "recent_articles": 3,
+   "recent_firms": 3,
+   "examples": [
+    {
+     "title": "Government Property Management: Why Audit Readiness Starts Long Before a PMSA",
+     "firm": "bdo.com",
+     "url": "https://www.bdo.com/insights/industry-specialty-consulting/government-property-management-why-audit-readiness-starts-long-before-a-pmsa",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "Why M&A can\u2019t pause during the public company journey",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/programmatic-ma-public-company",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "Use ASU 2025-06 to Modernize Your Software Capitalization Policy",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/articles/26/software-capitalization",
+     "date": "2026-08-18"
+    }
+   ]
+  },
+  {
+   "topic": "Nonprofit and government contracting",
+   "firms": 3,
+   "firm_list": [
+    "bakertilly.com",
+    "claconnect.com",
+    "rsmus.com"
+   ],
+   "articles": 15,
+   "recent_articles": 8,
+   "recent_firms": 3,
+   "examples": [
+    {
+     "title": "Workday Adaptive Planning for Government Contractors",
+     "firm": "rsmus.com",
+     "url": "https://rsmus.com/events/2026-events/workday-adaptive-planning-for-government-contractors.html",
+     "date": "2026-09-01"
+    },
+    {
+     "title": "How to Read, Review, and Respond to IRS Notices",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/articles/26/irs-notices",
+     "date": "2026-08-20"
+    },
+    {
+     "title": "Modernizing and consolidating an enterprise EHR",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/modernizing-and-consolidating-an-enterprise-ehr",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "HUD and LIHTC Projects: Audit Risks Hidden in Everyday Compliance",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/articles/26/hud-and-lihtc-projects",
+     "date": "2026-08-18"
+    }
+   ]
+  },
+  {
+   "topic": "Construction and real estate",
+   "firms": 4,
+   "firm_list": [
+    "bakertilly.com",
+    "claconnect.com",
+    "grantthornton.com",
+    "rsmus.com"
+   ],
+   "articles": 19,
+   "recent_articles": 7,
+   "recent_firms": 2,
+   "examples": [
+    {
+     "title": "How to Read, Review, and Respond to IRS Notices",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/articles/26/irs-notices",
+     "date": "2026-08-20"
+    },
+    {
+     "title": "The Cost of Accepting Foreign Capital Without a Withholding Plan",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/blogs/real-estate/the-cost-of-accepting-foreign-capital-without-a-withholding-plan",
+     "date": "2026-08-19"
+    },
+    {
+     "title": "Mainstreaming alternatives: The rise of alternative property sectors",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/mainstreaming-alternatives",
+     "date": "2026-08-18T00:00:00.000Z"
+    },
+    {
+     "title": "HUD and LIHTC Projects: Audit Risks Hidden in Everyday Compliance",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/articles/26/hud-and-lihtc-projects",
+     "date": "2026-08-18"
+    }
+   ]
+  },
+  {
+   "topic": "Mergers and acquisitions",
+   "firms": 4,
+   "firm_list": [
+    "bakertilly.com",
+    "claconnect.com",
+    "grantthornton.com",
+    "rsmus.com"
+   ],
+   "articles": 12,
+   "recent_articles": 6,
+   "recent_firms": 2,
+   "examples": [
+    {
+     "title": "Modernizing and consolidating an enterprise EHR",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/modernizing-and-consolidating-an-enterprise-ehr",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "Healthcare M&A update: H1 2026",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/healthcare-ma-update-h1-2026",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "Technology M&A update: H1 2026",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/technology-ma-update-h1-2026",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "Food and beverage M&A update: H1 2026",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/food-and-beverage-ma-update-h1-2026",
+     "date": "2026-08-19T00:00:00.000Z"
+    }
+   ]
+  },
+  {
+   "topic": "Digital transformation / ERP",
+   "firms": 4,
+   "firm_list": [
+    "bakertilly.com",
+    "bdo.com",
+    "claconnect.com",
+    "grantthornton.com"
+   ],
+   "articles": 31,
+   "recent_articles": 5,
+   "recent_firms": 2,
+   "examples": [
+    {
+     "title": "AI Applied: Get more value from ERP and legacy systems",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/ai-for-digital-transformation-erp-systems",
+     "date": "2026-08-20T00:00:00.000Z"
+    },
+    {
+     "title": "Technology M&A update: H1 2026",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/technology-ma-update-h1-2026",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "Maintain Finance Function Continuity When a Key Employee Leaves",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/articles/26/finance-function-continuity",
+     "date": "2026-08-12"
+    },
+    {
+     "title": "Sage Intacct for Schools: Automating Grant Tracking and Billing",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/blogs/sage/sage-intacct-for-schools-automating-grant-tracking-and-billing",
+     "date": "2026-08-11"
+    }
+   ]
+  },
+  {
+   "topic": "Workforce and talent",
+   "firms": 4,
+   "firm_list": [
+    "bakertilly.com",
+    "claconnect.com",
+    "grantthornton.com",
+    "rsmus.com"
+   ],
+   "articles": 10,
+   "recent_articles": 4,
+   "recent_firms": 2,
+   "examples": [
+    {
+     "title": "Four foundational questions for Tribal health leadership",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/tribal-health-leadership-strategy",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "Why great leaders don\u2019t always make a great leadership team",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/healthcare-leadership-team-performance",
+     "date": "2026-08-17T00:00:00.000Z"
+    },
+    {
+     "title": "Maintain Finance Function Continuity When a Key Employee Leaves",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/articles/26/finance-function-continuity",
+     "date": "2026-08-12"
+    },
+    {
+     "title": "Manufacturing Happy Hour Hits the Road: 10 Takeaways From Northeast Tour",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/blogs/manufacturing/manufacturing-happy-hour-hits-the-road-10-takeaways-from-northeast-tour",
+     "date": "2026-08-03"
+    }
+   ]
+  },
+  {
+   "topic": "Healthcare regulation",
+   "firms": 3,
+   "firm_list": [
+    "bakertilly.com",
+    "claconnect.com",
+    "grantthornton.com"
+   ],
+   "articles": 16,
+   "recent_articles": 13,
+   "recent_firms": 2,
+   "examples": [
+    {
+     "title": "Building the bridge from healthcare strategy to measurable results",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/healthcare-strategy-deployment",
+     "date": "2026-08-21T00:00:00.000Z"
+    },
+    {
+     "title": "The coordination challenge behind healthcare strategy execution",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/healthcare-strategy-execution",
+     "date": "2026-08-21T00:00:00.000Z"
+    },
+    {
+     "title": "Build stronger Tribal broadband programs with better grant, contract, and project controls",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/tribal-broadband-programs-grant-management",
+     "date": "2026-08-20T00:00:00.000Z"
+    },
+    {
+     "title": "Modernizing and consolidating an enterprise EHR",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/modernizing-and-consolidating-an-enterprise-ehr",
+     "date": "2026-08-19T00:00:00.000Z"
+    }
+   ]
+  },
+  {
+   "topic": "Private equity",
+   "firms": 3,
+   "firm_list": [
+    "bakertilly.com",
+    "claconnect.com",
+    "rsmus.com"
+   ],
+   "articles": 11,
+   "recent_articles": 5,
+   "recent_firms": 2,
+   "examples": [
+    {
+     "title": "Healthcare M&A update: H1 2026",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/healthcare-ma-update-h1-2026",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "Technology M&A update: H1 2026",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/technology-ma-update-h1-2026",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "Food and beverage M&A update: H1 2026",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/food-and-beverage-ma-update-h1-2026",
+     "date": "2026-08-19T00:00:00.000Z"
+    },
+    {
+     "title": "Why M&A can\u2019t pause during the public company journey",
+     "firm": "bakertilly.com",
+     "url": "https://www.bakertilly.com/insights/programmatic-ma-public-company",
+     "date": "2026-08-19T00:00:00.000Z"
+    }
+   ]
+  },
+  {
+   "topic": "Tariffs and trade",
+   "firms": 3,
+   "firm_list": [
+    "bdo.com",
+    "claconnect.com",
+    "grantthornton.com"
+   ],
+   "articles": 4,
+   "recent_articles": 2,
+   "recent_firms": 2,
+   "examples": [
+    {
+     "title": "New Tariffs and Minimum Import Prices on Polysilicon, Derivatives and Solar Products",
+     "firm": "bdo.com",
+     "url": "https://www.bdo.com/insights/tax/new-tariffs-and-minimum-import-prices-on-polysilicon-derivatives-and-solar-products",
+     "date": "2026-08-18T00:00:00.000Z"
+    },
+    {
+     "title": "IEEPA Tariff Refunds: 4 Common Tax Reporting Issues",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/blogs/manufacturing/ieepa-tariff-refunds-4-common-tax-reporting-issues",
+     "date": "2026-08-06"
+    }
+   ]
+  },
+  {
+   "topic": "Cybersecurity and data privacy",
+   "firms": 3,
+   "firm_list": [
+    "advisory-digest.vercel.app",
+    "crowe.com",
+    "rsmus.com"
+   ],
+   "articles": 3,
+   "recent_articles": 2,
+   "recent_firms": 2,
+   "examples": [
+    {
+     "title": "Identity and Access Management Meets HR: Governing AI Agents",
+     "firm": "crowe.com",
+     "url": "https://www.crowe.com/insights/crowe-cyber-watch",
+     "date": "2026-08-18T00:00:00.000Z"
+    },
+    {
+     "title": "Cybersecurity disclosure controls for private companies preparing to list",
+     "firm": "advisory-digest.vercel.app",
+     "url": "https://example-advisory.com/insights/cyber-disclosure-pre-ipo",
+     "date": "2026-08-17"
+    }
+   ]
+  },
+  {
+   "topic": "Section 174 / R&D capitalisation",
+   "firms": 2,
+   "firm_list": [
+    "advisory-digest.vercel.app",
+    "claconnect.com"
+   ],
+   "articles": 2,
+   "recent_articles": 2,
+   "recent_firms": 2,
+   "examples": [
+    {
+     "title": "R&D capitalisation under Section 174: what changed for tax year 2026",
+     "firm": "advisory-digest.vercel.app",
+     "url": "https://example-advisory.com/insights/section-174-2026",
+     "date": "2026-08-20"
+    },
+    {
+     "title": "ASC 740: Income Tax Accounting Impacts From Federal Tax Changes",
+     "firm": "claconnect.com",
+     "url": "https://www.claconnect.com/en/resources/articles/25/asc-740-income-tax-accounting-changes",
+     "date": "2026-08-05"
+    }
+   ]
+  },
+  {
+   "topic": "Revenue recognition (ASC 606)",
+   "firms": 2,
+   "firm_list": [
+    "advisory-digest.vercel.app",
+    "claconnect.com"
+   ],
+   "articles": 2,
+   "recent_articles": 1,
+   "recent_firms": 1,
+   "examples": [
+    {
+     "title": "Revenue recognition for multi-year SaaS contracts under ASC 606",
+     "firm": "advisory-digest.vercel.app",
+     "url": "https://example-advisory.com/insights/asc-606-saas",
+     "date": "2026-08-21"
+    }
+   ]
+  },
+  {
+   "topic": "State and local tax (SALT)",
+   "firms": 2,
+   "firm_list": [
+    "advisory-digest.vercel.app",
+    "claconnect.com"
+   ],
+   "articles": 2,
+   "recent_articles": 1,
+   "recent_firms": 1,
+   "examples": [
+    {
+     "title": "State pass-through entity tax elections: a 2026 planning checklist",
+     "firm": "advisory-digest.vercel.app",
+     "url": "https://example-advisory.com/insights/ptet-2026-checklist",
+     "date": "2026-08-18"
+    }
+   ]
+  }
+ ]
+}

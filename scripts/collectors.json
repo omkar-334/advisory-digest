@@ -51,6 +51,48 @@
       "url": "https://www.grantthornton.com/insights",
       "status": "live",
       "note": "CLI poll timed out at 600s but generation completed server-side."
+    },
+    {
+      "firm": "cohnreznick.com",
+      "name": "CohnReznick",
+      "collector_id": "c_mt5wpwgj1xf6to97lv",
+      "url": "https://www.cohnreznick.com/insights",
+      "status": "live"
+    },
+    {
+      "firm": "eisneramper.com",
+      "name": "EisnerAmper",
+      "collector_id": "c_mt5wlfz0naymfio",
+      "url": "https://www.eisneramper.com/insights",
+      "status": "live"
+    },
+    {
+      "firm": "marcumllp.com",
+      "name": "Marcum",
+      "collector_id": "c_mt5wv5lm2p2skgl1sa",
+      "url": "https://www.marcumllp.com/insights",
+      "status": "live"
+    },
+    {
+      "firm": "plantemoran.com",
+      "name": "Plante Moran",
+      "collector_id": "c_mt5wcsvr26i9gs5gra",
+      "url": "https://www.plantemoran.com/explore-our-thinking",
+      "status": "live"
+    },
+    {
+      "firm": "withum.com",
+      "name": "Withum",
+      "collector_id": "c_mt5wv3ts2pwjwagd70",
+      "url": "https://www.withum.com/resources/",
+      "status": "live"
+    },
+    {
+      "firm": "pwc.com",
+      "name": "PwC",
+      "collector_id": "c_mt5x5gj2zbpetqvmj",
+      "url": "https://www.pwc.com/us/en/library.html",
+      "status": "live"
     }
   ]
 }

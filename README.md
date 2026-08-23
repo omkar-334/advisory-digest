@@ -9,6 +9,26 @@ firm rebuilds its site.
 
 Built for Into the Scrape-Verse (WeMakeDevs x Bright Data), 17-23 August 2026.
 
+## What the data is actually for
+
+A feed of advisory articles is a newsreader, and nobody needs another one. The reason to
+collect a dozen firms rather than one is that **agreement between independent firms carries
+information no single site does**.
+
+One firm publishing five times about a topic is marketing. Five firms publishing once each,
+in the same fortnight, means something changed. The Signals view ranks topics by how many
+*distinct* firms covered them, so the dashboard answers a question you cannot ask any single
+newsroom:
+
+> Seven firms published on tariff accounting this month. What happened, and does it affect me?
+
+That is the justification for the fleet. Without it, twelve collectors are just twelve
+scrapers feeding a list.
+
+`scripts/signals.py` computes this from titles, summaries and tags already collected. No
+model call, no external service: a topic qualifies only when at least two independent firms
+cover it, and topics are ranked by breadth of recent independent coverage.
+
 ## Who it is for
 
 A finance lead, controller or founder who needs to know when guidance changes has to check a
