@@ -113,20 +113,24 @@ def check_source(firm, rows):
 
 
 def heal_prompt(per_firm, limit=1000):
-    """Condense per-firm violations into one instruction under heal's length cap."""
+    """Condense per-source violations into one instruction under heal's length cap.
+
+    heal repairs a collector against its own target, so the prompt describes what changed
+    on that page. It must not ask one collector to cover unrelated domains: that request
+    fails, which we established the expensive way.
+    """
     empty = sorted(f for f, v in per_firm.items() if v["rows"] == 0)
     other = [p for f, v in per_firm.items() if v["rows"] for p in v["problems"]]
 
     parts = []
     if empty:
+        where = empty[0] if len(empty) == 1 else ", ".join(empty)
         parts.append(
-            f"The scraper only extracts articles from rsmus.com. It returns nothing for "
-            f"these {len(empty)} sites: {', '.join(empty)}. Each uses a different layout "
-            f"for its insight listing. Rewrite the extraction to find article cards "
-            f"generically across all of them (any repeated block containing a headline "
-            f"link, a short description, and a date), rather than selectors specific to "
-            f"one firm. Return title, summary, published_date, article_url and tags. "
-            f"Never extract author names."
+            f"The page layout of {where} has changed and the scraper now returns no "
+            f"articles at all. The class names and element nesting it matched on no longer "
+            f"exist. Re-detect the repeated article blocks on the current page and extract, "
+            f"for each one: title, summary, published_date as ISO 8601, article_url as an "
+            f"absolute URL, and tags. Do not extract author names."
         )
     parts.extend(other)
 

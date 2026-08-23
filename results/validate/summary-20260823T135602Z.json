@@ -1,5 +1,5 @@
 {
-  "stamp": "20260823T135627Z",
+  "stamp": "20260823T135602Z",
   "source": "results/run_scraper/control-v2-broken.json",
   "total_rows": 0,
   "sources": 1,
@@ -19,5 +19,5 @@
     "min_field_coverage": 0.7,
     "min_healthy_sources": 0.6
   },
-  "elapsed_sec": 0.0
+  "elapsed_sec": 0.001
 }
