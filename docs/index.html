@@ -30,7 +30,11 @@
   --paper:#FBFAF7;   --bar:#EEF3EA;   --card:#FFFFFF;
   --ink:#16202B;     --ink-2:#4A5765; --ink-3:#8A94A0;
   --rule:#DCDBD2;    --rule-2:#C6C5BA;
-  --verified:#1F6F4A; --exception:#A32B2B; --unread:#B0770F;
+  /* Status triple, validated with the dataviz palette checker against the paper surface:
+     chroma floor, CVD separation (11.3 protan / 19.4 tritan), normal-vision separation
+     21.4, and contrast all pass. The previous green (#1F6F4A) failed the chroma floor --
+     it read as grey, which is a poor signal for "passing". */
+  --verified:#00784A; --exception:#A32B2B; --unread:#B8860B;
   --mark:#16202B;
 }
 *{box-sizing:border-box}
@@ -114,6 +118,60 @@ button.ghost:hover{border-color:var(--ink)}
 .stages b{display:block;font-family:'IBM Plex Mono',monospace;font-size:.66rem;
   letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
 .stages span{font-size:.84rem;line-height:1.45;display:block;color:var(--ink-2)}
+
+/* ── digest ── */
+.digest{border:1px solid var(--rule-2);border-left:3px solid var(--ink);background:var(--card);
+  padding:20px 22px;margin:26px 0 0}
+.digest .dhead{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin-bottom:9px}
+.dlabel{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--paper);background:var(--ink);padding:3px 8px}
+.dwhen{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-3)}
+.digest h2{font-family:'IBM Plex Sans Condensed',sans-serif;font-size:1.32rem;font-weight:700;
+  letter-spacing:-.015em;margin:0 0 8px;line-height:1.2}
+.digest p{margin:0;font-size:.92rem;line-height:1.6;color:var(--ink-2);max-width:74ch}
+.dwatch,.dnew{margin-top:9px!important;font-size:.85rem!important}
+.dwatch b,.dnew b{color:var(--ink)}
+
+/* ── brief ── */
+.brief{border:1px solid var(--rule-2);background:var(--card);padding:18px 20px;margin-bottom:10px}
+.brief .bhead{display:flex;align-items:baseline;gap:14px;margin-bottom:12px}
+.brief h3{margin:0;font-size:1.05rem;font-weight:600;letter-spacing:-.01em;flex:1}
+.bfirms{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--verified);
+  font-weight:600;white-space:nowrap}
+.brief dl{display:grid;grid-template-columns:88px 1fr;gap:7px 16px;margin:0}
+.brief dt{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-3);padding-top:3px}
+.brief dd{margin:0;font-size:.89rem;line-height:1.55;color:var(--ink)}
+.brief dd a{color:inherit}
+.bnote{display:block;font-family:'IBM Plex Mono',monospace;font-size:.71rem;color:var(--ink-3);
+  margin-top:2px}
+.brief .who{margin-top:13px;padding-top:11px;border-top:1px solid var(--rule);
+  display:flex;gap:5px;flex-wrap:wrap}
+.brief .who span{font-family:'IBM Plex Mono',monospace;font-size:.69rem;color:var(--ink-3);
+  border:1px solid var(--rule);padding:1px 6px;border-radius:2px}
+
+/* ── for you ── */
+textarea{background:var(--card);border:1px solid var(--rule-2);color:var(--ink);font:inherit;
+  font-size:.92rem;padding:11px 13px;border-radius:2px;width:100%;resize:vertical;
+  font-family:'IBM Plex Sans',sans-serif;line-height:1.5}
+textarea:focus{outline:none;border-color:var(--ink)}
+.match{border-left:2px solid var(--verified);padding:2px 0 2px 15px;margin:0 0 16px}
+.match .why{font-size:.85rem;color:var(--verified);font-weight:500;margin:0 0 3px}
+.match h4{margin:0 0 3px;font-size:.98rem;font-weight:600;line-height:1.35}
+.match h4 a{text-decoration:none;border-bottom:1px solid transparent}
+.match h4 a:hover{border-bottom-color:var(--ink)}
+.match p{margin:0;font-size:.86rem;color:var(--ink-2)}
+.match .src{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-3);
+  margin-top:4px;display:block}
+
+/* Cell hover: the hit target is the whole cell, larger than the mark it contains. */
+table.matrix td.cell{position:relative;cursor:default}
+table.matrix td.cell:hover,table.matrix td.cell:focus-visible{background:#DDE9D6;outline:none}
+table.matrix td.cell:hover::after,table.matrix td.cell:focus-visible::after{
+  content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 4px);
+  transform:translateX(-50%);background:var(--ink);color:var(--paper);
+  font-family:'IBM Plex Sans',sans-serif;font-size:.72rem;white-space:nowrap;
+  padding:4px 8px;border-radius:2px;z-index:10;pointer-events:none}
 
 /* ── subject co-occurrence ── */
 table.cooc{width:100%;border-collapse:collapse;border:1px solid var(--rule-2);
@@ -208,8 +266,11 @@ input:focus{outline:none;border-color:var(--ink)}
 .state{font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:600;
   letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
 .state.ok{color:var(--verified)} .state.bad{color:var(--exception)} .state.warn{color:var(--unread)}
-.state::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;
-  margin-right:7px;vertical-align:baseline;background:currentColor}
+.state::before{display:inline-block;width:1.05em;margin-right:6px;text-align:center;
+  font-weight:700}
+.state.ok::before{content:'\2713'}      /* check */
+.state.warn::before{content:'\2013'}    /* en dash: ran, but produced nothing */
+.state.bad::before{content:'\2715'}     /* cross */
 .note{color:var(--exception);font-size:.82rem;margin-top:4px;max-width:62ch}
 .note.warn{color:var(--unread)}
 
@@ -303,6 +364,7 @@ footer b{color:var(--ink-2)}
       <button class="tab" role="tab" aria-selected="true"  data-view="entry">Overview</button>
       <button class="tab" role="tab" aria-selected="false" data-view="consensus">Consensus</button>
       <button class="tab" role="tab" aria-selected="false" data-view="signals">Top signals</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="foryou">For you</button>
       <button class="tab" role="tab" aria-selected="false" data-view="feed">Articles</button>
       <button class="tab" role="tab" aria-selected="false" data-view="health">Pipeline</button>
       <button class="tab" role="tab" aria-selected="false" data-view="add">Add a source</button>
@@ -318,6 +380,8 @@ footer b{color:var(--ink-2)}
        one at a time so you watch independent firms agree. -->
   <section id="entry">
     <div class="finding" id="finding"></div>
+
+    <div id="digest"></div>
 
     <div class="claim">
       <p>One firm publishing five times is marketing.<br>
@@ -359,7 +423,10 @@ footer b{color:var(--ink-2)}
       Subjects ranked by how many firms covered them <strong>independently</strong>, most
       agreement first, with what each firm actually published.
     </p>
-    <div class="eyebrow">Ranked by independent coverage</div>
+    <div class="eyebrow">What the profession is saying</div>
+    <div id="briefs"></div>
+
+    <div class="eyebrow">Every subject, ranked by independent coverage</div>
     <div id="sigList"></div>
 
     <div class="eyebrow">Subjects covered by the same firms</div>
@@ -377,6 +444,27 @@ footer b{color:var(--ink-2)}
       <span id="firmChips" style="display:flex;gap:6px;flex-wrap:wrap"></span>
     </div>
     <div id="list"></div>
+  </section>
+
+  <section id="foryou" hidden>
+    <p class="lede">
+      Most of what these firms publish will not apply to you. Describe the business and this
+      filters everything collected down to what actually does.
+    </p>
+    <form class="form" id="profileForm">
+      <label for="profile" class="eyebrow" style="margin:0 0 8px">The business</label>
+      <textarea id="profile" rows="3" required
+        placeholder="A US SaaS company, 40 staff, venture backed, no foreign entities, first audit next year."></textarea>
+      <div class="cta" style="margin-top:12px">
+        <button class="go" type="submit" id="matchBtn">Find what applies</button>
+        <button class="ghost" type="button" data-example>Use an example</button>
+      </div>
+      <p class="policy-note">
+        The description is used for this one request and is not stored. Filtering runs over
+        articles already collected, so it triggers no scraping.
+      </p>
+    </form>
+    <div id="matches"></div>
   </section>
 
   <section id="health" hidden>
@@ -460,7 +548,8 @@ const NAMES = {
 const firmName = h => NAMES[h] || (h||'').replace(/^www\./,'').split('.')[0]
   .replace(/\b\w/g,c=>c.toUpperCase());
 
-let ROWS=[], HEALTH=null, HEALS=[], SIGNALS=null, SCHEDULE=null, activeFirm=null;
+let ROWS=[], HEALTH=null, HEALS=[], SIGNALS=null, SCHEDULE=null, BRIEFS=null, DIGEST=null,
+    activeFirm=null;
 
 let LOAD_ERRORS = [];
 
@@ -482,6 +571,7 @@ async function load(){
     get('data/signals.json'),
     get('data/schedule.json'),
   ]);
+  [BRIEFS, DIGEST] = await Promise.all([get('data/briefs.json'), get('data/digest.json')]);
   renderLoadErrors();
   render();
 }
@@ -502,7 +592,7 @@ function renderLoadErrors(){
   host.prepend(box);
 }
 
-function render(){ renderStamp(); renderEntry(); renderStages(); renderCadence();
+function render(){ renderStamp(); renderEntry(); renderDigest(); renderBriefs(); renderStages(); renderCadence();
   renderMatrix(); renderSignals(); renderCooc(); renderChips(); renderList();
   renderLedger(); renderHeals(); }
 
@@ -557,6 +647,53 @@ function renderEntry(){
     `<span class="m ${covered.has(f)?'on':''}" title="${esc(firmName(f))}"
        style="animation-delay:${still?0:60+i*55}ms"></span>`).join('')
     + `<span class="lbl" style="animation-delay:${still?0:60+allFirms.length*55}ms">independently</span>`;
+}
+
+/* The digest answers "did anything happen" before the reader has to interpret a matrix. */
+function renderDigest(){
+  const el = $('#digest'); if(!el) return;
+  const ed = (DIGEST?.editions || [])[0];
+  if(!ed){ el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <div class="digest">
+      <div class="dhead">
+        <span class="dlabel">${esc(ed.period === 'daily' ? 'Today' : 'This week')}</span>
+        <span class="dwhen">${esc(fmtDate(ed.date))} · ${esc(ed.articles_in_period)} new article${ed.articles_in_period===1?'':'s'}</span>
+      </div>
+      <h2>${esc(ed.headline)}</h2>
+      <p>${esc(ed.summary)}</p>
+      ${ed.watch?`<p class="dwatch"><b>Watch:</b> ${esc(ed.watch)}</p>`:''}
+      ${(ed.new_subjects||[]).length
+        ? `<p class="dnew"><b>New since last time:</b> ${ed.new_subjects.map(esc).join(' · ')}</p>`:''}
+    </div>`;
+}
+
+/* A brief is the answer; the article list underneath is the evidence for it. */
+function renderBriefs(){
+  const el = $('#briefs'); if(!el) return;
+  const briefs = BRIEFS?.briefs || [];
+  if(!briefs.length){
+    el.innerHTML = `<div class="empty">No briefs yet. Generated by <code>scripts/brief.py</code>.</div>`;
+    return;
+  }
+  el.innerHTML = briefs.map(b=>`
+    <article class="brief">
+      <div class="bhead">
+        <h3>${esc(b.topic)}</h3>
+        <span class="bfirms">${esc(b.firms)} firms</span>
+      </div>
+      <dl>
+        <dt>They agree</dt><dd>${esc(b.consensus)}</dd>
+        ${b.divergence?`<dt>They differ</dt><dd>${esc(b.divergence)}</dd>`:''}
+        ${b.applies_to?`<dt>Affects</dt><dd>${esc(b.applies_to)}</dd>`:''}
+        ${b.lead?`<dt>First</dt><dd><b>${esc(firmName(b.lead.first_firm))}</b>, ${
+          b.lead.lead_days===0?'same day as the others'
+            :`${esc(b.lead.lead_days)} day${b.lead.lead_days===1?'':'s'} ahead`
+        } — <a href="${esc(b.lead.first_url||'#')}" target="_blank" rel="noopener">${esc(b.lead.first_title||'')}</a>
+        <span class="bnote">across ${esc(b.lead.burst_firms)} firms within ${esc(b.lead.burst_days)} days</span></dd>`:''}
+      </dl>
+      <div class="who">${(b.firm_list||[]).map(f=>`<span>${esc(firmName(f))}</span>`).join('')}</div>
+    </article>`).join('');
 }
 
 function renderCooc(){
@@ -640,9 +777,10 @@ function renderMatrix(){
   const body = '<tbody>' + sigs.map(s=>{
     const set = new Set(s.firm_list||[]);
     return `<tr><td class="topic">${esc(s.topic)}</td>` +
-      firms.map(f=>`<td class="cell">${set.has(f)
-        ? `<span class="pip" title="${esc(firmName(f))} covered ${esc(s.topic)}"></span>`
-        : '<span class="pip none"></span>'}</td>`).join('') +
+      firms.map(f=>`<td class="cell" tabindex="0"
+        aria-label="${esc(firmName(f))} ${set.has(f)?'covered':'did not cover'} ${esc(s.topic)}"
+        data-tip="${esc(firmName(f))} — ${set.has(f)?'covered':'no coverage'}">${set.has(f)
+        ? '<span class="pip"></span>' : '<span class="pip none"></span>'}</td>`).join('') +
       `<td class="count">${set.size}</td></tr>`;
   }).join('') + '</tbody>';
 
@@ -830,7 +968,7 @@ document.addEventListener('click', e=>{
   const tab = e.target.closest('.tab');
   if(tab){
     document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected', t===tab));
-    ['entry','consensus','signals','feed','health','add'].forEach(v=>
+    ['entry','consensus','signals','foryou','feed','health','add'].forEach(v=>
       $('#'+v).hidden = tab.dataset.view!==v);
   }
   const jump = e.target.closest('[data-goto]');
@@ -870,6 +1008,55 @@ document.addEventListener('click', async e=>{
     box.innerHTML = `<div class="reject"><b>Could not queue it</b><span>${esc(String(err))}</span></div>`;
     btn.disabled = false; btn.textContent = 'Add it to the fleet';
   }
+});
+
+const EXAMPLE_PROFILE =
+  'A US SaaS company, 40 staff, venture backed, no foreign entities. First external audit '
+  + 'next year, and a large engineering payroll we capitalise some of.';
+
+document.addEventListener('click', e=>{
+  if(e.target.closest('[data-example]')){ $('#profile').value = EXAMPLE_PROFILE; $('#profile').focus(); }
+});
+
+$('#profileForm')?.addEventListener('submit', async e=>{
+  e.preventDefault();
+  const profile = $('#profile').value.trim();
+  const box = $('#matches'), btn = $('#matchBtn');
+  if(profile.length < 15){
+    box.innerHTML = `<div class="empty">Describe the business in a sentence or two first.</div>`;
+    return;
+  }
+  btn.disabled = true; btn.textContent = 'Reading…';
+  box.innerHTML = `<div class="empty">Reading ${ROWS.length} articles against that profile…</div>`;
+  try{
+    const r = await fetch('/api/relevance',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({profile})
+    });
+    const d = await r.json();
+    if(!r.ok){
+      box.innerHTML = `<div class="loaderr"><b>Could not filter</b>
+        <p>${esc(d.error||'Something went wrong.')}${d.hint?'<br>'+esc(d.hint):''}</p></div>`;
+      return;
+    }
+    if(!d.matches.length){
+      box.innerHTML = `<div class="empty">Nothing in the last ${esc(d.considered)} articles
+        applies to that business. ${esc(d.note||'')}</div>`;
+      return;
+    }
+    box.innerHTML =
+      `<div class="eyebrow">${d.matches.length} of ${esc(d.considered)} articles apply</div>` +
+      d.matches.map(m=>`
+        <div class="match">
+          <p class="why">${esc(m.why)}</p>
+          <h4>${m.url?`<a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.title)}</a>`:esc(m.title)}</h4>
+          ${m.summary?`<p>${esc(m.summary)}</p>`:''}
+          <span class="src">${esc(firmName(m.firm))}${m.date?' · '+esc(fmtDate(m.date)):''}</span>
+        </div>`).join('') +
+      (d.note?`<p class="policy-note">${esc(d.note)}</p>`:'');
+  }catch(err){
+    box.innerHTML = `<div class="loaderr"><b>Could not filter</b><p>${esc(String(err))}</p></div>`;
+  }finally{ btn.disabled = false; btn.textContent = 'Find what applies'; }
 });
 
 $('#q').addEventListener('input', renderList);

@@ -192,6 +192,31 @@ site.
 
 ## 8. Product
 
+The dashboard answers three questions a reading list cannot.
+
+**What happened?** A digest on the overview: what moved since the last one, what several
+firms converged on, and what went quiet. `scripts/digest.py`.
+
+**What are they actually saying?** A brief per subject rather than a list of links —
+what the firms agree on, where they differ, and who it affects. Plus who published first
+within a burst of coverage. `scripts/brief.py`.
+
+**Does it apply to me?** Describe the business and the collected articles are filtered to
+the ones that actually bear on it. `api/relevance.mjs`, running over data already collected.
+
+### Two things the numbers had to earn
+
+**A lead is only a lead inside a burst.** The first version reported "RSM first by 439 days",
+which is not a scoop — it is older, unrelated coverage of a perennial subject. A lead now
+requires three or more firms publishing within 45 days of each other. Seven of ten subjects
+report no lead at all, which is the honest answer.
+
+**The control page is not a firm.** `docs/control/insights.html` is a fixture we wrote to
+prove self-healing. Counting it as coverage inflated every consensus figure with our own
+text, which would have made the product's central claim quietly false. It is excluded from
+signals and briefs.
+
+
 The dashboard leads with a **coverage matrix**: subjects down the side, firms across the
 top, a mark where a firm covered a subject. Reading a row shows how broad the agreement is;
 reading a column shows what one firm is pushing. Neither is visible on any single site.
@@ -252,6 +277,8 @@ Endpoints, published data shapes, exit codes and environment variables:
 | `scripts/classify_topics.py` | LLM topic taxonomy and assignment |
 | `scripts/signals.py` | rank subjects by independent cross-firm coverage |
 | `scripts/brief.py` | write a plain-English brief per subject, plus lead-lag |
+| `scripts/digest.py` | a periodic digest of what moved since the last one |
+| `api/relevance.mjs` | filter the collected articles to one company's profile |
 | `scripts/verify_new_source.py` | run one newly built collector and record whether it works |
 | `scripts/publish.py` | publish rows, contract report and repair log |
 | `api/check-source.mjs` | in-browser eligibility check |

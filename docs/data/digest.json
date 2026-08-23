@@ -1,0 +1,62 @@
+{
+ "model": "gpt-4o-mini",
+ "editions": [
+  {
+   "stamp": "20260823T221231Z",
+   "date": "2026-08-23",
+   "period": "weekly",
+   "headline": "AI in Auditing Gains Consensus Among Multiple Firms",
+   "summary": "Several firms converged on the importance of AI in auditing, highlighting its role in enhancing efficiency while maintaining the necessity of human judgment. Other notable topics included audit resilience and government contracting risks, both emphasizing the need for robust processes and compliance. No significant subjects dropped out this week.",
+   "watch": "Monitor developments in AI applications within auditing practices.",
+   "articles_in_period": 63,
+   "new_subjects": [
+    "AI in Auditing",
+    "Government Contracting Risks",
+    "State and Local Tax (SALT) Planning",
+    "Audit Resilience",
+    "Healthcare Strategy Execution",
+    "Mergers & Acquisitions in Healthcare"
+   ],
+   "quiet_subjects": [],
+   "top": [
+    {
+     "topic": "AI in Auditing",
+     "firms": 8
+    },
+    {
+     "topic": "Audit Resilience",
+     "firms": 5
+    },
+    {
+     "topic": "Government Contracting Risks",
+     "firms": 4
+    },
+    {
+     "topic": "State and Local Tax (SALT) Planning",
+     "firms": 4
+    },
+    {
+     "topic": "Healthcare Strategy Execution",
+     "firms": 4
+    }
+   ],
+   "subjects": [
+    "AI in Auditing",
+    "Government Contracting Risks",
+    "State and Local Tax (SALT) Planning",
+    "Audit Resilience",
+    "Healthcare Strategy Execution",
+    "Mergers & Acquisitions in Healthcare",
+    "Business Tax Compliance",
+    "Digital Transformation in Finance",
+    "R&D Capitalisation under Section 174",
+    "Tax Strategies for Nonprofits",
+    "Cybersecurity in Private Companies",
+    "Opportunity Zones Tax Incentives",
+    "Financial Due Diligence",
+    "Change Management in HR",
+    "HCM Software Implementation"
+   ]
+  }
+ ]
+}
