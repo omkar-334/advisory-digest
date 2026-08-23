@@ -73,3 +73,51 @@ def test_the_control_page_is_not_a_firm():
     assert not brief.is_real_firm("advisory-digest.vercel.app")
     assert not brief.is_real_firm("")
     assert not brief.is_real_firm(None)
+
+
+def test_refresh_drops_a_subject_that_is_no_longer_cross_firm(tmp_path, monkeypatch):
+    """A brief's prose claims agreement between firms. If the dataset changes so that only
+    one firm remains, the text is no longer true and the brief must go rather than sit there
+    with a stale count.
+    """
+    import json
+    docs = tmp_path / "docs" / "data"
+    docs.mkdir(parents=True)
+    (docs / "briefs.json").write_text(json.dumps({"model": "test", "briefs": [
+        {"topic": "Still broad", "firms": 9, "firm_list": ["old"], "articles": 9,
+         "consensus": "x"},
+        {"topic": "Now narrow", "firms": 5, "firm_list": ["old"], "articles": 5,
+         "consensus": "y"},
+    ]}))
+    monkeypatch.setattr(brief, "DOCS", docs)
+
+    rows = [art("rsmus.com", 0), art("bdo.com", 1), art("crowe.com", 2),
+            art("withum.com", 3)]
+    assignments = {r["article_url"]: ["Still broad"] for r in rows}
+    assignments[art("claconnect.com", 4)["article_url"]] = ["Now narrow"]
+    rows.append(art("claconnect.com", 4))
+
+    assert brief.refresh_counts(rows, assignments) == 0
+    out = json.loads((docs / "briefs.json").read_text())
+    topics = [b["topic"] for b in out["briefs"]]
+    assert topics == ["Still broad"], "a single-firm subject must not remain a brief"
+    assert out["briefs"][0]["firms"] == 4, "counts must be recomputed, not carried over"
+
+
+def test_refresh_excludes_the_fixture_from_firm_counts(tmp_path, monkeypatch):
+    import json
+    docs = tmp_path / "docs" / "data"
+    docs.mkdir(parents=True)
+    (docs / "briefs.json").write_text(json.dumps({"model": "test", "briefs": [
+        {"topic": "T", "firms": 3, "firm_list": ["stale"], "articles": 3, "consensus": "x"},
+    ]}))
+    monkeypatch.setattr(brief, "DOCS", docs)
+
+    rows = [art("rsmus.com", 0), art("bdo.com", 1),
+            art("advisory-digest.vercel.app", 2)]
+    assignments = {r["article_url"]: ["T"] for r in rows}
+
+    brief.refresh_counts(rows, assignments)
+    out = json.loads((docs / "briefs.json").read_text())
+    assert out["briefs"][0]["firms"] == 2
+    assert "advisory-digest.vercel.app" not in out["briefs"][0]["firm_list"]

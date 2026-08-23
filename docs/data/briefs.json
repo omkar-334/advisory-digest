@@ -37,15 +37,14 @@
   },
   {
    "topic": "State and Local Tax (SALT) Planning",
-   "firms": 5,
+   "firms": 4,
    "firm_list": [
-    "advisory-digest.vercel.app",
     "claconnect.com",
     "cohnreznick.com",
     "eisneramper.com",
     "rsmus.com"
    ],
-   "articles": 7,
+   "articles": 6,
    "consensus": "State and local tax planning requires attention to evolving regulations, including unclaimed property, pass-through entity tax elections, and property tax valuations, which can significantly impact financial strategies.",
    "divergence": "EisnerAmper highlights legal challenges in NYC's surcharge enforcement, while CohnReznick focuses on Arizona's court ruling affecting renewable energy property tax valuations.",
    "applies_to": "Mid-market companies with exposure to state and local taxes, especially in real estate and manufacturing sectors.",
@@ -94,16 +93,15 @@
   },
   {
    "topic": "Audit Resilience",
-   "firms": 6,
+   "firms": 5,
    "firm_list": [
-    "advisory-digest.vercel.app",
     "bdo.com",
     "claconnect.com",
     "grantthornton.com",
     "pwc.com",
     "rsmus.com"
    ],
-   "articles": 10,
+   "articles": 9,
    "consensus": "Building audit resilience is essential for effective financial statement audits, emphasizing the need for robust processes and documentation across various compliance requirements.",
    "divergence": "RSM focuses on integrating resilience into company processes, while BDO highlights the specific needs of defense contractors. Claconnect discusses compliance complexities in layered funding, differing from broader audit resilience themes.",
    "applies_to": "Mid-market companies with complex compliance requirements or those undergoing regular financial audits.",
@@ -144,14 +142,13 @@
   },
   {
    "topic": "R&D Capitalisation under Section 174",
-   "firms": 4,
+   "firms": 3,
    "firm_list": [
-    "advisory-digest.vercel.app",
     "bakertilly.com",
     "claconnect.com",
     "pwc.com"
    ],
-   "articles": 4,
+   "articles": 3,
    "consensus": "R&D capitalisation under Section 174 introduces amortisation requirements for research expenditures, impacting cash taxes for companies with significant engineering resources.",
    "divergence": "Baker Tilly focuses on state-level R&D tax credits, while CLA emphasizes agricultural qualifications for R&D credits, and PwC discusses software capitalization standards.",
    "applies_to": "Companies engaged in R&D activities, particularly in engineering and agriculture.",
@@ -160,13 +157,12 @@
   },
   {
    "topic": "Cybersecurity in Private Companies",
-   "firms": 3,
+   "firms": 2,
    "firm_list": [
-    "advisory-digest.vercel.app",
     "eisneramper.com",
     "rsmus.com"
    ],
-   "articles": 5,
+   "articles": 4,
    "consensus": "Private companies must enhance cybersecurity measures, particularly in light of evolving AI technologies and the need for robust disclosure controls as they prepare for potential public offerings.",
    "divergence": "RSM focuses on government contracting, while EisnerAmper emphasizes AI's dual role in both enhancing and compromising cybersecurity.",
    "applies_to": "Mid-market private companies considering public offerings or using AI technologies.",

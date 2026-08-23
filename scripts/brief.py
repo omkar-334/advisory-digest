@@ -182,8 +182,14 @@ def brief_for(topic, articles):
     return call(BRIEF_SYSTEM, user, BRIEF_SCHEMA)
 
 
-def refresh_lead(rows, assignments) -> int:
-    """Recompute lead-lag on existing briefs. The written text is expensive; this is not."""
+def refresh_counts(rows, assignments) -> int:
+    """Recompute everything about a brief except its written text.
+
+    The prose costs a model call; the firm counts and lead-lag do not. Refreshing only the
+    lead once left stale firm lists behind -- the control-page fixture was still listed as
+    covering a subject after it had been excluded everywhere else. Anything derived from the
+    dataset is recomputed here so the numbers can never disagree with it.
+    """
     path = DOCS / "briefs.json"
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
@@ -193,14 +199,27 @@ def refresh_lead(rows, assignments) -> int:
 
     by_key = {(r.get("article_url") or r.get("title")): r
               for r in rows if is_real_firm(firm_of(r))}
+
+    kept_briefs = []
     for brief in payload.get("briefs", []):
         articles = [by_key[k] for k, labels in assignments.items()
                     if brief["topic"] in labels and k in by_key]
+        firms = sorted({firm_of(a) for a in articles if is_real_firm(firm_of(a))})
+        if len(firms) < 2:
+            # No longer a cross-firm subject once the dataset changed. Dropping it is
+            # correct: the written text claims agreement between firms.
+            print(f"  dropped '{brief['topic']}': only {len(firms)} firm(s) remain")
+            continue
+        brief["firms"] = len(firms)
+        brief["firm_list"] = firms
+        brief["articles"] = len(articles)
         brief["lead"] = lead_lag(articles)
+        kept_briefs.append(brief)
+
+    payload["briefs"] = kept_briefs
     path.write_text(json.dumps(payload, indent=1))
-    kept = sum(1 for b in payload.get("briefs", []) if b.get("lead"))
-    print(f"refreshed lead-lag on {len(payload.get('briefs', []))} briefs; "
-          f"{kept} have a defensible burst")
+    with_lead = sum(1 for b in kept_briefs if b.get("lead"))
+    print(f"refreshed {len(kept_briefs)} briefs; {with_lead} have a defensible burst")
     return 0
 
 
@@ -214,8 +233,8 @@ def main() -> int:
         return 1
 
     assignments = topics.get("assignments") or {}
-    if "--refresh-lead" in sys.argv:
-        return refresh_lead(rows, assignments)
+    if "--refresh-lead" in sys.argv or "--refresh" in sys.argv:
+        return refresh_counts(rows, assignments)
 
     rows = [r for r in rows if is_real_firm(firm_of(r))]
     by_key = {(r.get("article_url") or r.get("title")): r for r in rows}
