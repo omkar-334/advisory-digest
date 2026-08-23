@@ -126,7 +126,17 @@ credits and can leave a working collector worse than it started.
 ./scripts/heal_loop.sh
 ```
 
-`run → validate → (break) → heal --auto-approve → re-run → validate → publish`
+`run → validate → (break) → heal → approve → re-run → validate → publish`
+
+```bash
+./scripts/heal_loop.sh              # unattended: heal, auto-approve, verify
+REVIEW=1 ./scripts/heal_loop.sh     # stop at the approval gate instead
+```
+
+In review mode the loop stops once a fix is proposed and prints the collector to inspect, so
+it can be accepted with `bdata scraper approve <id>` or discarded with
+`bdata scraper approve <id> --reject`. CI runs unattended; a human debugging a stubborn
+source usually should not.
 
 The prompt is never hand-written. [`scripts/broken_sources.py`](scripts/broken_sources.py)
 turns the contract's findings into one instruction per broken collector, and only for

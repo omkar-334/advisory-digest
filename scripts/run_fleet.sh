@@ -1,47 +1,51 @@
 #!/usr/bin/env bash
-# Run every collector in the fleet and validate the combined result against the contract.
+# Run every collector in the fleet, merge the output, and validate it against the contract.
 #
-# Scraper Studio generates extraction code against a specific site, so one collector does
-# not cover unrelated layouts. The fleet is one collector per newsroom; what is shared is
-# the contract (scripts/validate.py) and the repair loop.
+# Resumable: a collector whose output for this run already exists is skipped, so a run
+# interrupted part-way can be finished by invoking this again with the same RUN_ID. Thirteen
+# collectors take longer than most shells will sit still for, and re-scraping the ones that
+# already succeeded wastes both time and credits.
 #
-# Exit 0 = healthy, 2 = contract violated (heal-worthy), 1 = hard failure.
+# Concurrency is 2. Running a collector does not consume an AI-Flow generation slot, so it
+# is not bound by the 3-job cap that applies to `create` and `heal` -- but it IS rate limited
+# at the crawler. At 5, seven of thirteen sources returned
+# "Crawler error: Navigation failed ... too many" and no data.
+#
+# Exit 0 = contract satisfied, 2 = a real break (heal-worthy), 1 = a run failed.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 set -a; . ./.env; set +a
 
+CONCURRENCY="${FLEET_CONCURRENCY:-2}"
 OUT=results/run_fleet
 mkdir -p "$OUT" results/validate
-STAMP=$(date -u +%Y%m%dT%H%M%SZ)
+STAMP="${RUN_ID:-$(date -u +%Y%m%dT%H%M%SZ)}"
 COMBINED="$OUT/fleet-$STAMP.json"
 EXPECTED="$OUT/expected-$STAMP.txt"
-: > "$EXPECTED"
+LIST="$OUT/fleet-$STAMP.list"
 
-# Portable across bash 3.2 (macOS default), which has no mapfile.
 python3 -c "
 import json
 for c in json.load(open('scripts/collectors.json'))['collectors']:
     if c.get('collector_id'):
         print(c['collector_id'], c['url'])
-" > "$OUT/fleet-$STAMP.list"
+" > "$LIST"
 
-if [ ! -s "$OUT/fleet-$STAMP.list" ]; then
+if [ ! -s "$LIST" ]; then
   echo "no collectors with an id in scripts/collectors.json" >&2
   exit 1
 fi
 
-# Run collectors concurrently, but modestly. Running a collector does not consume an
-# AI-Flow generation slot, so it is not bound by the 3-job cap that applies to `create`
-# and `heal` -- but it IS rate limited at the crawler. At concurrency 5, seven of thirteen
-# sources came back with "Crawler error: Navigation failed ... too many" and no data,
-# which the contract then had to be taught to distinguish from a broken selector.
-# Two is comfortably under the limit and still roughly halves wall-clock.
-CONCURRENCY="${FLEET_CONCURRENCY:-2}"
+: > "$EXPECTED"
 running=0
 while read -r cid url; do
   [ -z "$cid" ] && continue
   echo "$url" >> "$EXPECTED"
   part="$OUT/part-$STAMP-$cid.json"
+  if [ -s "$part" ]; then
+    echo "[$STAMP] $cid -> already collected, skipping" | tee -a "$OUT/run.log"
+    continue
+  fi
   echo "[$STAMP] $cid -> $url" | tee -a "$OUT/run.log"
   (
     ./node_modules/.bin/bdata scraper run "$cid" "$url" \
@@ -49,8 +53,11 @@ while read -r cid url; do
     [ -s "$part" ] || echo "  no output for $cid" >> "$OUT/run.log"
   ) &
   running=$(( running + 1 ))
-  if [ "$running" -ge "$CONCURRENCY" ]; then wait -n 2>/dev/null || wait; running=$(( running - 1 )); fi
-done < "$OUT/fleet-$STAMP.list"
+  if [ "$running" -ge "$CONCURRENCY" ]; then
+    wait -n 2>/dev/null || wait
+    running=$(( running - 1 ))
+  fi
+done < "$LIST"
 wait
 
 PARTS=()
@@ -58,18 +65,10 @@ for part in "$OUT"/part-"$STAMP"-*.json; do
   [ -s "$part" ] && PARTS+=("$part")
 done
 
-# Merge every collector's envelopes into one payload so the contract sees the whole fleet.
-python3 - "$COMBINED" "${PARTS[@]}" <<'PY'
-import json, sys
-out, merged = sys.argv[1], []
-for path in sys.argv[2:]:
-    try:
-        data = json.load(open(path))
-    except (OSError, json.JSONDecodeError):
-        continue
-    merged.extend(data if isinstance(data, list) else [data])
-json.dump(merged, open(out, "w"), ensure_ascii=False, indent=1)
-print(f"merged {len(merged)} envelopes from {len(sys.argv) - 2} collector(s)")
-PY
+if [ "${#PARTS[@]}" -eq 0 ]; then
+  echo "no collector produced any output" >&2
+  exit 1
+fi
 
+python3 scripts/merge_parts.py "$COMBINED" "${PARTS[@]}"
 python3 scripts/validate.py "$COMBINED" results/validate "$EXPECTED"

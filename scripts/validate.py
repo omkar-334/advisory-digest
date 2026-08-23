@@ -47,7 +47,7 @@ def firm_of(url: str) -> str:
     return host[4:] if host.startswith("www.") else host
 
 
-def normalise(payload):
+def normalise(payload) -> tuple[list[tuple[dict, str]], list[str], dict[str, int]]:
     """Flatten Scraper Studio output into (row, source_url) pairs.
 
     The runner returns one envelope per input URL, with the extracted records nested
@@ -89,7 +89,7 @@ def normalise(payload):
     return out, sources, errors
 
 
-def check_source(firm, rows):
+def check_source(firm: str, rows: list[dict]) -> list[str]:
     """Contract for one firm's rows. Returns a list of human-readable violations."""
     problems = []
     if not rows:
@@ -146,7 +146,7 @@ def check_source(firm, rows):
     return problems
 
 
-def heal_prompt(per_firm, limit=1000):
+def heal_prompt(per_firm: dict[str, dict], limit: int = 1000) -> str:
     """Condense per-source violations into one instruction under heal's length cap.
 
     heal repairs a collector against its own target, so the prompt describes what changed
@@ -156,19 +156,18 @@ def heal_prompt(per_firm, limit=1000):
     # Only sources that actually ran can be healed. Naming a source whose run failed would
     # send heal to repair a scraper that is fine, which is the most expensive mistake this
     # loop can make: it burns credits and can make a working collector worse.
-    empty = sorted(f for f, v in per_firm.items()
-                   if v["rows"] == 0 and not v.get("run_failed"))
-    other = [p for f, v in per_firm.items() if v["rows"] for p in v["problems"]]
+    empty = sorted(firm for firm, v in per_firm.items()
+                   if not v.get("rows") and not v.get("run_failed"))
+    other = [p for v in per_firm.values() if v.get("rows") for p in v.get("problems") or []]
 
     parts = []
     if empty:
-        where = empty[0] if len(empty) == 1 else ", ".join(empty)
         parts.append(
-            f"The page layout of {where} has changed and the scraper now returns no "
-            f"articles at all. The class names and element nesting it matched on no longer "
-            f"exist. Re-detect the repeated article blocks on the current page and extract, "
-            f"for each one: title, summary, published_date as ISO 8601, article_url as an "
-            f"absolute URL, and tags. Do not extract author names."
+            f"The page layout of {', '.join(empty)} has changed and the scraper now "
+            f"returns no articles at all. The class names and element nesting it matched "
+            f"on no longer exist. Re-detect the repeated article blocks on the current "
+            f"page and extract, for each one: title, summary, published_date as ISO 8601, "
+            f"article_url as an absolute URL, and tags. Do not extract author names."
         )
     parts.extend(other)
 
@@ -186,24 +185,28 @@ def main() -> int:
     # The list of URLs the run was asked to cover. A URL that comes back with no envelope
     # at all produces no rows and no source, so without this it would be invisible to the
     # contract. Silent disappearance is the most dangerous failure mode there is.
-    expected = []
-    if len(sys.argv) > 3 and Path(sys.argv[3]).exists():
-        expected = [l.strip() for l in Path(sys.argv[3]).read_text().splitlines()
-                    if l.strip().startswith("http")]
+    expected: list[str] = []
+    if len(sys.argv) > 3:
+        try:
+            lines = Path(sys.argv[3]).read_text(encoding="utf-8").splitlines()
+        except OSError:
+            lines = []
+        expected = [line.strip() for line in lines if line.strip().startswith("http")]
     outdir.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     started = time.time()
 
     try:
-        payload = json.loads(src.read_text())
-    except (OSError, json.JSONDecodeError) as exc:
+        payload = json.loads(src.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
         print(f"HARD ERROR: cannot read {src}: {exc}", file=sys.stderr)
         return 1
 
     pairs, sources, envelope_errors = normalise(payload)
     errors_by_firm: dict[str, int] = {}
     for url, count in envelope_errors.items():
-        errors_by_firm[firm_of(url)] = errors_by_firm.get(firm_of(url), 0) + count
+        firm = firm_of(url)
+        errors_by_firm[firm] = errors_by_firm.get(firm, 0) + count
     # Seed every source that was attempted, so one returning nothing still gets judged.
     by_firm: dict[str, list] = {firm_of(u): [] for u in expected}
     for u in sources:
@@ -215,9 +218,6 @@ def main() -> int:
     seen_firms = {firm_of(u) for u in sources}
     for firm, rows in sorted(by_firm.items()):
         errs = errors_by_firm.get(firm, 0)
-        # Two kinds of run failure, neither of which heal can fix:
-        #   - the run returned error envelopes (rate limit, navigation timeout)
-        #   - the run produced no envelopes at all, so it never reported
         # Two shapes of run failure, neither fixable by heal:
         #   never_reported: the collector produced no envelopes at all, so it never ran
         #   error_dominated: errors outnumber usable rows. A partially rate-limited run
@@ -234,7 +234,7 @@ def main() -> int:
                 f"scraper."
             )
             per_firm[firm] = {"rows": len(rows), "healthy": False, "run_failed": True,
-                              "errors": max(errs, 0), "problems": []}
+                              "errors": errs, "problems": []}
             continue
 
         problems = check_source(firm, rows)
@@ -244,10 +244,10 @@ def main() -> int:
 
     healthy = sum(1 for v in per_firm.values() if v["healthy"])
     failed_runs = sum(1 for v in per_firm.values() if v.get("run_failed"))
-    total = len(per_firm) or 1
-    fleet_ok = (healthy / total) >= MIN_HEALTHY_SOURCES and bool(pairs)
+    total = len(per_firm)
+    fleet_ok = (healthy / max(total, 1)) >= MIN_HEALTHY_SOURCES and bool(pairs)
 
-    with (outdir / f"rows-{stamp}.jsonl").open("w") as fh:
+    with (outdir / f"rows-{stamp}.jsonl").open("w", encoding="utf-8") as fh:
         for row, source in pairs:
             fh.write(json.dumps({**row, "_firm": firm_of(source), "_source": source},
                                 ensure_ascii=False) + "\n")
@@ -269,13 +269,14 @@ def main() -> int:
         },
         "elapsed_sec": round(time.time() - started, 3),
     }
-    (outdir / f"summary-{stamp}.json").write_text(json.dumps(summary, indent=2))
-    (outdir / "summary-latest.json").write_text(json.dumps(summary, indent=2))
+    serialised = json.dumps(summary, indent=2)
+    (outdir / f"summary-{stamp}.json").write_text(serialised, encoding="utf-8")
+    (outdir / "summary-latest.json").write_text(serialised, encoding="utf-8")
 
     if run_failures:
         print(f"RUN FAILURES on {failed_runs} source(s) (not heal-worthy):", file=sys.stderr)
-        for f in run_failures:
-            print(f"  ! {f}", file=sys.stderr)
+        for failure in run_failures:
+            print(f"  ! {failure}", file=sys.stderr)
 
     if violations:
         print(f"CONTRACT VIOLATED: {healthy}/{total} sources healthy, "
@@ -299,4 +300,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

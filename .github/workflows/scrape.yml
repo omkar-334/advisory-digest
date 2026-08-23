@@ -1,12 +1,20 @@
-name: scrape
+name: scrape and self-heal
 
+# The loop runs whether or not anyone is watching. That is the point of the project, so it
+# runs on a schedule, on demand, and whenever the control page changes.
 on:
   schedule:
-    - cron: '0 3,15 * * *'   # 03:00 and 15:00 UTC: every 12 hours
-  workflow_dispatch:
+    - cron: '0 3,15 * * *'      # 03:00 and 15:00 UTC: every 12 hours
   push:
     paths:
-      - 'docs/control/**'    # a change to the control page must trigger a heal
+      - 'docs/control/**'       # breaking the control page must trigger a repair
+      - 'scripts/collectors.json'
+  workflow_dispatch:
+    inputs:
+      review:
+        description: 'Stop at the approval gate instead of auto-approving repairs'
+        type: boolean
+        default: false
 
 concurrency:
   group: scrape
@@ -14,69 +22,119 @@ concurrency:
 
 permissions:
   contents: write
-  pages: write
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: npm
-
+        with: { node-version: '20', cache: npm }
       - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+        with: { python-version: '3.12' }
 
       - run: npm ci
 
-      # Run, and repair in place if the contract breaks. The heal prompt is the
-      # validator's own diagnosis, so no human is involved in the fix.
-      - name: Run scraper with self-healing
+      - name: Write credentials
         env:
           BRIGHTDATA_API_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
-          COLLECTOR_ID: ${{ vars.COLLECTOR_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          printf 'BRIGHTDATA_API_KEY=%s\n' "$BRIGHTDATA_API_KEY" > .env
-          ./scripts/heal_loop.sh || [ $? -eq 2 ]
-        # Exit 2 means the contract is still broken after healing. That is a real result
-        # worth publishing, so it is tolerated here and the job is failed at the end.
-        # Any other non-zero exit means the run itself failed and must not reach publish.
-        continue-on-error: false
+          if [ -z "$BRIGHTDATA_API_KEY" ]; then
+            echo "::error::BRIGHTDATA_API_KEY is not set. Add it in Settings → Secrets."
+            exit 1
+          fi
+          printf 'BRIGHTDATA_API_KEY=%s\n' "$BRIGHTDATA_API_KEY"  > .env
+          printf 'OPENAI_API_KEY=%s\n'     "$OPENAI_API_KEY"     >> .env
+
+      # Run the fleet and repair anything the contract says is broken.
+      #
+      # Three outcomes are all legitimate and none of them should abort the job before the
+      # site is refreshed:
+      #   0  contract satisfied
+      #   1  a run failed (rate limit, navigation timeout). NOT repairable, so retry once
+      #      rather than heal: healing a working scraper spends credits and can make it worse
+      #   2  still broken after healing. A real result, worth publishing and reporting
+      - name: Run fleet with self-healing
+        id: heal
+        env:
+          REVIEW: ${{ inputs.review && '1' || '0' }}
+        run: |
+          set +e
+          ./scripts/heal_loop.sh
+          code=$?
+          if [ "$code" -eq 1 ]; then
+            echo "::warning::A run failed rather than a scraper breaking. Retrying once."
+            sleep 60
+            ./scripts/heal_loop.sh
+            code=$?
+          fi
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          case "$code" in
+            0) echo "::notice::Contract satisfied across the fleet." ;;
+            1) echo "::warning::Runs still failing. Nothing healed; the data may be stale." ;;
+            2) echo "::warning::Sources still broken after $((${MAX_HEAL_ATTEMPTS:-2})) heal attempts." ;;
+            3) echo "::notice::Stopped at the approval gate. Review with 'bdata scraper approve'." ;;
+            *) echo "::error::Unexpected exit $code"; exit "$code" ;;
+          esac
+
+      # Topic classification is optional. Without an OpenAI key, signals.py falls back to
+      # patterns, so a fork still produces a working site rather than a failing job.
+      - name: Classify topics
+        continue-on-error: true
+        run: |
+          if grep -q '^OPENAI_API_KEY=.\+' .env; then
+            python3 scripts/classify_topics.py
+          else
+            echo "::notice::No OPENAI_API_KEY; signals will use the pattern fallback."
+          fi
 
       - name: Publish to the site
-        run: python3 scripts/publish.py
-
-      # Topic classification needs an API key. Without one, signals.py falls back to
-      # patterns rather than failing the run, so a fork still produces a working site.
-      - name: Classify topics
-        if: env.OPENAI_API_KEY != ''
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: python3 scripts/classify_topics.py
-        continue-on-error: true
-
-      - name: Compute cross-firm signals
-        run: python3 scripts/signals.py
+        run: |
+          python3 scripts/publish.py
+          python3 scripts/signals.py
 
       - name: Commit refreshed data
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/data results/validate/summary-latest.json scripts/collectors.json
-          git diff --staged --quiet || git commit -m "data: scheduled refresh $(date -u +%FT%TZ)"
-          git push
+          git add docs/data scripts/collectors.json results/validate/summary-latest.json
+          if git diff --staged --quiet; then
+            echo "::notice::No change in the published data."
+          else
+            git commit -m "data: refresh $(date -u +%FT%TZ)"
+            git push
+          fi
 
-      - name: Fail the job if the contract is still broken
+      - name: Report contract status
         run: |
           python3 - <<'PY'
           import json, sys
           s = json.load(open('results/validate/summary-latest.json'))
-          ok = s['healthy_sources']; total = s['sources']
-          print(f"{ok}/{total} sources healthy")
-          sys.exit(0 if s['healthy'] else 1)
+          ok, total = s['healthy_sources'], s['sources']
+          failed = s.get('failed_runs', 0)
+          print(f"{ok}/{total} sources healthy, {failed} could not run")
+          for firm, v in sorted(s.get('per_firm', {}).items()):
+              state = 'ok' if v['healthy'] else ('could-not-run' if v.get('run_failed') else 'BROKEN')
+              print(f"  {state:14} {firm:28} {v['rows']:4d} rows")
+          # A source that could not run is not a failure of the pipeline; a source that is
+          # genuinely broken after healing is.
+          broken = [f for f, v in s.get('per_firm', {}).items()
+                    if not v['healthy'] and not v.get('run_failed')]
+          if broken:
+              print(f"::error::Still broken after healing: {', '.join(broken)}")
+              sys.exit(1)
           PY
+
+      - name: Always leave the logs behind
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-logs-${{ github.run_number }}
+          path: |
+            results/heal_loop/
+            results/run_fleet/run.log
+            results/validate/summary-latest.json
+          retention-days: 14
+          if-no-files-found: ignore

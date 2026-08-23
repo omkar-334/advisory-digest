@@ -1,0 +1,51 @@
+YouTube video demo link
+*
+The video should be not be more than 3 minutes covering how your project reflects the below points:
+About the project
+Tech stack and architecture
+Demo if possible
+Learning and growth (optional)
+aefq
+What does your project do?
+*
+What problem does your project solve, and who is it for?
+ewe
+How did you use Scraper Studio in your project?
+*
+Tell us what you're scraping and how Scraper Studio fits into your project.
+efqe
+
+
+Feedback
+This feedback goes straight to the Bright Data team. If something annoyed you or slowed you down, say it here. It's the fastest way to get it fixed.
+How was the CLI to work with?
+*
+1
+ 
+2
+ 
+3
+ 
+4
+ 
+5
+ 
+How easy was it to get your first scrape running?
+*
+1
+ 
+2
+ 
+3
+ 
+4
+ 
+5
+ 
+What was the most frustrating thing you hit while building with Scraper Studio or the CLI?
+*
+
+Where did you get stuck for the longest, and what got you unstuck?
+*
+
+How was the overall developer experience? What would you change, and anything else you want the Bright Data team to hear?

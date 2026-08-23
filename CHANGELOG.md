@@ -2,51 +2,52 @@
 
 ## 2026-08-23
 
-### Added
-- `Advisory Digest`: one feed of tax, audit and compliance guidance from twelve accounting
-  and advisory firm newsrooms. Live at https://advisory-digest.vercel.app
-- Bright Data CLI pinned locally (`@brightdata/cli@0.3.5`); the whole pipeline is driven
-  from the terminal.
-- `scripts/validate.py`: the output contract. Evaluated per firm, and fed the list of URLs
-  the run was asked to cover so a source that returns nothing is still judged. Its diagnosis
-  is handed verbatim to `bdata scraper heal`, which is what makes the loop unattended.
-- `scripts/heal_loop.sh`: run, validate, heal, re-run, re-validate, record the event.
-- `scripts/publish.py`: publishes rows, contract report and heal history to the site.
-  Strips byline-shaped fields and deduplicates on canonical article URL.
-- Dashboard with a Feed view and a Pipeline health view showing per-firm contract status
-  and the self-healing timeline.
-- `docs/control/insights.html`: a newsroom page we control, so the heal can be demonstrated
-  against a real markup change rather than a staged schema extension.
-- `.github/workflows/scrape.yml`: daily cron, plus a trigger on any change to the control page.
-- `tests/test_contract.py`: seven tests, no network required.
+Built for Into the Scrape-Verse. Live at https://advisory-digest.vercel.app
 
-### Fixed
-- The contract could not see a source that returned no envelope at all: it produced no rows,
-  so it created no entry and vanished from the report. Silent disappearance is the most
-  dangerous failure mode a scraper has. The validator now takes the expected URL list.
-- Deduplicated published rows. A discovery-style collector reaches the same article by
-  several paths, which produced 36 duplicates in 73 rows.
-- `gh` was creating repositories under the work account from any non-interactive context.
-  The `gh()` zsh function in `~/.zshrc` routes by directory correctly, but it is only a shell
-  function, so `rtk`'s command rewriting, scripts and cron bypassed it and hit the default
-  config (`user: omkar-334k`). Replaced with an executable shim at `~/.local/bin/gh` that
-  performs the same check, and prepended that directory to `PATH`.
+### The pipeline
+- **Discover** `scripts/onboard.py` and `api/check-source.mjs`: classify a proposed URL,
+  gate it, build and register a collector. Government sites, login walls and paywalls are
+  refused in code; a 403 is explicitly not a refusal.
+- **Scrape** `scripts/run_fleet.sh` over `scripts/collectors.json`: one collector per
+  newsroom layout, thirteen in total.
+- **Validate** `scripts/validate.py`: one output contract, evaluated per source.
+- **Detect** run failures separated from broken selectors, because only one is repairable.
+- **Heal** `scripts/heal_loop.sh`: the contract's own diagnosis becomes the heal prompt.
+  Unattended by default, `REVIEW=1` to stop at the approval gate.
+- **Understand** `scripts/classify_topics.py` and `scripts/signals.py`: LLM topic taxonomy,
+  then ranking by independent cross-firm coverage.
+- **Product** a dashboard leading with a coverage matrix, refreshed every 12 hours by CI.
 
-### Security
-- Moved the Bright Data API key out of a plaintext `api.txt` into a gitignored `.env`,
-  and deleted `api.txt`. `.env.example` committed in its place.
+### Verified repairs
+- Control page: staged markup change, 0 → 6 articles, collector unchanged.
+- Baker Tilly: organic break found on a routine run, `article_url` and `published_date`
+  both 0% → 100%, collector unchanged.
+- BDO: heal ran, reported `done`, and correctly changed nothing. The contract was wrong,
+  not the scraper. Recorded rather than hidden.
 
-### Findings
-- Bright Data rejects `.gov.in` domains with `Domain not allowed` (HTTP 400) before AI
-  generation starts. Hackathon rule 7 bars government targets outright, so `eprocure.gov.in`
-  and similar were never viable.
-- `rbi.org.in` is allowed and works well, including automatic discovery of circular detail
-  pages, but government-adjacent targets were dropped on the same rule.
-- `nseindia.com` returns 404 to a plain request and needs session cookies, so the NSE/BSE
-  target set was ruled out on blocking and terms-of-service grounds.
-- `crowe.com` and `marcumllp.com` return HTTP 403 to a plain request, which is what the
-  Bright Data unblocking layer is for.
-- A collector created against one firm does not generalise to eleven other layouts on its
-  own. That is the gap the heal loop exists to close, and it is the honest finding of the day.
-- RTK's command filtering must never be redirected into a file: `head file > out` wrote RTK's
-  own truncation marker into `out`, corrupting a URL list.
+### Corrections made along the way
+- One collector cannot cover twelve layouts. A heal asked to generalise ran for forty
+  minutes and returned `status: error`. The collector was untouched: heal is non-destructive.
+- A source returning no envelope was invisible to the contract. It now takes the list of
+  URLs the run was asked to cover.
+- Partial field coverage is not always a defect: BDO's listing mixes dated articles with
+  evergreen podcast hubs and eBooks. Below 25% is a break; partial coverage is content.
+- Running collectors concurrently is rate limited at the crawler, not just at generation.
+  At concurrency 5, seven of thirteen sources failed. Now 2.
+- `publish.py` refused nothing: a failed CI scrape published zero rows over a good dataset.
+  It now refuses to overwrite a non-empty dataset with an empty one.
+- A 600s CLI poll timeout is not a failed collector. Grant Thornton reported `poll_failed`
+  and returns 20 clean rows. Run it before rebuilding.
+
+### Security and hygiene
+- API key moved out of a plaintext `api.txt` into a gitignored `.env`.
+- Run artifacts untracked: 26,309 lines of reproducible output removed from git.
+- 28 tests, no network required, covering the contract and the eligibility gate.
+
+### Environment notes
+- Bright Data rejects `.gov.in` with `Domain not allowed`; hackathon rule 7 bars government
+  targets outright.
+- `crowe.com` and `marcumllp.com` return 403 to a plain request and work through Bright
+  Data's unblocking layer.
+- Bright Data caps AI-Flow at 3 concurrent generation jobs; exceeding it leaves half-built
+  collectors that can only be deleted in the web UI.

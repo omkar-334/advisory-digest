@@ -13,6 +13,11 @@ cd "$(dirname "$0")/.."
 set -a; . ./.env; set +a
 
 MAX_ATTEMPTS="${MAX_HEAL_ATTEMPTS:-2}"
+# Unattended by default. Set REVIEW=1 to stop at Bright Data's approval gate instead, so a
+# proposed fix can be inspected and then accepted with `bdata scraper approve <id>` or
+# discarded with `--reject`. CI runs unattended; a human debugging a stubborn source does not.
+REVIEW="${REVIEW:-0}"
+if [ "$REVIEW" = "1" ]; then APPROVAL=(); else APPROVAL=(--auto-approve --auto-save); fi
 OUT=results/heal_loop
 mkdir -p "$OUT"
 STAMP=$(date -u +%Y%m%dT%H%M%SZ)
@@ -45,10 +50,18 @@ while [ "$attempt" -le "$MAX_ATTEMPTS" ]; do
     log "healing $firm ($cid)"
     log "  prompt: $problems"
     ./node_modules/.bin/bdata scraper heal "$cid" "$problems" \
-      --url "$url" --auto-approve --auto-save --timeout 900 \
+      --url "$url" "${APPROVAL[@]}" --timeout 900 \
       --json --pretty -o "$OUT/heal-$STAMP-$firm.json" >>"$LOG" 2>&1
     log "  heal exit=$?. A 'done' status is not proof of repair; the re-run below decides."
+    if [ "$REVIEW" = "1" ]; then
+      log "  awaiting review: bdata scraper approve $cid   (or --reject)"
+    fi
   done < "$OUT/broken-$STAMP.tsv"
+
+  if [ "$REVIEW" = "1" ]; then
+    log "stopping at the approval gate. Approve or reject, then re-run this script."
+    exit 3
+  fi
 
   log "re-running fleet to verify"
   ./scripts/run_fleet.sh >>"$LOG" 2>&1
