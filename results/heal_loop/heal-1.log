@@ -476,3 +476,27 @@ Step: code_fixer — polling (attempt 473/900)
 Step: code_fixer — polling (attempt 474/900)
 Step: code_fixer — polling (attempt 475/900)
 Step: code_fixer — polling (attempt 476/900)
+Step: code_fixer — polling (attempt 477/900)
+Step: code_fixer — polling (attempt 478/900)
+Step: code_fixer — polling (attempt 479/900)
+Step: code_fixer — polling (attempt 480/900)
+Step: code_fixer — polling (attempt 481/900)
+Step: code_fixer — polling (attempt 482/900)
+Step: code_fixer — polling (attempt 483/900)
+Step: code_fixer — polling (attempt 484/900)
+Step: code_fixer — polling (attempt 485/900)
+Step: code_fixer — polling (attempt 486/900)
+Step: code_fixer — polling (attempt 487/900)
+Step: code_fixer — polling (attempt 488/900)
+Step: code_fixer — polling (attempt 489/900)
+Step: code_fixer — polling (attempt 490/900)
+Step: code_fixer — polling (attempt 491/900)
+Step: code_fixer — polling (attempt 492/900)
+Step: code_fixer — polling (attempt 493/900)
+Step: code_fixer — polling (attempt 494/900)
+Step: code_fixer — polling (attempt 495/900)
+Done in 496 poll attempts.
+Self-healing failed (collector c_mt5sgta91r4gozaifs, status: error).
+Output written to results/heal_loop/heal-1.json
+Note: the heal did not complete, but scraper c_mt5sgta91r4gozaifs is unchanged and still works as it did before.
+Open https://brightdata.com/cp/scrapers/c_mt5sgta91r4gozaifs to inspect it, or re-run `bdata scraper heal` with a sharper prompt.

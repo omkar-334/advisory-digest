@@ -1,11 +1,11 @@
 # Advisory Digest
 
-One feed of tax, audit and compliance guidance from twelve accounting and advisory firms,
-collected by a single Bright Data Scraper Studio collector that repairs itself when a firm
-rebuilds its newsroom.
+One feed of tax, audit and compliance guidance from accounting and advisory firm newsrooms,
+collected by a fleet of Bright Data Scraper Studio collectors that repair themselves when a
+firm rebuilds its site.
 
 **Live demo:** https://advisory-digest.vercel.app
-**Collector ID:** `c_mt5sgta91r4gozaifs`
+**Collectors:** [`scripts/collectors.json`](scripts/collectors.json) (RSM: `c_mt5sgta91r4gozaifs`)
 
 Built for Into the Scrape-Verse (WeMakeDevs x Bright Data), 17-23 August 2026.
 
@@ -30,13 +30,27 @@ is replaced by one collector and one contract.
 
 | Step | Command |
 |---|---|
-| Build the collector from a description | `bdata scraper create <url> "<fields>"` |
-| Run it across all twelve newsrooms | `bdata scraper run <collector> --input-file scripts/firms.txt` |
-| Repair it when the contract breaks | `bdata scraper heal <collector> "<what broke>" --auto-approve` |
+| Build a collector from a description | `bdata scraper create <url> "<fields>"` |
+| Run the fleet and validate it | `./scripts/run_fleet.sh` |
+| Repair a collector when its site changes | `bdata scraper heal <collector> "<what broke>" --auto-approve` |
 | Review or reject a proposed fix | `bdata scraper approve <collector> [--reject]` |
 
 The Collector ID is the stable interface. A repair changes the scraper in place and leaves the
 ID untouched, so nothing downstream is aware that anything happened.
+
+### One collector per layout, not one collector for everything
+
+Scraper Studio generates extraction code against a specific site. A collector built on RSM
+returns nothing for BDO or Crowe, and `heal` will not bridge that gap: it repairs a collector
+against **its own** target when that target changes.
+
+We established this the expensive way. An early heal was asked to generalise the RSM collector
+across eleven unseen layouts; it ran for forty minutes and returned `status: error`. The
+collector was left untouched, which is worth knowing on its own: heal is non-destructive.
+
+So the fleet is one collector per newsroom layout, registered in `scripts/collectors.json`.
+What is shared across the fleet is the contract and the repair loop, which is where the
+leverage actually is.
 
 Two of the twelve targets (`crowe.com`, `marcumllp.com`) return HTTP 403 to a plain request,
 so the unblocking layer is doing real work rather than decorating the pitch. And Bright Data

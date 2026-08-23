@@ -1,0 +1,27 @@
+{
+  "_comment": "One collector per newsroom layout. Scraper Studio generates extraction code against a specific site, so a collector does not generalise across unrelated layouts; heal repairs a collector against its own target when that site changes. The contract and the heal loop are shared across the fleet.",
+  "collectors": [
+    {
+      "firm": "rsmus.com",
+      "name": "RSM",
+      "collector_id": "c_mt5sgta91r4gozaifs",
+      "url": "https://rsmus.com/insights.html",
+      "status": "live"
+    },
+    {
+      "firm": "advisory-digest.vercel.app",
+      "name": "Control newsroom",
+      "collector_id": "c_mt5tj2ej2p93igloht",
+      "url": "https://advisory-digest.vercel.app/control/insights.html",
+      "status": "live",
+      "note": "A page we control, used to prove the heal loop against a real markup change."
+    },
+    {
+      "firm": "bdo.com",
+      "name": "BDO",
+      "collector_id": "c_mt5tervz3swmvphrq",
+      "url": "https://www.bdo.com/insights",
+      "status": "live"
+    }
+  ]
+}
