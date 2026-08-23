@@ -1,16 +1,11 @@
 {
-  "stamp": "20260823T142642Z",
-  "source": "results/run_fleet/fleet-20260823T142249Z.json",
-  "total_rows": 113,
-  "sources": 5,
-  "healthy_sources": 4,
+  "stamp": "20260823T142659Z",
+  "source": "results/run_fleet/part-20260823T142249Z-c_mt5vy4lr2psac64sae.json",
+  "total_rows": 20,
+  "sources": 1,
+  "healthy_sources": 0,
   "healthy": false,
   "per_firm": {
-    "advisory-digest.vercel.app": {
-      "rows": 6,
-      "healthy": true,
-      "problems": []
-    },
     "bakertilly.com": {
       "rows": 20,
       "healthy": false,
@@ -18,21 +13,6 @@
         "On bakertilly.com, 'article_url' is empty on 20 of 20 articles (0% populated). That selector no longer matches the page.",
         "On bakertilly.com, 'published_date' is populated on only 0 of 20 articles (0%). Below 25% the date selector has stopped matching rather than the page simply carrying evergreen items. Re-detect the publication date on the article cards."
       ]
-    },
-    "bdo.com": {
-      "rows": 17,
-      "healthy": true,
-      "problems": []
-    },
-    "crowe.com": {
-      "rows": 9,
-      "healthy": true,
-      "problems": []
-    },
-    "rsmus.com": {
-      "rows": 61,
-      "healthy": true,
-      "problems": []
     }
   },
   "params": {
@@ -40,5 +20,5 @@
     "min_field_coverage": 0.7,
     "min_healthy_sources": 0.6
   },
-  "elapsed_sec": 0.003
+  "elapsed_sec": 0.002
 }

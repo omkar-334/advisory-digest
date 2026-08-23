@@ -22,6 +22,20 @@
       "collector_id": "c_mt5tervz3swmvphrq",
       "url": "https://www.bdo.com/insights",
       "status": "live"
+    },
+    {
+      "firm": "bakertilly.com",
+      "name": "Baker Tilly",
+      "collector_id": "c_mt5vy4lr2psac64sae",
+      "url": "https://www.bakertilly.com/insights",
+      "status": "live"
+    },
+    {
+      "firm": "crowe.com",
+      "name": "Crowe",
+      "collector_id": "c_mt5vx74mzar3afcrv",
+      "url": "https://www.crowe.com/insights",
+      "status": "live"
     }
   ]
 }
