@@ -150,6 +150,33 @@ button.ghost:hover{border-color:var(--ink)}
 .brief .who span{font-family:'IBM Plex Mono',monospace;font-size:.69rem;color:var(--ink-3);
   border:1px solid var(--rule);padding:1px 6px;border-radius:2px}
 
+/* ── ask ── */
+.suggest{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.suggest .chip{font-family:'IBM Plex Sans',sans-serif;font-size:.8rem}
+.answer{border:1px solid var(--rule-2);border-left:3px solid var(--verified);
+  background:var(--card);padding:20px 22px;margin-top:20px}
+.answer .ahead{display:flex;gap:14px;align-items:baseline;margin-bottom:11px}
+.conf{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.11em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px}
+.conf.high{background:#E4F0E8;color:var(--verified)}
+.conf.medium{background:#F5EDDC;color:var(--unread)}
+.conf.low{background:#F5E3E3;color:var(--exception)}
+.atext{margin:0;font-size:1rem;line-height:1.62;color:var(--ink);max-width:74ch}
+.cite{padding:5px 0;border-bottom:1px solid var(--rule);font-size:.88rem}
+.cite:last-child{border-bottom:0}
+.cite a{color:var(--ink);text-decoration:none;border-bottom:1px solid transparent}
+.cite a:hover{border-bottom-color:var(--ink)}
+.cite .src{display:block;font-family:'IBM Plex Mono',monospace;font-size:.72rem;
+  color:var(--ink-3);margin-top:2px}
+.follow{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px;padding-top:14px;
+  border-top:1px solid var(--rule)}
+
+/* ── reliability scorecard ── */
+.scoretotals{display:flex;gap:26px;flex-wrap:wrap;margin:0 0 16px;font-size:.85rem;
+  color:var(--ink-2)}
+.scoretotals b{font-family:'IBM Plex Mono',monospace;font-size:1.2rem;color:var(--ink);
+  font-weight:600;margin-right:4px}
+
 /* ── for you ── */
 textarea{background:var(--card);border:1px solid var(--rule-2);color:var(--ink);font:inherit;
   font-size:.92rem;padding:11px 13px;border-radius:2px;width:100%;resize:vertical;
@@ -364,6 +391,7 @@ footer b{color:var(--ink-2)}
       <button class="tab" role="tab" aria-selected="true"  data-view="entry">Overview</button>
       <button class="tab" role="tab" aria-selected="false" data-view="consensus">Consensus</button>
       <button class="tab" role="tab" aria-selected="false" data-view="signals">Top signals</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="ask">Ask</button>
       <button class="tab" role="tab" aria-selected="false" data-view="foryou">For you</button>
       <button class="tab" role="tab" aria-selected="false" data-view="feed">Articles</button>
       <button class="tab" role="tab" aria-selected="false" data-view="health">Pipeline</button>
@@ -446,6 +474,23 @@ footer b{color:var(--ink-2)}
     <div id="list"></div>
   </section>
 
+  <section id="ask" hidden>
+    <p class="lede">
+      Ask about anything the firms have published. The answer is drawn only from the
+      collected articles and cites which firm said what.
+    </p>
+    <form class="form" id="askForm">
+      <label for="question" class="eyebrow" style="margin:0 0 8px">Your question</label>
+      <div class="row">
+        <input type="text" id="question" autocomplete="off" required
+               placeholder="What are firms saying about Section 174?">
+        <button class="go" type="submit" id="askBtn">Ask</button>
+      </div>
+      <div class="suggest" id="suggest"></div>
+    </form>
+    <div id="answer"></div>
+  </section>
+
   <section id="foryou" hidden>
     <p class="lede">
       Most of what these firms publish will not apply to you. Describe the business and this
@@ -477,6 +522,14 @@ footer b{color:var(--ink-2)}
     <div class="cadence" id="cadence"></div>
     <div class="eyebrow">Contract status by source</div>
     <table class="ledger" id="ledger"></table>
+    <div class="eyebrow">Which sites are hostile to extraction</div>
+    <p class="lede" style="margin-top:0">
+      A byproduct of repairing collectors for a week: a record of which sites broke, how,
+      and whether the repair held. It exists only because the pipeline keeps a contract and
+      logs every attempt.
+    </p>
+    <div id="scorecard"></div>
+
     <div class="eyebrow">Repair log <span id="healCount"></span></div>
     <div id="healsProd"></div>
     <div class="eyebrow">Self-healing verification</div>
@@ -549,7 +602,7 @@ const firmName = h => NAMES[h] || (h||'').replace(/^www\./,'').split('.')[0]
   .replace(/\b\w/g,c=>c.toUpperCase());
 
 let ROWS=[], HEALTH=null, HEALS=[], SIGNALS=null, SCHEDULE=null, BRIEFS=null, DIGEST=null,
-    activeFirm=null;
+    RELIABILITY=null, activeFirm=null;
 
 let LOAD_ERRORS = [];
 
@@ -571,7 +624,8 @@ async function load(){
     get('data/signals.json'),
     get('data/schedule.json'),
   ]);
-  [BRIEFS, DIGEST] = await Promise.all([get('data/briefs.json'), get('data/digest.json')]);
+  [BRIEFS, DIGEST, RELIABILITY] = await Promise.all([
+    get('data/briefs.json'), get('data/digest.json'), get('data/reliability.json')]);
   renderLoadErrors();
   render();
 }
@@ -594,7 +648,61 @@ function renderLoadErrors(){
 
 function render(){ renderStamp(); renderEntry(); renderDigest(); renderBriefs(); renderStages(); renderCadence();
   renderMatrix(); renderSignals(); renderCooc(); renderChips(); renderList();
-  renderLedger(); renderHeals(); }
+  renderLedger(); renderScorecard(); renderHeals(); renderSuggestions(); }
+
+/* The scorecard grades on what happened, not on a score anyone invented. */
+function renderScorecard(){
+  const el = $('#scorecard'); if(!el) return;
+  const r = RELIABILITY;
+  if(!r?.sources?.length){
+    el.innerHTML = `<div class="empty">No reliability record yet. Generated by <code>scripts/reliability.py</code>.</div>`;
+    return;
+  }
+  const t = r.totals;
+  el.innerHTML =
+    `<div class="scoretotals">
+       <span><b>${esc(t.stable)}</b> never needed repair</span>
+       <span><b>${esc(t.repairs_that_held)}</b> repaired in place</span>
+       <span><b>${esc(t.false_alarms)}</b> false alarm${t.false_alarms===1?'':'s'}</span>
+       <span><b>${esc(t.never_worked)}</b> never worked</span>
+     </div>` +
+    `<table class="ledger"><thead><tr><th>Source</th><th>Verdict</th>
+       <th style="text-align:right">Articles</th><th>What happened</th></tr></thead><tbody>` +
+    r.sources.map(s=>{
+      const cls = s.grade==='never_worked' ? 'bad'
+                : s.grade==='repaired' ? 'ok'
+                : s.grade==='false_alarm' ? 'warn' : 'ok';
+      const last = s.incidents[s.incidents.length-1];
+      return `<tr>
+        <td><b>${esc(s.name)}</b><br><span class="hmeta mono">${esc(s.collector_id)}</span></td>
+        <td><span class="state ${cls}">${esc(s.grade_label)}</span></td>
+        <td class="num">${esc(s.rows)}</td>
+        <td>${last?`<span class="hmeta">${esc(last.resolution || last.diagnosis || '')}</span>`
+                  :`<span class="hmeta">${esc(s.grade_note)}</span>`}</td>
+      </tr>`;
+    }).join('') + '</tbody></table>' +
+    (r.fleet_incidents?.length
+      ? `<div class="eyebrow" style="margin-top:26px">Fleet-wide incidents</div>` +
+        r.fleet_incidents.map(i=>`
+          <div class="heal ${i.outcome==='repaired'?'':'warn'}">
+            <div class="when">${esc(i.stamp)}</div>
+            <h4>${esc(i.trigger)}</h4>
+            <p>${esc(i.resolution || i.diagnosis)}</p>
+          </div>`).join('')
+      : '');
+}
+
+const SUGGESTED = [
+  'What are firms saying about Section 174?',
+  'Do the firms agree on how AI should be used in audits?',
+  'What has been published about state and local tax recently?',
+];
+
+function renderSuggestions(){
+  const el = $('#suggest'); if(!el) return;
+  el.innerHTML = SUGGESTED.map(q=>
+    `<button type="button" class="chip" data-ask="${esc(q)}">${esc(q)}</button>`).join('');
+}
 
 const STAGES = [
   ['Discover',  'A proposed URL is classified and gated before a credit is spent.'],
@@ -970,7 +1078,7 @@ document.addEventListener('click', e=>{
   const tab = e.target.closest('.tab');
   if(tab){
     document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected', t===tab));
-    ['entry','consensus','signals','foryou','feed','health','add'].forEach(v=>
+    ['entry','consensus','signals','ask','foryou','feed','health','add'].forEach(v=>
       $('#'+v).hidden = tab.dataset.view!==v);
   }
   const jump = e.target.closest('[data-goto]');
@@ -1060,6 +1168,59 @@ $('#profileForm')?.addEventListener('submit', async e=>{
     box.innerHTML = `<div class="loaderr"><b>Could not filter</b><p>${esc(String(err))}</p></div>`;
   }finally{ btn.disabled = false; btn.textContent = 'Find what applies'; }
 });
+
+$('#askForm')?.addEventListener('submit', async e=>{
+  e.preventDefault();
+  await ask($('#question').value.trim());
+});
+
+document.addEventListener('click', e=>{
+  const s = e.target.closest('[data-ask]');
+  if(s){ $('#question').value = s.dataset.ask; ask(s.dataset.ask); }
+});
+
+async function ask(question){
+  const box = $('#answer'), btn = $('#askBtn');
+  if(!question || question.length < 5){
+    box.innerHTML = `<div class="empty">Ask a question about what the firms are publishing.</div>`;
+    return;
+  }
+  btn.disabled = true; btn.textContent = 'Reading…';
+  box.innerHTML = `<div class="empty">Reading ${ROWS.length} articles…</div>`;
+  try{
+    const r = await fetch('/api/ask',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({question})
+    });
+    const d = await r.json();
+    if(!r.ok){
+      box.innerHTML = `<div class="loaderr"><b>Could not answer that</b>
+        <p>${esc(d.error||'Something went wrong.')}${d.hint?'<br>'+esc(d.hint):''}</p></div>`;
+      return;
+    }
+    box.innerHTML = `
+      <div class="answer">
+        <div class="ahead">
+          <span class="conf ${esc(d.confidence)}">${esc(d.confidence)} confidence</span>
+          <span class="hmeta">searched ${esc(d.searched)} articles</span>
+        </div>
+        <p class="atext">${esc(d.answer)}</p>
+        ${d.citations.length?`<div class="cites">
+          <div class="eyebrow" style="margin:14px 0 8px">Drawn from</div>
+          ${d.citations.map(c=>`
+            <div class="cite">
+              ${c.url?`<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title)}</a>`:esc(c.title)}
+              <span class="src">${esc(firmName(c.firm))}${c.date?' · '+esc(fmtDate(c.date)):''}</span>
+            </div>`).join('')}
+        </div>`:''}
+        ${d.followups?.length?`<div class="follow">
+          ${d.followups.map(f=>`<button type="button" class="chip" data-ask="${esc(f)}">${esc(f)}</button>`).join('')}
+        </div>`:''}
+      </div>`;
+  }catch(err){
+    box.innerHTML = `<div class="loaderr"><b>Could not answer that</b><p>${esc(String(err))}</p></div>`;
+  }finally{ btn.disabled = false; btn.textContent = 'Ask'; }
+}
 
 $('#q').addEventListener('input', renderList);
 load();

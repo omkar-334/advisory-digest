@@ -1,12 +1,30 @@
 [
  {
+  "stamp": "20260823T124500Z",
+  "firm": "fleet",
+  "collector": "c_mt5sgta91r4gozaifs",
+  "kind": "production",
+  "outcome": "failed",
+  "trigger": "Twelve firm URLs fed to a single collector built against RSM; eleven returned nothing.",
+  "diagnosis": "Asked heal to rewrite the extraction to cover eleven unseen layouts generically.",
+  "resolution": "heal ran for 40 minutes through code_fixer and returned status: error. Scraper Studio generates extraction code against a specific site and heal repairs a collector against its own target; it will not port one to unrelated domains. The collector was left untouched, which is how we learned heal is non-destructive. Architecture changed to one collector per layout.",
+  "metrics": [
+   {
+    "label": "sources covered",
+    "before": "1 of 12",
+    "after": "1 of 12"
+   }
+  ]
+ },
+ {
   "stamp": "20260823T133000Z",
   "firm": "advisory-digest.vercel.app",
   "collector": "c_mt5tj2ej2p93igloht",
   "kind": "verification",
   "outcome": "repaired",
   "trigger": "Markup changed deliberately: CSS classes renamed and the headline nested one level deeper.",
-  "diagnosis": "The page layout has changed and the scraper now returns no articles at all. The class names and element nesting it matched on no longer exist.",
+  "diagnosis": "The page layout changed and the scraper returned no articles at all. The class names and element nesting it matched on no longer exist.",
+  "resolution": "Repaired unattended. Same collector ID, nothing downstream touched.",
   "metrics": [
    {
     "label": "articles extracted",
@@ -21,9 +39,9 @@
   "collector": "c_mt5tervz3swmvphrq",
   "kind": "production",
   "outcome": "no_change_needed",
-  "trigger": "Contract reported published_date at 47%. Investigated after the heal returned status: done with nothing altered.",
-  "diagnosis": "The scraper was not broken. BDO's listing mixes dated articles with evergreen podcast hubs, an eBook summary and an assessment tool, none of which carry a publication date. The contract assumed every listed item is a dated article.",
-  "resolution": "Contract corrected instead: partial date coverage is content, coverage below 25% is a break. Pinned by tests.",
+  "trigger": "Contract reported published_date at 47%. Investigated after heal returned done with nothing altered.",
+  "diagnosis": "The scraper was not broken. BDO's listing mixes dated articles with evergreen podcast hubs, an eBook summary and an assessment tool, none of which carry a publication date. The contract had assumed every listed item is dated.",
+  "resolution": "Contract corrected, not the scraper: partial date coverage is content, below 25% is a break. This is why the loop re-runs and re-validates rather than trusting a done status.",
   "metrics": [
    {
     "label": "published_date populated",
@@ -40,6 +58,7 @@
   "outcome": "repaired",
   "trigger": "Found by the contract on a routine run. Not staged.",
   "diagnosis": "'article_url' was empty on 20 of 20 articles and 'published_date' on 20 of 20. Both selectors had stopped matching the article cards.",
+  "resolution": "Repaired across two code_fixer rounds inside one heal, auto-approved and saved.",
   "metrics": [
    {
     "label": "article_url populated",
@@ -55,6 +74,74 @@
     "label": "articles extracted",
     "before": "20",
     "after": "20"
+   }
+  ]
+ },
+ {
+  "stamp": "20260823T150000Z",
+  "firm": "fleet",
+  "collector": "",
+  "kind": "production",
+  "outcome": "no_change_needed",
+  "trigger": "Seven of thirteen sources reported 'Crawler error: Navigation failed ... too many'.",
+  "diagnosis": "Read as broken selectors, the contract named five healthy firms in a heal prompt.",
+  "resolution": "Not a scraper problem: three orphaned fleet runs were racing each other, so Marcum was being scraped by four concurrent jobs. Running a collector is rate limited at the crawler, separately from the AI-Flow generation cap. Concurrency reduced to 2, and the contract taught to separate a failed run from a break so heal is never dispatched at one.",
+  "metrics": [
+   {
+    "label": "sources healthy",
+    "before": "6 of 13",
+    "after": "11 of 13"
+   }
+  ]
+ },
+ {
+  "stamp": "20260823T160000Z",
+  "firm": "grantthornton.com",
+  "collector": "c_mt5w1v571ibeftw93o",
+  "kind": "production",
+  "outcome": "no_change_needed",
+  "trigger": "scraper create returned poll_failed: 'Timeout after 600 seconds waiting for AI generation'.",
+  "diagnosis": "Reported as a failed build.",
+  "resolution": "Generation had completed server-side after the CLI stopped watching. The collector returns 20 clean rows and was nearly discarded. A client-side poll timeout is not evidence a collector is dead: run it before rebuilding.",
+  "metrics": [
+   {
+    "label": "articles extracted",
+    "before": "0",
+    "after": "20"
+   }
+  ]
+ },
+ {
+  "stamp": "20260824T020000Z",
+  "firm": "marcumllp.com",
+  "collector": "c_mt5wv5lm2p2skgl1sa",
+  "kind": "production",
+  "outcome": "failed",
+  "trigger": "Never returned a row, including with zero competing runs.",
+  "diagnosis": "The run times out after ten minutes rather than returning an error envelope.",
+  "resolution": "Open. Not a contention victim and not a selector break the contract can describe; reported honestly as a source that has never worked rather than counted as coverage.",
+  "metrics": [
+   {
+    "label": "articles extracted",
+    "before": "0",
+    "after": "0"
+   }
+  ]
+ },
+ {
+  "stamp": "20260824T021000Z",
+  "firm": "withum.com",
+  "collector": "c_mt5wv3ts2pwjwagd70",
+  "kind": "production",
+  "outcome": "failed",
+  "trigger": "Never returned a row, including with zero competing runs.",
+  "diagnosis": "The run exits non-zero and writes no output.",
+  "resolution": "Open. Same treatment as Marcum: counted as a source that has never worked.",
+  "metrics": [
+   {
+    "label": "articles extracted",
+    "before": "0",
+    "after": "0"
    }
   ]
  }

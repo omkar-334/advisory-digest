@@ -1,0 +1,303 @@
+{
+ "sources": [
+  {
+   "firm": "marcumllp.com",
+   "name": "Marcum",
+   "collector_id": "c_mt5wv5lm2p2skgl1sa",
+   "rows": 0,
+   "healthy": false,
+   "run_failed": true,
+   "repairs": 0,
+   "false_alarms": 0,
+   "failures": 1,
+   "grade": "never_worked",
+   "grade_label": "Never worked",
+   "grade_note": "No run has produced a row. The collector exists; the site has never yielded data.",
+   "incidents": [
+    {
+     "stamp": "20260824T020000Z",
+     "outcome": "failed",
+     "diagnosis": "The run times out after ten minutes rather than returning an error envelope.",
+     "resolution": "Open. Not a contention victim and not a selector break the contract can describe; reported honestly as a source that has never worked rather than counted as coverage."
+    }
+   ]
+  },
+  {
+   "firm": "withum.com",
+   "name": "Withum",
+   "collector_id": "c_mt5wv3ts2pwjwagd70",
+   "rows": 0,
+   "healthy": false,
+   "run_failed": true,
+   "repairs": 0,
+   "false_alarms": 0,
+   "failures": 1,
+   "grade": "never_worked",
+   "grade_label": "Never worked",
+   "grade_note": "No run has produced a row. The collector exists; the site has never yielded data.",
+   "incidents": [
+    {
+     "stamp": "20260824T021000Z",
+     "outcome": "failed",
+     "diagnosis": "The run exits non-zero and writes no output.",
+     "resolution": "Open. Same treatment as Marcum: counted as a source that has never worked."
+    }
+   ]
+  },
+  {
+   "firm": "bakertilly.com",
+   "name": "Baker Tilly",
+   "collector_id": "c_mt5vy4lr2psac64sae",
+   "rows": 20,
+   "healthy": true,
+   "run_failed": false,
+   "repairs": 1,
+   "false_alarms": 0,
+   "failures": 0,
+   "grade": "repaired",
+   "grade_label": "Repaired",
+   "grade_note": "Broke and was fixed in place. The collector ID never changed.",
+   "incidents": [
+    {
+     "stamp": "20260823T143500Z",
+     "outcome": "repaired",
+     "diagnosis": "'article_url' was empty on 20 of 20 articles and 'published_date' on 20 of 20. Both selectors had stopped matching the article cards.",
+     "resolution": "Repaired across two code_fixer rounds inside one heal, auto-approved and saved."
+    }
+   ]
+  },
+  {
+   "firm": "advisory-digest.vercel.app",
+   "name": "Control newsroom",
+   "collector_id": "c_mt5tj2ej2p93igloht",
+   "rows": 6,
+   "healthy": true,
+   "run_failed": false,
+   "repairs": 1,
+   "false_alarms": 0,
+   "failures": 0,
+   "grade": "repaired",
+   "grade_label": "Repaired",
+   "grade_note": "Broke and was fixed in place. The collector ID never changed.",
+   "incidents": [
+    {
+     "stamp": "20260823T133000Z",
+     "outcome": "repaired",
+     "diagnosis": "The page layout changed and the scraper returned no articles at all. The class names and element nesting it matched on no longer exist.",
+     "resolution": "Repaired unattended. Same collector ID, nothing downstream touched."
+    }
+   ]
+  },
+  {
+   "firm": "bdo.com",
+   "name": "BDO",
+   "collector_id": "c_mt5tervz3swmvphrq",
+   "rows": 17,
+   "healthy": true,
+   "run_failed": false,
+   "repairs": 0,
+   "false_alarms": 1,
+   "failures": 0,
+   "grade": "false_alarm",
+   "grade_label": "Contract was wrong",
+   "grade_note": "Flagged as broken, but the scraper was fine and the contract had to be corrected.",
+   "incidents": [
+    {
+     "stamp": "20260823T134500Z",
+     "outcome": "no_change_needed",
+     "diagnosis": "The scraper was not broken. BDO's listing mixes dated articles with evergreen podcast hubs, an eBook summary and an assessment tool, none of which carry a publication date. The contract had assumed every listed item is dated.",
+     "resolution": "Contract corrected, not the scraper: partial date coverage is content, below 25% is a break. This is why the loop re-runs and re-validates rather than trusting a done status."
+    }
+   ]
+  },
+  {
+   "firm": "claconnect.com",
+   "name": "CLA",
+   "collector_id": "c_mt5wb3m12m48uhzx5",
+   "rows": 60,
+   "healthy": true,
+   "run_failed": false,
+   "repairs": 0,
+   "false_alarms": 0,
+   "failures": 0,
+   "grade": "stable",
+   "grade_label": "Stable",
+   "grade_note": "Has never needed a repair.",
+   "incidents": []
+  },
+  {
+   "firm": "cohnreznick.com",
+   "name": "CohnReznick",
+   "collector_id": "c_mt5wpwgj1xf6to97lv",
+   "rows": 10,
+   "healthy": true,
+   "run_failed": false,
+   "repairs": 0,
+   "false_alarms": 0,
+   "failures": 0,
+   "grade": "stable",
+   "grade_label": "Stable",
+   "grade_note": "Has never needed a repair.",
+   "incidents": []
+  },
+  {
+   "firm": "crowe.com",
+   "name": "Crowe",
+   "collector_id": "c_mt5vx74mzar3afcrv",
+   "rows": 9,
+   "healthy": true,
+   "run_failed": false,
+   "repairs": 0,
+   "false_alarms": 0,
+   "failures": 0,
+   "grade": "stable",
+   "grade_label": "Stable",
+   "grade_note": "Has never needed a repair.",
+   "incidents": []
+  },
+  {
+   "firm": "eisneramper.com",
+   "name": "EisnerAmper",
+   "collector_id": "c_mt5wlfz0naymfio",
+   "rows": 10,
+   "healthy": true,
+   "run_failed": false,
+   "repairs": 0,
+   "false_alarms": 0,
+   "failures": 0,
+   "grade": "stable",
+   "grade_label": "Stable",
+   "grade_note": "Has never needed a repair.",
+   "incidents": []
+  },
+  {
+   "firm": "grantthornton.com",
+   "name": "Grant Thornton",
+   "collector_id": "c_mt5w1v571ibeftw93o",
+   "rows": 20,
+   "healthy": true,
+   "run_failed": false,
+   "repairs": 0,
+   "false_alarms": 1,
+   "failures": 0,
+   "grade": "false_alarm",
+   "grade_label": "Contract was wrong",
+   "grade_note": "Flagged as broken, but the scraper was fine and the contract had to be corrected.",
+   "incidents": [
+    {
+     "stamp": "20260823T160000Z",
+     "outcome": "no_change_needed",
+     "diagnosis": "Reported as a failed build.",
+     "resolution": "Generation had completed server-side after the CLI stopped watching. The collector returns 20 clean rows and was nearly discarded. A client-side poll timeout is not evidence a collector is dead: run it before rebuilding."
+    }
+   ]
+  },
+  {
+   "firm": "plantemoran.com",
+   "name": "Plante Moran",
+   "collector_id": "c_mt5wcsvr26i9gs5gra",
+   "rows": 4,
+   "healthy": true,
+   "run_failed": false,
+   "repairs": 0,
+   "false_alarms": 0,
+   "failures": 0,
+   "grade": "stable",
+   "grade_label": "Stable",
+   "grade_note": "Has never needed a repair.",
+   "incidents": []
+  },
+  {
+   "firm": "pwc.com",
+   "name": "PwC",
+   "collector_id": "c_mt5x5gj2zbpetqvmj",
+   "rows": 44,
+   "healthy": true,
+   "run_failed": false,
+   "repairs": 0,
+   "false_alarms": 0,
+   "failures": 0,
+   "grade": "stable",
+   "grade_label": "Stable",
+   "grade_note": "Has never needed a repair.",
+   "incidents": []
+  },
+  {
+   "firm": "rsmus.com",
+   "name": "RSM",
+   "collector_id": "c_mt5sgta91r4gozaifs",
+   "rows": 55,
+   "healthy": true,
+   "run_failed": false,
+   "repairs": 0,
+   "false_alarms": 0,
+   "failures": 0,
+   "grade": "stable",
+   "grade_label": "Stable",
+   "grade_note": "Has never needed a repair.",
+   "incidents": []
+  }
+ ],
+ "fleet_incidents": [
+  {
+   "stamp": "20260823T124500Z",
+   "firm": "fleet",
+   "collector": "c_mt5sgta91r4gozaifs",
+   "kind": "production",
+   "outcome": "failed",
+   "trigger": "Twelve firm URLs fed to a single collector built against RSM; eleven returned nothing.",
+   "diagnosis": "Asked heal to rewrite the extraction to cover eleven unseen layouts generically.",
+   "resolution": "heal ran for 40 minutes through code_fixer and returned status: error. Scraper Studio generates extraction code against a specific site and heal repairs a collector against its own target; it will not port one to unrelated domains. The collector was left untouched, which is how we learned heal is non-destructive. Architecture changed to one collector per layout.",
+   "metrics": [
+    {
+     "label": "sources covered",
+     "before": "1 of 12",
+     "after": "1 of 12"
+    }
+   ]
+  },
+  {
+   "stamp": "20260823T150000Z",
+   "firm": "fleet",
+   "collector": "",
+   "kind": "production",
+   "outcome": "no_change_needed",
+   "trigger": "Seven of thirteen sources reported 'Crawler error: Navigation failed ... too many'.",
+   "diagnosis": "Read as broken selectors, the contract named five healthy firms in a heal prompt.",
+   "resolution": "Not a scraper problem: three orphaned fleet runs were racing each other, so Marcum was being scraped by four concurrent jobs. Running a collector is rate limited at the crawler, separately from the AI-Flow generation cap. Concurrency reduced to 2, and the contract taught to separate a failed run from a break so heal is never dispatched at one.",
+   "metrics": [
+    {
+     "label": "sources healthy",
+     "before": "6 of 13",
+     "after": "11 of 13"
+    }
+   ]
+  }
+ ],
+ "totals": {
+  "collectors": 13,
+  "working": 11,
+  "repairs_that_held": 2,
+  "false_alarms": 2,
+  "never_worked": 2,
+  "stable": 7
+ },
+ "grades": {
+  "never_worked": {
+   "label": "Never worked",
+   "note": "No run has produced a row. The collector exists; the site has never yielded data."
+  },
+  "repaired": {
+   "label": "Repaired",
+   "note": "Broke and was fixed in place. The collector ID never changed."
+  },
+  "false_alarm": {
+   "label": "Contract was wrong",
+   "note": "Flagged as broken, but the scraper was fine and the contract had to be corrected."
+  },
+  "stable": {
+   "label": "Stable",
+   "note": "Has never needed a repair."
+  }
+ }
+}
