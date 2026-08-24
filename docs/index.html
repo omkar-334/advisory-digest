@@ -139,6 +139,10 @@ button.ghost:hover{border-color:var(--ink)}
 .step[disabled]{color:var(--rule-2);cursor:default}
 .dcount{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-3);
   min-width:5.5ch;text-align:center}
+.dhint{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);margin-right:2px}
+.dwalk{margin-top:10px!important;font-size:.78rem!important;color:var(--ink-3)!important}
+.dwalk b{color:var(--ink-2)}
 .digest h2{font-family:'IBM Plex Sans Condensed',sans-serif;font-size:1.32rem;font-weight:700;
   letter-spacing:-.015em;margin:0 0 8px;line-height:1.2}
 .digest p{margin:0;font-size:.92rem;line-height:1.6;color:var(--ink-2);max-width:74ch}
@@ -378,9 +382,18 @@ pre.cmd{background:var(--ink);color:#E8EDE4;font-family:'IBM Plex Mono',monospac
   color:var(--ink-2)}
 .loaderr p{margin:9px 0 0;color:var(--ink-2);line-height:1.55}
 .loaderr code{background:var(--bar);padding:1px 5px;border-radius:2px;font-size:.8rem}
-footer{margin-top:52px;padding:18px 0 40px;font-size:.79rem;color:var(--ink-3);
-  display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+/* Always visible, quiet enough to ignore. The page scrolls under it, so the body carries
+   matching bottom padding and nothing is ever hidden behind it. */
+footer{position:fixed;inset:auto 0 0 0;z-index:30;
+  display:flex;gap:9px;justify-content:center;align-items:center;flex-wrap:wrap;
+  padding:9px 20px;font-size:.74rem;color:var(--ink-3);
+  background:rgba(251,250,247,.92);backdrop-filter:blur(6px);
+  border-top:1px solid var(--rule)}
 footer .sep{color:var(--rule-2)}
+footer a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule-2)}
+footer a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+body{padding-bottom:52px}
+@media(max-width:560px){footer{font-size:.7rem;gap:6px}body{padding-bottom:64px}}
 footer details{margin-top:10px;max-width:80ch}
 footer summary{cursor:pointer;color:var(--ink-2);font-weight:500}
 footer p{margin:.6rem 0 0;line-height:1.65}
@@ -746,6 +759,20 @@ function renderEntry(){
 /* The digest answers "did anything happen" before the reader has to interpret a matrix. */
 let digestIndex = 0;
 
+/* "28 days to 16 Jul" reads as jargon. A plain start-to-end range is what a reader
+   actually wants to know: which stretch of time this edition covers. */
+function editionRange(ed){
+  const end = Date.parse(ed.date);
+  if(isNaN(end)) return esc(ed.date || '');
+  const days = ed.window_days;
+  if(!days) return fmtDate(ed.date);
+  const start = new Date(end - days * 86400000);
+  const opts = {day:'numeric', month:'short'};
+  const sameYear = start.getFullYear() === new Date(end).getFullYear();
+  return `${start.toLocaleDateString('en-GB', sameYear ? opts : {...opts, year:'numeric'})}`
+       + ` – ${fmtDate(ed.date)}`;
+}
+
 /* Editions run newest-first. Stepping back through them is the only way to see a trend
    rather than a snapshot, which is the point of keeping a history at all. */
 function renderDigest(){
@@ -758,8 +785,9 @@ function renderDigest(){
     <div class="digest">
       <div class="dhead">
         <span class="dlabel">${esc(digestIndex === 0 ? 'Latest' : 'Earlier')}</span>
-        <span class="dwhen">${esc(ed.window_days ? ed.window_days + ' days to ' : '')}${esc(fmtDate(ed.date))} · ${esc(ed.articles_in_period)} article${ed.articles_in_period===1?'':'s'}</span>
+        <span class="dwhen">${esc(editionRange(ed))} · ${esc(ed.articles_in_period)} article${ed.articles_in_period===1?'':'s'}</span>
         ${eds.length > 1 ? `<span class="dnav">
+          <span class="dhint">${older ? 'earlier' : 'latest'}</span>
           <button type="button" class="step" data-digest="older" ${older?'':'disabled'} aria-label="Earlier edition">&larr;</button>
           <span class="dcount">${esc(eds.length - digestIndex)} of ${esc(eds.length)}</span>
           <button type="button" class="step" data-digest="newer" ${newer?'':'disabled'} aria-label="Later edition">&rarr;</button>
@@ -770,6 +798,9 @@ function renderDigest(){
       ${ed.watch?`<p class="dwatch"><b>Watch:</b> ${esc(ed.watch)}</p>`:''}
       ${(ed.new_subjects||[]).length
         ? `<p class="dnew"><b>New since last time:</b> ${ed.new_subjects.map(esc).join(' · ')}</p>`:''}
+      ${eds.length > 1 ? `<p class="dwalk">${older
+        ? `Step back through <b>${esc(eds.length)}</b> editions to see how coverage shifted.`
+        : 'This is the earliest edition held.'}</p>`:''}
     </div>`;
 }
 
