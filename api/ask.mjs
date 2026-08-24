@@ -31,14 +31,21 @@ If it is a QUESTION, answer it:
 
 If it is a PROFILE, select what applies:
 - Relevance means the article would change what this company does, or what it needs to know.
-  Not "mentions their industry" — actually applies to them.
-- Be strict. Three genuinely relevant articles beat fifteen loosely related ones. If nothing
-  applies, return an empty list and say so in "answer".
+  Not "mentions their industry" — actually applies to them. An article about preparing for a
+  first audit IS relevant to a company facing its first audit; an article about hospital
+  reimbursement is not relevant to a software company.
+- Be selective rather than exhaustive: three genuinely relevant articles beat fifteen loosely
+  related ones. Aim for the three to eight that most apply.
 - Put chosen article indexes in "citations", most relevant first, and give each a "why" in
   "reasons" (same order, at most 18 words each, specific to this company).
+- "answer" is one or two sentences saying what the profession is currently publishing that
+  bears on this business. If genuinely nothing applies, say that and name what the firms are
+  writing about instead.
 
 Always:
 - Never invent an article. Only use indexes you were given.
+- "answer" is NEVER empty. An empty answer is indistinguishable from a failure, and a reader
+  cannot tell the difference between "nothing applies" and "something went wrong".
 - "confidence" is low when fewer than two articles bear on the input.
 
 Return JSON only: {"mode": "question"|"profile", "answer": str, "citations": [int],
@@ -108,7 +115,11 @@ export default async function handler(req, res) {
     const content = body.choices?.[0]?.message?.content;
     if (typeof content !== 'string') throw new Error('model returned no content');
     verdict = JSON.parse(content);
-    if (!verdict || typeof verdict.answer !== 'string') throw new Error('model returned no answer');
+    // An empty answer is not a valid result. It renders as a confident "nothing found",
+    // which is indistinguishable from a failure and is wrong more often than it is right.
+    if (!verdict || typeof verdict.answer !== 'string' || !verdict.answer.trim()) {
+      throw new Error('model returned an empty answer');
+    }
   } catch (e) {
     // Never degrade to an empty result: "nothing found" and "the model failed" look
     // identical to a reader, and only one of them is true.
