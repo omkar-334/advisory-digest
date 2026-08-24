@@ -2,142 +2,40 @@
  "model": "gpt-4o-mini",
  "editions": [
   {
-   "stamp": "20260823T223627Z",
-   "date": "2026-08-23",
-   "period": "weekly",
-   "headline": "AI in Auditing Gains Consensus Among Multiple Firms",
-   "summary": "Eight firms published 30 articles on AI in auditing, highlighting its role in enhancing efficiency while underscoring the importance of human judgment for trust and quality. Other notable topics included audit resilience, government contracting risks, SALT planning, and healthcare strategy execution, each with a clear consensus on their significance.",
-   "watch": "Monitor developments in AI applications within auditing practices.",
-   "articles_in_period": 58,
-   "new_subjects": [],
-   "quiet_subjects": [],
-   "top": [
-    {
-     "topic": "AI in Auditing",
-     "firms": 8
-    },
-    {
-     "topic": "Audit Resilience",
-     "firms": 5
-    },
-    {
-     "topic": "Government Contracting Risks",
-     "firms": 4
-    },
-    {
-     "topic": "State and Local Tax (SALT) Planning",
-     "firms": 4
-    },
-    {
-     "topic": "Healthcare Strategy Execution",
-     "firms": 4
-    }
-   ],
-   "subjects": [
-    "AI in Auditing",
-    "Government Contracting Risks",
-    "State and Local Tax (SALT) Planning",
-    "Audit Resilience",
-    "Healthcare Strategy Execution",
-    "Mergers & Acquisitions in Healthcare",
-    "Business Tax Compliance",
-    "Digital Transformation in Finance",
-    "R&D Capitalisation under Section 174",
-    "Tax Strategies for Nonprofits",
-    "Cybersecurity in Private Companies",
-    "Opportunity Zones Tax Incentives",
-    "Financial Due Diligence",
-    "Change Management in HR",
-    "HCM Software Implementation"
-   ]
-  },
-  {
-   "stamp": "20260823T221916Z",
-   "date": "2026-08-23",
-   "period": "weekly",
-   "headline": "AI in Auditing Gains Consensus Among Multiple Firms",
-   "summary": "Eight firms published 30 articles on AI in auditing, highlighting its role in enhancing efficiency while underscoring the importance of human judgment for trust and quality. Other notable topics included audit resilience, government contracting risks, SALT planning, and healthcare strategy execution, with multiple firms emphasizing the need for robust processes and compliance.",
-   "watch": "Monitor developments in AI applications within auditing practices.",
-   "articles_in_period": 58,
-   "new_subjects": [],
-   "quiet_subjects": [],
-   "top": [
-    {
-     "topic": "AI in Auditing",
-     "firms": 8
-    },
-    {
-     "topic": "Audit Resilience",
-     "firms": 5
-    },
-    {
-     "topic": "Government Contracting Risks",
-     "firms": 4
-    },
-    {
-     "topic": "State and Local Tax (SALT) Planning",
-     "firms": 4
-    },
-    {
-     "topic": "Healthcare Strategy Execution",
-     "firms": 4
-    }
-   ],
-   "subjects": [
-    "AI in Auditing",
-    "Government Contracting Risks",
-    "State and Local Tax (SALT) Planning",
-    "Audit Resilience",
-    "Healthcare Strategy Execution",
-    "Mergers & Acquisitions in Healthcare",
-    "Business Tax Compliance",
-    "Digital Transformation in Finance",
-    "R&D Capitalisation under Section 174",
-    "Tax Strategies for Nonprofits",
-    "Cybersecurity in Private Companies",
-    "Opportunity Zones Tax Incentives",
-    "Financial Due Diligence",
-    "Change Management in HR",
-    "HCM Software Implementation"
-   ]
-  },
-  {
-   "stamp": "20260823T221231Z",
-   "date": "2026-08-23",
-   "period": "weekly",
-   "headline": "AI in Auditing Gains Consensus Among Multiple Firms",
-   "summary": "Several firms converged on the importance of AI in auditing, highlighting its role in enhancing efficiency while maintaining the necessity of human judgment. Other notable topics included audit resilience and government contracting risks, both emphasizing the need for robust processes and compliance. No significant subjects dropped out this week.",
-   "watch": "Monitor developments in AI applications within auditing practices.",
-   "articles_in_period": 63,
+   "stamp": "20260821T000000Z",
+   "date": "2026-08-21",
+   "period": "rolling",
+   "window_days": 28,
+   "label": "21 Aug 2026",
+   "headline": "New focus on Government Contracting and Audit Resilience",
+   "summary": "Several firms highlighted emerging risks in government contracting, including cyber threats and compliance challenges. Additionally, there is a growing emphasis on audit resilience and the role of technology in business tax compliance. These trends suggest areas for potential strategic adjustments.",
+   "watch": "Monitor developments in government contracting risks and audit resilience strategies.",
+   "articles_in_period": 83,
    "new_subjects": [
-    "AI in Auditing",
     "Government Contracting Risks",
-    "State and Local Tax (SALT) Planning",
     "Audit Resilience",
-    "Healthcare Strategy Execution",
-    "Mergers & Acquisitions in Healthcare"
+    "Business Tax Compliance"
    ],
-   "quiet_subjects": [],
    "top": [
     {
      "topic": "AI in Auditing",
-     "firms": 8
-    },
-    {
-     "topic": "Audit Resilience",
-     "firms": 5
+     "firms": 4
     },
     {
      "topic": "Government Contracting Risks",
-     "firms": 4
+     "firms": 3
     },
     {
      "topic": "State and Local Tax (SALT) Planning",
-     "firms": 4
+     "firms": 3
     },
     {
-     "topic": "Healthcare Strategy Execution",
-     "firms": 4
+     "topic": "Audit Resilience",
+     "firms": 2
+    },
+    {
+     "topic": "Business Tax Compliance",
+     "firms": 2
     }
    ],
    "subjects": [
@@ -145,18 +43,126 @@
     "Government Contracting Risks",
     "State and Local Tax (SALT) Planning",
     "Audit Resilience",
-    "Healthcare Strategy Execution",
-    "Mergers & Acquisitions in Healthcare",
-    "Business Tax Compliance",
-    "Digital Transformation in Finance",
-    "R&D Capitalisation under Section 174",
-    "Tax Strategies for Nonprofits",
-    "Cybersecurity in Private Companies",
-    "Opportunity Zones Tax Incentives",
-    "Financial Due Diligence",
-    "Change Management in HR",
-    "HCM Software Implementation"
+    "Business Tax Compliance"
    ]
+  },
+  {
+   "stamp": "20260816T000000Z",
+   "date": "2026-08-16",
+   "period": "rolling",
+   "window_days": 28,
+   "label": "16 Aug 2026",
+   "headline": "Increased focus on State and Local Tax Planning",
+   "summary": "Two firms highlighted the need for attention to evolving regulations in State and Local Tax (SALT) Planning, including unclaimed property and property tax valuations. Additionally, AI's role in auditing was discussed, emphasizing the balance between technology and human judgment.",
+   "watch": "Monitor developments in SALT regulations and their implications for financial strategies.",
+   "articles_in_period": 34,
+   "new_subjects": [
+    "State and Local Tax (SALT) Planning"
+   ],
+   "top": [
+    {
+     "topic": "State and Local Tax (SALT) Planning",
+     "firms": 2
+    },
+    {
+     "topic": "AI in Auditing",
+     "firms": 2
+    }
+   ],
+   "subjects": [
+    "State and Local Tax (SALT) Planning",
+    "AI in Auditing"
+   ]
+  },
+  {
+   "stamp": "20260806T000000Z",
+   "date": "2026-08-06",
+   "period": "rolling",
+   "window_days": 28,
+   "label": "6 Aug 2026",
+   "headline": "AI in Auditing Gains Attention Among Advisory Firms",
+   "summary": "Two firms highlighted the role of AI in enhancing audit efficiency and effectiveness, while stressing the importance of human judgment and relationships for maintaining trust and quality. No new subjects emerged this period, indicating a stable news environment.",
+   "watch": "",
+   "articles_in_period": 35,
+   "new_subjects": [],
+   "top": [
+    {
+     "topic": "AI in Auditing",
+     "firms": 2
+    }
+   ],
+   "subjects": [
+    "AI in Auditing"
+   ]
+  },
+  {
+   "stamp": "20260731T000000Z",
+   "date": "2026-07-31",
+   "period": "rolling",
+   "window_days": 28,
+   "label": "31 Jul 2026",
+   "headline": "Change Management and AI in Auditing Gain Attention",
+   "summary": "Two firms reported on Change Management in HR, while two others discussed AI in Auditing, highlighting its role in enhancing efficiency. Both topics indicate a growing focus on integrating technology and management practices in advisory services.",
+   "watch": "Monitor developments in AI applications within auditing for potential impacts.",
+   "articles_in_period": 35,
+   "new_subjects": [],
+   "top": [
+    {
+     "topic": "Change Management in HR",
+     "firms": 2
+    },
+    {
+     "topic": "AI in Auditing",
+     "firms": 2
+    }
+   ],
+   "subjects": [
+    "Change Management in HR",
+    "AI in Auditing"
+   ]
+  },
+  {
+   "stamp": "20260724T000000Z",
+   "date": "2026-07-24",
+   "period": "rolling",
+   "window_days": 28,
+   "label": "24 Jul 2026",
+   "headline": "Change Management in HR and AI in Auditing Gain Attention",
+   "summary": "Two independent firms reported on Change Management in HR and AI in Auditing, indicating a growing focus on these topics. Both RSM and BDO highlighted that while AI can improve audit processes, human judgment is essential for maintaining trust and quality.",
+   "watch": "Monitor developments in AI applications within auditing practices.",
+   "articles_in_period": 27,
+   "new_subjects": [
+    "Change Management in HR",
+    "AI in Auditing"
+   ],
+   "top": [
+    {
+     "topic": "Change Management in HR",
+     "firms": 2
+    },
+    {
+     "topic": "AI in Auditing",
+     "firms": 2
+    }
+   ],
+   "subjects": [
+    "Change Management in HR",
+    "AI in Auditing"
+   ]
+  },
+  {
+   "stamp": "20260716T000000Z",
+   "date": "2026-07-16",
+   "period": "rolling",
+   "window_days": 28,
+   "label": "16 Jul 2026",
+   "headline": "No significant developments reported across advisory firms",
+   "summary": "This period saw no new subjects emerge, and no topics were covered by multiple firms. Overall, it was a quiet week with no actionable insights for finance and accounting professionals.",
+   "watch": "",
+   "articles_in_period": 19,
+   "new_subjects": [],
+   "top": [],
+   "subjects": []
   }
  ]
 }

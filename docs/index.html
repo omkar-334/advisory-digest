@@ -126,6 +126,13 @@ button.ghost:hover{border-color:var(--ink)}
 .dlabel{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.13em;
   text-transform:uppercase;color:var(--paper);background:var(--ink);padding:3px 8px}
 .dwhen{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-3)}
+.dnav{margin-left:auto;display:flex;align-items:center;gap:8px}
+.step{appearance:none;background:none;border:1px solid var(--rule-2);border-radius:2px;
+  color:var(--ink);font:inherit;font-size:.82rem;line-height:1;padding:4px 9px;cursor:pointer}
+.step:hover:not([disabled]){border-color:var(--ink);background:var(--bar)}
+.step[disabled]{color:var(--rule-2);cursor:default}
+.dcount{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-3);
+  min-width:5.5ch;text-align:center}
 .digest h2{font-family:'IBM Plex Sans Condensed',sans-serif;font-size:1.32rem;font-weight:700;
   letter-spacing:-.015em;margin:0 0 8px;line-height:1.2}
 .digest p{margin:0;font-size:.92rem;line-height:1.6;color:var(--ink-2);max-width:74ch}
@@ -365,8 +372,9 @@ pre.cmd{background:var(--ink);color:#E8EDE4;font-family:'IBM Plex Mono',monospac
   color:var(--ink-2)}
 .loaderr p{margin:9px 0 0;color:var(--ink-2);line-height:1.55}
 .loaderr code{background:var(--bar);padding:1px 5px;border-radius:2px;font-size:.8rem}
-footer{border-top:2px solid var(--ink);margin-top:52px;padding:20px 0 46px;
-  font-size:.8rem;color:var(--ink-3)}
+footer{margin-top:52px;padding:18px 0 40px;font-size:.79rem;color:var(--ink-3);
+  display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+footer .sep{color:var(--rule-2)}
 footer details{margin-top:10px;max-width:80ch}
 footer summary{cursor:pointer;color:var(--ink-2);font-weight:500}
 footer p{margin:.6rem 0 0;line-height:1.65}
@@ -392,7 +400,6 @@ footer b{color:var(--ink-2)}
       <button class="tab" role="tab" aria-selected="false" data-view="consensus">Consensus</button>
       <button class="tab" role="tab" aria-selected="false" data-view="signals">Top signals</button>
       <button class="tab" role="tab" aria-selected="false" data-view="ask">Ask</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="foryou">For you</button>
       <button class="tab" role="tab" aria-selected="false" data-view="feed">Articles</button>
       <button class="tab" role="tab" aria-selected="false" data-view="health">Pipeline</button>
       <button class="tab" role="tab" aria-selected="false" data-view="add">Add a source</button>
@@ -476,40 +483,23 @@ footer b{color:var(--ink-2)}
 
   <section id="ask" hidden>
     <p class="lede">
-      Ask about anything the firms have published. The answer is drawn only from the
-      collected articles and cites which firm said what.
+      Ask a question, or describe your business. Either way this reads everything collected
+      and gives you back only the part that bears on it, with the firm behind each answer.
     </p>
     <form class="form" id="askForm">
-      <label for="question" class="eyebrow" style="margin:0 0 8px">Your question</label>
-      <div class="row">
-        <input type="text" id="question" autocomplete="off" required
-               placeholder="What are firms saying about Section 174?">
+      <label for="askInput" class="eyebrow" style="margin:0 0 8px">Question, or a description of the business</label>
+      <textarea id="askInput" rows="2" required
+        placeholder="What are firms saying about Section 174?"></textarea>
+      <div class="cta" style="margin-top:12px">
         <button class="go" type="submit" id="askBtn">Ask</button>
       </div>
       <div class="suggest" id="suggest"></div>
-    </form>
-    <div id="answer"></div>
-  </section>
-
-  <section id="foryou" hidden>
-    <p class="lede">
-      Most of what these firms publish will not apply to you. Describe the business and this
-      filters everything collected down to what actually does.
-    </p>
-    <form class="form" id="profileForm">
-      <label for="profile" class="eyebrow" style="margin:0 0 8px">The business</label>
-      <textarea id="profile" rows="3" required
-        placeholder="A US SaaS company, 40 staff, venture backed, no foreign entities, first audit next year."></textarea>
-      <div class="cta" style="margin-top:12px">
-        <button class="go" type="submit" id="matchBtn">Find what applies</button>
-        <button class="ghost" type="button" data-example>Use an example</button>
-      </div>
       <p class="policy-note">
-        The description is used for this one request and is not stored. Filtering runs over
-        articles already collected, so it triggers no scraping.
+        Nothing you type is stored. This reads articles already collected, so it triggers no
+        scraping.
       </p>
     </form>
-    <div id="matches"></div>
+    <div id="answer"></div>
   </section>
 
   <section id="health" hidden>
@@ -566,22 +556,12 @@ footer b{color:var(--ink-2)}
 </main>
 
 <footer class="wrap">
-  <div>Built on <a href="https://brightdata.com">Bright Data Scraper Studio</a> for Into the Scrape-Verse.</div>
-  <details>
-    <summary>Scraping policy</summary>
-    <p>
-      Public article listing pages only. Government sites, login-walled content and paywalled
-      content are <b>refused in code</b>, not worked around: nothing here attempts to
-      authenticate, bypass a login, or reuse a session cookie. Pages about private individuals
-      are out of scope, and author bylines are dropped at extraction time.
-    </p>
-    <p>
-      A site returning <b>HTTP 403 to a plain request is not refused</b>. Several legitimate
-      sources block naive clients and work correctly through Bright Data's unblocking layer.
-      Being blocked as a bot is a transport problem; being behind a login is a permission
-      boundary, and we stop at the boundary.
-    </p>
-  </details>
+  <span>&copy; 2026 Omkar Kabde</span>
+  <span class="sep">&middot;</span>
+  <span>Built on <a href="https://brightdata.com">Bright Data Scraper Studio</a></span>
+  <span class="sep">&middot;</span>
+  <span><a href="https://github.com/omkar-334/advisory-digest">Source</a></span>
+  <span id="built"></span>
 </footer>
 
 <script>
@@ -693,9 +673,9 @@ function renderScorecard(){
 }
 
 const SUGGESTED = [
-  'What are firms saying about Section 174?',
   'Do the firms agree on how AI should be used in audits?',
-  'What has been published about state and local tax recently?',
+  'What are firms saying about state and local tax?',
+  'A US SaaS company, 40 staff, first external audit next year.',
 ];
 
 function renderSuggestions(){
@@ -758,15 +738,26 @@ function renderEntry(){
 }
 
 /* The digest answers "did anything happen" before the reader has to interpret a matrix. */
+let digestIndex = 0;
+
+/* Editions run newest-first. Stepping back through them is the only way to see a trend
+   rather than a snapshot, which is the point of keeping a history at all. */
 function renderDigest(){
   const el = $('#digest'); if(!el) return;
-  const ed = (DIGEST?.editions || [])[0];
+  const eds = DIGEST?.editions || [];
+  const ed = eds[digestIndex];
   if(!ed){ el.innerHTML = ''; return; }
+  const older = digestIndex < eds.length - 1, newer = digestIndex > 0;
   el.innerHTML = `
     <div class="digest">
       <div class="dhead">
-        <span class="dlabel">${esc(ed.period === 'daily' ? 'Today' : 'This week')}</span>
-        <span class="dwhen">${esc(fmtDate(ed.date))} · ${esc(ed.articles_in_period)} new article${ed.articles_in_period===1?'':'s'}</span>
+        <span class="dlabel">${esc(digestIndex === 0 ? 'Latest' : 'Earlier')}</span>
+        <span class="dwhen">${esc(ed.window_days ? ed.window_days + ' days to ' : '')}${esc(fmtDate(ed.date))} · ${esc(ed.articles_in_period)} article${ed.articles_in_period===1?'':'s'}</span>
+        ${eds.length > 1 ? `<span class="dnav">
+          <button type="button" class="step" data-digest="older" ${older?'':'disabled'} aria-label="Earlier edition">&larr;</button>
+          <span class="dcount">${esc(eds.length - digestIndex)} of ${esc(eds.length)}</span>
+          <button type="button" class="step" data-digest="newer" ${newer?'':'disabled'} aria-label="Later edition">&rarr;</button>
+        </span>`:''}
       </div>
       <h2>${esc(ed.headline)}</h2>
       <p>${esc(ed.summary)}</p>
@@ -1078,7 +1069,7 @@ document.addEventListener('click', e=>{
   const tab = e.target.closest('.tab');
   if(tab){
     document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected', t===tab));
-    ['entry','consensus','signals','ask','foryou','feed','health','add'].forEach(v=>
+    ['entry','consensus','signals','ask','feed','health','add'].forEach(v=>
       $('#'+v).hidden = tab.dataset.view!==v);
   }
   const jump = e.target.closest('[data-goto]');
@@ -1120,77 +1111,36 @@ document.addEventListener('click', async e=>{
   }
 });
 
-const EXAMPLE_PROFILE =
-  'A US SaaS company, 40 staff, venture backed, no foreign entities. First external audit '
-  + 'next year, and a large engineering payroll we capitalise some of.';
-
-document.addEventListener('click', e=>{
-  if(e.target.closest('[data-example]')){ $('#profile').value = EXAMPLE_PROFILE; $('#profile').focus(); }
-});
-
-$('#profileForm')?.addEventListener('submit', async e=>{
-  e.preventDefault();
-  const profile = $('#profile').value.trim();
-  const box = $('#matches'), btn = $('#matchBtn');
-  if(profile.length < 15){
-    box.innerHTML = `<div class="empty">Describe the business in a sentence or two first.</div>`;
-    return;
-  }
-  btn.disabled = true; btn.textContent = 'Reading…';
-  box.innerHTML = `<div class="empty">Reading ${ROWS.length} articles against that profile…</div>`;
-  try{
-    const r = await fetch('/api/relevance',{
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({profile})
-    });
-    const d = await r.json();
-    if(!r.ok){
-      box.innerHTML = `<div class="loaderr"><b>Could not filter</b>
-        <p>${esc(d.error||'Something went wrong.')}${d.hint?'<br>'+esc(d.hint):''}</p></div>`;
-      return;
-    }
-    if(!d.matches.length){
-      box.innerHTML = `<div class="empty">Nothing in the last ${esc(d.considered)} articles
-        applies to that business. ${esc(d.note||'')}</div>`;
-      return;
-    }
-    box.innerHTML =
-      `<div class="eyebrow">${d.matches.length} of ${esc(d.considered)} articles apply</div>` +
-      d.matches.map(m=>`
-        <div class="match">
-          <p class="why">${esc(m.why)}</p>
-          <h4>${m.url?`<a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.title)}</a>`:esc(m.title)}</h4>
-          ${m.summary?`<p>${esc(m.summary)}</p>`:''}
-          <span class="src">${esc(firmName(m.firm))}${m.date?' · '+esc(fmtDate(m.date)):''}</span>
-        </div>`).join('') +
-      (d.note?`<p class="policy-note">${esc(d.note)}</p>`:'');
-  }catch(err){
-    box.innerHTML = `<div class="loaderr"><b>Could not filter</b><p>${esc(String(err))}</p></div>`;
-  }finally{ btn.disabled = false; btn.textContent = 'Find what applies'; }
-});
-
 $('#askForm')?.addEventListener('submit', async e=>{
   e.preventDefault();
-  await ask($('#question').value.trim());
+  await ask($('#askInput').value.trim());
 });
 
 document.addEventListener('click', e=>{
-  const s = e.target.closest('[data-ask]');
-  if(s){ $('#question').value = s.dataset.ask; ask(s.dataset.ask); }
+  const stepBtn = e.target.closest('[data-digest]');
+  if(stepBtn && !stepBtn.disabled){
+    const eds = DIGEST?.editions || [];
+    digestIndex = stepBtn.dataset.digest === 'older'
+      ? Math.min(digestIndex + 1, eds.length - 1)
+      : Math.max(digestIndex - 1, 0);
+    renderDigest();
+  }
+  const chip = e.target.closest('[data-ask]');
+  if(chip){ $('#askInput').value = chip.dataset.ask; ask(chip.dataset.ask); }
 });
 
-async function ask(question){
+async function ask(input){
   const box = $('#answer'), btn = $('#askBtn');
-  if(!question || question.length < 5){
-    box.innerHTML = `<div class="empty">Ask a question about what the firms are publishing.</div>`;
+  if(!input || input.length < 5){
+    box.innerHTML = `<div class="empty">Ask a question, or describe the business.</div>`;
     return;
   }
-  btn.disabled = true; btn.textContent = 'Reading…';
-  box.innerHTML = `<div class="empty">Reading ${ROWS.length} articles…</div>`;
+  btn.disabled = true; btn.textContent = 'Reading\u2026';
+  box.innerHTML = `<div class="empty">Reading ${ROWS.length} articles\u2026</div>`;
   try{
     const r = await fetch('/api/ask',{
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({question})
+      body: JSON.stringify({input})
     });
     const d = await r.json();
     if(!r.ok){
@@ -1198,19 +1148,23 @@ async function ask(question){
         <p>${esc(d.error||'Something went wrong.')}${d.hint?'<br>'+esc(d.hint):''}</p></div>`;
       return;
     }
+    const isProfile = d.mode === 'profile';
     box.innerHTML = `
       <div class="answer">
         <div class="ahead">
           <span class="conf ${esc(d.confidence)}">${esc(d.confidence)} confidence</span>
-          <span class="hmeta">searched ${esc(d.searched)} articles</span>
+          <span class="hmeta">${isProfile
+            ? `${d.citations.length} of ${esc(d.searched)} articles apply`
+            : `searched ${esc(d.searched)} articles`}</span>
         </div>
         <p class="atext">${esc(d.answer)}</p>
         ${d.citations.length?`<div class="cites">
-          <div class="eyebrow" style="margin:14px 0 8px">Drawn from</div>
+          <div class="eyebrow" style="margin:14px 0 8px">${isProfile?'What applies':'Drawn from'}</div>
           ${d.citations.map(c=>`
             <div class="cite">
+              ${c.why?`<p class="why">${esc(c.why)}</p>`:''}
               ${c.url?`<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title)}</a>`:esc(c.title)}
-              <span class="src">${esc(firmName(c.firm))}${c.date?' · '+esc(fmtDate(c.date)):''}</span>
+              <span class="src">${esc(firmName(c.firm))}${c.date?' \u00b7 '+esc(fmtDate(c.date)):''}</span>
             </div>`).join('')}
         </div>`:''}
         ${d.followups?.length?`<div class="follow">
