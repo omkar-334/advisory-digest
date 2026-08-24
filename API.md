@@ -111,8 +111,6 @@ Pass the `description` returned by `/api/check-source`. It must be at least 20 c
 }
 ```
 
-**Errors**
-
 | Status | Meaning |
 |---|---|
 | `400` | Missing URL, or a description shorter than 20 characters |
@@ -120,8 +118,57 @@ Pass the `description` returned by `/api/check-source`. It must be at least 20 c
 | `502` | GitHub rejected the dispatch. `fallback` carries the CLI command |
 | `503` | `GITHUB_TOKEN` not set. `fallback` carries the CLI command |
 
-The eligibility gate is re-run server-side. A `check-source` response is not a capability
-token: anyone can POST here directly.
+---
+
+### `POST /api/ask`
+
+One natural-language entry point to the corpus. Ask a question, or describe a company — the
+model decides which the input is before answering.
+
+These were two endpoints. That was a distinction the machine cared about and the reader did
+not: both are "put words in, get back the relevant part of what the firms published".
+
+**No vector database.** The whole corpus — title plus a short summary for ~213 articles — is
+roughly 15k tokens and fits in context. Retrieval would add an embedding step, a store to
+keep in sync, and a failure mode that does not exist today: the retriever misses the right
+article and the model answers confidently from the wrong ones. Revisit past ~5,000 articles.
+
+**Request**
+
+```json
+{ "input": "Do the firms agree on how AI should be used in audits?" }
+```
+
+`question` and `profile` are also accepted as keys, so the older callers keep working.
+
+**Response `200` — a question**
+
+```json
+{
+  "mode": "question",
+  "answer": "The firms do not agree. RSM emphasises human judgment alongside AI…",
+  "confidence": "high",
+  "citations": [
+    { "title": "…", "firm": "rsmus.com", "url": "…", "date": "2026-08-19", "why": "" }
+  ],
+  "followups": ["What specific AI applications are firms exploring in audits?"],
+  "searched": 140
+}
+```
+
+**Response `200` — a profile**
+
+`mode` is `"profile"`, `answer` says what the profession is publishing that bears on the
+business, and each citation carries a `why` specific to it.
+
+| Status | Meaning |
+|---|---|
+| `400` | Input shorter than 5 characters |
+| `502` | Could not read the dataset, or the model failed |
+| `503` | `OPENAI_API_KEY` not set, or nothing published yet |
+
+**An empty answer is treated as a failure, not a result.** "Nothing applies" and "the model
+broke" look identical to a reader, and only one of them is true.
 
 ---
 
@@ -223,6 +270,22 @@ Every repair attempt, including ones that changed nothing.
 
 `metrics` records what moved. A repair can return the same row count while restoring two
 fields from 0% to 100%, and a row count alone makes that look like a no-op.
+
+### `GET /data/briefs.json`
+
+One brief per subject: what the firms agree on, where they differ, who it affects, and who
+published first within a burst of coverage.
+
+### `GET /data/digest.json`
+
+Editions covering a rolling window, newest first. Each records what moved, what was new
+since the previous edition, and the widest cross-firm coverage in that window.
+
+### `GET /data/reliability.json`
+
+How reliably each source can be scraped: repairs that held, false alarms where the contract
+was wrong rather than the scraper, and sources that have never worked. A byproduct of
+running a self-healing collector fleet, which is why nobody else has it.
 
 ### `GET /data/schedule.json`
 

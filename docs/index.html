@@ -44,7 +44,7 @@ body{margin:0;background:var(--paper);color:var(--ink);
   -webkit-font-smoothing:antialiased}
 .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
 .mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
-h1,h2,h3,.cond{font-family:'IBM Plex Sans Condensed','IBM Plex Sans',sans-serif}
+h1,h2,h3{font-family:'IBM Plex Sans Condensed','IBM Plex Sans',sans-serif}
 a{color:inherit}
 [hidden]{display:none!important}
 :focus-visible{outline:2px solid var(--verified);outline-offset:2px}
@@ -199,14 +199,6 @@ textarea{background:var(--card);border:1px solid var(--rule-2);color:var(--ink);
   font-size:.92rem;padding:11px 13px;border-radius:2px;width:100%;resize:vertical;
   font-family:'IBM Plex Sans',sans-serif;line-height:1.5}
 textarea:focus{outline:none;border-color:var(--ink)}
-.match{border-left:2px solid var(--verified);padding:2px 0 2px 15px;margin:0 0 16px}
-.match .why{font-size:.85rem;color:var(--verified);font-weight:500;margin:0 0 3px}
-.match h4{margin:0 0 3px;font-size:.98rem;font-weight:600;line-height:1.35}
-.match h4 a{text-decoration:none;border-bottom:1px solid transparent}
-.match h4 a:hover{border-bottom-color:var(--ink)}
-.match p{margin:0;font-size:.86rem;color:var(--ink-2)}
-.match .src{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-3);
-  margin-top:4px;display:block}
 
 /* Cell hover: the hit target is the whole cell, larger than the mark it contains. */
 table.matrix td.cell{position:relative;cursor:default}

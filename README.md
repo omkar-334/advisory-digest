@@ -201,8 +201,15 @@ firms converged on, and what went quiet. `scripts/digest.py`.
 what the firms agree on, where they differ, and who it affects. Plus who published first
 within a burst of coverage. `scripts/brief.py`.
 
-**Does it apply to me?** Describe the business and the collected articles are filtered to
-the ones that actually bear on it. `api/relevance.mjs`, running over data already collected.
+**Does it apply to me, and what are they actually saying?** One input takes either a
+question or a description of a business, and returns the part of the corpus that bears on it
+with the firm behind each answer. `api/ask.mjs`, over data already collected — no vector
+database, because 213 articles fit in a context window and retrieval would only add a way to
+miss the right one.
+
+**Which of these sites can actually be scraped?** A reliability scorecard built from the
+repair log: what broke, whether the fix held, and which sources have never worked. It exists
+only because the pipeline keeps a contract and records every repair attempt.
 
 ### Two things the numbers had to earn
 
@@ -223,8 +230,10 @@ reading a column shows what one firm is pushing. Neither is visible on any singl
 
 | View | Answers |
 |---|---|
+| Overview | What moved this period, and in the five before it |
 | Consensus | What is the profession converging on, and who is silent? |
 | Top signals | What did each firm actually say about it? |
+| Ask | A question, or your company profile — one input, either way |
 | Articles | Everything collected, filterable by firm |
 | Pipeline | Which sources are passing, broken, or could not run — and every repair |
 | Add a source | Would this site qualify? |
@@ -278,7 +287,8 @@ Endpoints, published data shapes, exit codes and environment variables:
 | `scripts/signals.py` | rank subjects by independent cross-firm coverage |
 | `scripts/brief.py` | write a plain-English brief per subject, plus lead-lag |
 | `scripts/digest.py` | a periodic digest of what moved since the last one |
-| `api/relevance.mjs` | filter the collected articles to one company's profile |
+| `api/ask.mjs` | one natural-language entry point: a question, or a company profile |
+| `scripts/reliability.py` | grade each source on how reliably it can be scraped |
 | `scripts/verify_new_source.py` | run one newly built collector and record whether it works |
 | `scripts/publish.py` | publish rows, contract report and repair log |
 | `api/check-source.mjs` | in-browser eligibility check |
